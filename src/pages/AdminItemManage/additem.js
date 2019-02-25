@@ -26,7 +26,6 @@ class Additem extends Component {
     componentDidMount() {
         //id：0新建非0编辑
         let id = Number(this.props.location.search.substr(1).split('=')[1]);
-        /*const userInfo = getCookie(cookieConfig);*/
         this.setState({
             id
         })
@@ -367,9 +366,12 @@ class Additem extends Component {
                         </Row>
                         <Row>
                             <Col sm={{span: 8}} offset={10}>
-                                <Button style={{marginRight: '60px', marginTop: '40px'}} onClick={() => {
-                                    this.props.history.goBack();
-                                }}>取消</Button>
+                                <Button
+                                    style={{marginRight: '60px', marginTop: '40px'}}
+                                    onClick={() => {this.props.history.goBack();}}
+                                >
+                                    取消
+                                </Button>
                                 <Button type={'primary'} onClick={this.handleSubmit}>保存</Button>
                             </Col>
                         </Row>

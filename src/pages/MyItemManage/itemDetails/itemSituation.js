@@ -118,59 +118,70 @@ class ItemSituation extends Component {
                 </Row>
                 <Row>
                     <Col xs={{span: 24}} sm={{span: 24}} className={'maxText'}>
-                                        <span>
-                                            <em>历史进展：</em>
-                                            {
-                                                !queryNull(progress) &&
+                      <span>
+                          <em>历史进展：</em>
+                          {
+                              !queryNull(progress) &&
+                              <span>
+                                  <span>
+                                     <em style={{width: 'auto'}}>{progress['0'].created_at}:</em>{progress['0'].progress}&nbsp;&nbsp;
+                                      <Button
+                                          onClick={this.handleShow} type={"primary"}
+                                          size={"small"}
+                                      >
+                                          {this.state.evolve ? '收起' : '更多'}
+                                      </Button>
+                                  </span>
+                                  {
+                                      this.state.evolve &&
+                                      <Drawer
+                                          title={'历史进展'}
+                                          placement='top'
+                                          closable={false}
+                                          onClose={this.onClose}
+                                          visible={true}
+                                          width='100%'
+                                          height='auto'
+                                          mask={false}
+                                      >
+                                          <div className={'primaryDiv'}>
+                                              <Row className={'primaryheader'}>
                                                 <span>
+                                                    <Col xs={{...xs}} sm={{span: 4}}><h3>时间</h3></Col>
+                                                    <Col
+                                                        xs={{...xs}} sm={{span: 20}}
+                                                        className={'primaryCol'}
+                                                    ><h3>进展</h3>
+                                                    </Col>
+                                                </span>
+                                              </Row>
+                                              {
+                                                  progress.map((item, index) => {
+                                                      return <Row className={'primaryContent'}>
+                                                          <span key={index}>
+                                                              <Col
+                                                                  xs={{...xs}}
+                                                                  sm={{span: 4}}
+                                                              >
+                                                                  <em>{item.created_at}</em>
+                                                              </Col>
+                                                              <Col
+                                                                  xs={{...xs}} sm={{span: 20}}
+                                                                  className={'primaryCol'}
+                                                              >
+                                                                  <i>{item.progress}</i>
+                                                              </Col>
+                                                           </span>
 
-                                                    <span>
-                                                        <em style={{width:'auto'}}>{progress['0'].created_at}:</em>{progress['0'].progress}&nbsp;&nbsp;
-                                                        <Button onClick={this.handleShow} type={"primary"}
-                                                                size={"small"}>
-                                                            {this.state.evolve ? '收起' : '更多'}
-                                                        </Button>
-                                                    </span>
-
-                                                    {
-                                                        this.state.evolve &&
-                                                        <Drawer
-                                                            title={'历史进展'}
-                                                            placement='top'
-                                                            closable={false}
-                                                            onClose={this.onClose}
-                                                            visible={true}
-                                                            width='100%'
-                                                            height='auto'
-                                                            mask={false}
-                                                        >
-                                                            <div className={'primaryDiv'}>
-                                                                <Row className={'primaryheader'}>
-                                                                <span>
-                                                                    <Col xs={{...xs}} sm={{span: 4}}><h3>时间</h3></Col>
-                                                                    <Col xs={{...xs}} sm={{span: 20}}
-                                                                         className={'primaryCol'}><h3>进展</h3></Col>
-                                                                </span>
-                                                                </Row>
-                                                                {
-                                                                    progress.map((item, index) => {
-                                                                        return <Row className={'primaryContent'}>
-                                                                            <span key={index}>
-                                                                               <Col xs={{...xs}}
-                                                                                    sm={{span: 4}}> <em>{item.created_at}</em></Col>
-                                                                                <Col xs={{...xs}} sm={{span: 20}}
-                                                                                     className={'primaryCol'}> <i>{item.progress}</i> </Col>
-                                                                            </span>
-
-                                                                        </Row>
-                                                                    })
-                                                                }
-                                                            </div>
-                                                        </Drawer>
-                                                    }
-                                            </span>
-                                            }
-                                        </span>
+                                                      </Row>
+                                                  })
+                                              }
+                                          </div>
+                                      </Drawer>
+                                  }
+                             </span>
+                          }
+                      </span>
                     </Col>
                 </Row>
                 <Row className={'situationButton'}>
@@ -205,7 +216,7 @@ class ItemSituation extends Component {
                 jrFetchGet(url).then(ret => {
                     if (ret.code === 0)
                         message.success('删除成功', 1, () => {
-                           props.goBack()
+                            props.goBack()
                         })
 
                 }).catch((err) => {

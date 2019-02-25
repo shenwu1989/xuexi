@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Popconfirm, Table, message} from 'antd'
+import {Form, Table} from 'antd'
 import {getPagination, jrFetchGet} from '../common';
 import {withRouter} from 'react-router';
 import {Link} from 'react-router-dom';
@@ -21,7 +21,7 @@ class TableListConfig extends Component {
     }
 
     render() {
-        const {projects: {...projects} = {}} = this.state.dataInfo || {};
+        //const {projects: {...projects} = {}} = this.state.dataInfo || {};
         //项目列表
         const columns = [
             {
@@ -69,11 +69,15 @@ class TableListConfig extends Component {
                 render: (t, r, i) => {
                     const {users} = t;
                     return (
-                        <div style={{width: '350px', wordWrap: 'break-word'}}>
+                        <div style={{width: '100%', wordWrap: 'break-word'}}>
                             {
-                                !!users.length && users.map(it => (
-                                    <span key={it.id}>{it.name}&nbsp;</span>
-                                ))
+                                !!users.length && users.map((it,index) => {
+                                    if(index == users.length-1 ){
+                                        return <span key={it.id}>{it.name}</span>
+                                    }
+                                      return <span key={it.id}>{it.name},</span>
+                                }
+                                )
                             }
                         </div>
                     )

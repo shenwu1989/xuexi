@@ -3,7 +3,8 @@ import {Col, Row, Button, Icon, Avatar} from "antd";
 import {checkCookie, cookieConfig, getCookie, removeCookie} from "../../pages/Cookie";
 import {withRouter} from 'react-router';
 import './index.less';
-import {promised} from "q";
+import {jrFetchGet, jrFetchPost} from "../../pages/common";
+
 
 class Header extends React.Component {
     constructor(props) {
@@ -33,7 +34,10 @@ class Header extends React.Component {
                     </Col>
                     <Col span={22} className={'headerTop'}>
                         <Button size="small" onClick={this.handleReload}>刷新</Button>
-                        <span> <Avatar style={{ backgroundColor: '#001529' }} size="small" icon="user" />&nbsp;&nbsp;<i>{this.state.userName}</i></span>
+                        <span>
+                            <Avatar style={{backgroundColor: '#001529'}} size="small" icon="user"/>&nbsp;&nbsp;
+                            <i>{this.state.userName}</i>
+                            </span>
                         <Button size="small" onClick={this.handleExit}>退出</Button>
                     </Col>
                 </Row>
@@ -51,14 +55,16 @@ class Header extends React.Component {
     //刷新页面
     handleReload = () => {
         this.props.history.goBack();
-        setTimeout (() => {
+        setTimeout(() => {
             this.props.history.goForward();
-        },1000/60)
+        }, 1000 / 60)
 
     }
     //退出
     handleExit = () => {
-        removeCookie(cookieConfig)
+        jrFetchPost(`/ng-lingxi/api/user/logout`).then(res => {
+            removeCookie(cookieConfig)
+        })
     }
 }
 

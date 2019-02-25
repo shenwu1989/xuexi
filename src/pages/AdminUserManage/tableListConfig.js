@@ -8,6 +8,7 @@ class TableListConfig extends Component {
         super(props);
         this.state = {
             dataSource: [],
+            more: false
         }
     }
 
@@ -17,10 +18,10 @@ class TableListConfig extends Component {
 
     componentWillReceiveProps(nextProps, nextContext) {
         let dataSource = nextProps.dataSource;
-        if(dataSource.constructor === Object){
+        if (dataSource.constructor === Object) {
             dataSource = Object.values(nextProps.dataSource)
         }
-        dataSource.length > 0  && this.setState({
+        dataSource.length > 0 && this.setState({
             dataSource
         })
     }
@@ -30,7 +31,7 @@ class TableListConfig extends Component {
             {
                 title: 'ID',
                 align: 'center',
-                width: 50,
+                width: 20,
                 dataIndex: 'id',
                 defaultSortOrder: 'ascend',
                 sorter: (a, b) => a.id - b.id,
@@ -56,15 +57,45 @@ class TableListConfig extends Component {
             {
                 title: '关联项目',
                 align: 'center',
+                width:350,
+                className:'tableword',
                 render: (t, r, i) => {
                     const {projects} = t;
                     return (
-                        <div style={{width: '350px', wordWrap: 'break-word'}}>
+                        <div style={{width: '100%', wordWrap: 'break-word'}}>
                             {
-                                !!projects.length && projects.map(it => (
-                                    <span key={it.id}>{it.name}&nbsp;</span>
-                                ))
+                                !!projects.length && projects.map((it, index) => {
+                                        if (projects.length > 3) {
+                                            if (index < 3) {
+                                                if (index == 2) {
+                                                    return <span key={it.id}>
+                                                            {it.name}&nbsp;
+                                                        {
+                                                            !this.state.more && <a onClick={this.getProjects}>
+                                                                展开更多
+                                                            </a>
+                                                        }
+                                                    </span>
+                                                }
+                                                return <span key={it.id}>{it.name}&nbsp;</span>
+                                            } else {
+                                                if(index == projects.length-1){
+                                                    return this.state.more && <span key={it.id}>
+                                                            {it.name}&nbsp;
+                                                            <a onClick={this.getProjects}>
+                                                                收起更多
+                                                            </a>
+                                                    </span>
+                                                }
+                                                return this.state.more && <span key={it.id}>{it.name}&nbsp;</span>
+                                            }
+                                        } else {
+                                            return <span key={it.id}>{it.name}&nbsp;</span>
+                                        }
+                                    }
+                                )
                             }
+
                         </div>
                     )
                 }
@@ -86,14 +117,14 @@ class TableListConfig extends Component {
                         <span>
                             {
                                 !is_active && <Popconfirm title="确定要删除吗？" onConfirm={
-                                    () => this.handleDelete(record.id,config['1'])
+                                    () => this.handleDelete(record.id, config['1'])
                                 } okText="是" cancelText="否">
                                     <a href="#">删除</a>
                                 </Popconfirm>
                             }
                             &nbsp;&nbsp;
                             <Popconfirm title="确定要编辑吗？" onConfirm={
-                                () => this.handleEdit(record.id,config['2'])
+                                () => this.handleEdit(record.id, config['2'])
                             }
                                         okText="是"
                                         cancelText="否">
@@ -102,13 +133,13 @@ class TableListConfig extends Component {
                             &nbsp;&nbsp;
                             {
                                 !!is_active ? <Popconfirm title="确定要停用吗？" onConfirm={
-                                    () => this.userOff(record.id,config['0'])
+                                    () => this.userOff(record.id, config['0'])
                                 }
                                                           okText="是"
                                                           cancelText="否">
                                     <a href="#">停用</a>
                                 </Popconfirm> : <Popconfirm title="确定要启用吗？" onConfirm={
-                                    () => this.userOn(record.id,config['3'])
+                                    () => this.userOn(record.id, config['3'])
                                 }
                                                             okText="是"
                                                             cancelText="否">
@@ -116,7 +147,7 @@ class TableListConfig extends Component {
                                 </Popconfirm>
                             }&nbsp;&nbsp;
                             <Popconfirm title="确定要重置密码吗？" onConfirm={
-                                () => this.userReset(record.id,config['4'])
+                                () => this.userReset(record.id, config['4'])
                             }
                                         okText="是"
                                         cancelText="否">
@@ -164,28 +195,34 @@ class TableListConfig extends Component {
         this.props.history.push(`/admin/adduser/?id=${id}`);
     }
     //停用
-    userOff = (id,text) => {
+    userOff = (id, text) => {
         let url = `/ng-lingxi/api/user/freeze/${id}`;
         jrFetchGet(url).then((ret) => {
-            this.overallMessage(ret,text);
+            this.overallMessage(ret, text);
             this.getUserList()
         })
     }
     //启用
-    userOn = (id,text) => {
+    userOn = (id, text) => {
         let url = `/ng-lingxi/api/user/activate/${id}`;
         jrFetchGet(url).then((ret) => {
-            this.overallMessage(ret,text);
+            this.overallMessage(ret, text);
             this.getUserList()
         })
     }
     //重置密码
-    userReset = (id,text) => {
+    userReset = (id, text) => {
         let url = `/ng-lingxi/api/user/reset/password/${id}`;
         jrFetchGet(url).then((ret) => {
-            this.overallMessage(ret,text);
+            this.overallMessage(ret, text);
         })
     }
+    getProjects = () => {
+        this.setState({
+            more: !this.state.more
+        })
+    }
+
 }
 
 const Tablelist = withRouter(TableListConfig)

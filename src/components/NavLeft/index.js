@@ -1,10 +1,9 @@
 import React from 'react';
-import {Menu, Icon, Drawer, Button} from 'antd';
+import {Menu, Icon} from 'antd';
 import MenuConfig from './../../config/menuConfig';
 import {NavLink, withRouter} from 'react-router-dom';
 import './index.less';
-import {queryNull} from "../../pages/common";
-import {getCookie, checkCookie, cookieConfig} from '../../pages/Cookie';
+import {getCookie, cookieConfig} from '../../pages/Cookie';
 
 const SubMenu = Menu.SubMenu;
 
@@ -66,7 +65,9 @@ class NavLeft extends React.Component {
                 let {title, key} = item;
                 if (item.children) {
                     return (
-                        <SubMenu title={<span><Icon type="mail"/>{title}</span>} key={key}>
+                        <SubMenu
+                            title={<span><Icon type="mail"/>{title}</span>} key={key}
+                        >
                             {this.renderMenu(item.children)}
                         </SubMenu>
                     )

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom'
 import AdminItemManage from './../AdminItemManage/index';
 class Index extends Component {
     constructor(props) {
@@ -11,7 +10,6 @@ class Index extends Component {
         return (
             <div>
                 <AdminItemManage/>
-                {/*<Link to={`/admin/itemdetails/?id=19`}>项目详情</Link>*/}
             </div>
         );
     }
