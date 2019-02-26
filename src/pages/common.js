@@ -94,7 +94,7 @@ export function jrFetchPost(jrApi, fetchPrm, loading = true) {
                     break
                 default:
                     message.info(ret.message || ret.msg)
-                    //window.location.href = '/login'
+                    window.location.href = '/login'
             }
         }, err => {
             // errorFun

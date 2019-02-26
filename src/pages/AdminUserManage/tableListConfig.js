@@ -8,7 +8,7 @@ class TableListConfig extends Component {
         super(props);
         this.state = {
             dataSource: [],
-            more: false
+            more: -1
         }
     }
 
@@ -57,8 +57,8 @@ class TableListConfig extends Component {
             {
                 title: '关联项目',
                 align: 'center',
-                width:350,
-                className:'tableword',
+                width: 350,
+                className: 'tableword',
                 render: (t, r, i) => {
                     const {projects} = t;
                     return (
@@ -67,11 +67,12 @@ class TableListConfig extends Component {
                                 !!projects.length && projects.map((it, index) => {
                                         if (projects.length > 3) {
                                             if (index < 3) {
-                                                if (index == 2) {
+                                                if (index === 2) {
                                                     return <span key={it.id}>
                                                             {it.name}&nbsp;
                                                         {
-                                                            !this.state.more && <a onClick={this.getProjects}>
+                                                            this.state.more !== i &&
+                                                            <a id={i} onClick={(e) => this.showProjects(e)}>
                                                                 展开更多
                                                             </a>
                                                         }
@@ -79,15 +80,15 @@ class TableListConfig extends Component {
                                                 }
                                                 return <span key={it.id}>{it.name}&nbsp;</span>
                                             } else {
-                                                if(index == projects.length-1){
-                                                    return this.state.more && <span key={it.id}>
+                                                if (index === projects.length - 1) {
+                                                    return this.state.more === i && <span key={it.id}>
                                                             {it.name}&nbsp;
-                                                            <a onClick={this.getProjects}>
+                                                        <a id={i} onClick={this.hideProjects}>
                                                                 收起更多
                                                             </a>
                                                     </span>
                                                 }
-                                                return this.state.more && <span key={it.id}>{it.name}&nbsp;</span>
+                                                return this.state.more === i && <span key={it.id}>{it.name}&nbsp;</span>
                                             }
                                         } else {
                                             return <span key={it.id}>{it.name}&nbsp;</span>
@@ -217,9 +218,16 @@ class TableListConfig extends Component {
             this.overallMessage(ret, text);
         })
     }
-    getProjects = () => {
+    //展开更多
+    showProjects = (e) => {
         this.setState({
-            more: !this.state.more
+            more: Number(e.target.id)
+        })
+    }
+    //收起更多
+    hideProjects = () => {
+        this.setState({
+            more: -1
         })
     }
 
