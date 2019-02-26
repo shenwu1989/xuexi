@@ -94,7 +94,7 @@ export function jrFetchPost(jrApi, fetchPrm, loading = true) {
                     break
                 default:
                     message.info(ret.message || ret.msg)
-                    window.location.href = '/login'
+                    //window.location.href = '/login'
             }
         }, err => {
             // errorFun
@@ -324,7 +324,7 @@ export function queryNull(obj) {
     if (JSON.stringify(obj) === '[]' || JSON.stringify(obj) === '{}') {
         return true
     }
-    if (obj == 'undefined' || obj == 'null' || obj == null) {
+    if (obj == 'undefined' || obj == 'null' || obj == null || obj === '') {
         return true
     }
     return false

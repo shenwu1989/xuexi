@@ -57,6 +57,7 @@ class Additem extends Component {
             state: info_state = 0, phase: info_phase = 0, round: info_round = 0, first_industry: infofirst_industry = 0, contract_state: info_contract_state = 0
         } = info || {};
         let {stateValue} = this.state;
+        console.log(pause_time, establish_time)
         return (
             <LocaleProvider locale={zhCN}>
                 <div className={'additem '}>
@@ -152,7 +153,7 @@ class Additem extends Component {
                                 <FormItem label={'立项时间'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('establish_time', {
-                                            initialValue: queryNull(establish_time) ? '' : (moment(establish_time, "YYYY-MM-DD")),
+                                            initialValue: !!this.state.id ? queryNull(establish_time) ? '' : (moment(establish_time, "YYYY-MM-DD")) : '',
                                         })(
                                             <DatePicker
                                                 placeholder="请选择立项时间"
@@ -186,7 +187,7 @@ class Additem extends Component {
                                         <FormItem label={stateValue === 2 ? '暂停时间' : 'close时间'} {...formItemLayout}>
                                             {
                                                 getFieldDecorator('pause_time', {
-                                                    initialValue: equalNull(pause_time) ? '' : (moment(pause_time, "YYYY-MM-DD")),
+                                                    initialValue: !!this.state.id ? queryNull(pause_time) ? '' : (moment(pause_time, "YYYY-MM-DD")) : '',
                                                 })(
                                                     <DatePicker
                                                         placeholder="请选择时间"
@@ -368,7 +369,9 @@ class Additem extends Component {
                             <Col sm={{span: 8}} offset={10}>
                                 <Button
                                     style={{marginRight: '60px', marginTop: '40px'}}
-                                    onClick={() => {this.props.history.goBack();}}
+                                    onClick={() => {
+                                        this.props.history.goBack();
+                                    }}
                                 >
                                     取消
                                 </Button>
@@ -385,9 +388,9 @@ class Additem extends Component {
     //提交
     handleSubmit = () => {
         let userInfo = this.props.form.getFieldsValue();
+        userInfo.staffing = userInfo.names;
         queryNull(userInfo.pause_time) ? userInfo.pause_time = '' : (userInfo.pause_time = dateShift(userInfo.pause_time._d));
         queryNull(userInfo.establish_time) ? userInfo.establish_time = '' : (userInfo.establish_time = dateShift(userInfo.establish_time._d));
-        userInfo.staffing = userInfo.names;
         delete userInfo.names;
         if (this.state.id === 0) {//保存
             this.props.form.validateFields(
