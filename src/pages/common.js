@@ -348,7 +348,7 @@ export function dateShift(date) {
     let oldDate = new Date(date),
         timeYear = oldDate.getFullYear(),
         timeMonth = oldDate.getMonth() + 1,
-        timeDate = oldDate.getDate() - 1;
+        timeDate = oldDate.getDate();
     let newDate = timeYear + '-' + (timeMonth < 10 ? '0' + timeMonth : timeMonth) + '-' + (timeDate < 10 ? '0' + timeDate : timeDate);
     return newDate
 }

@@ -79,7 +79,8 @@ class AddTl extends Component {
                                         <Select mode={"multiple"}>
                                             {
                                                 Object.keys(attendee_list).map((item, index) => {
-                                                    return <Option value={item} key={index}>{attendee_list[item]}</Option>
+                                                    return <Option value={item}
+                                                                   key={index}>{attendee_list[item]}</Option>
                                                 })
                                             }
                                         </Select>
@@ -90,112 +91,117 @@ class AddTl extends Component {
                         <Col span={8}>
                             <FormItem label={'事件状态'} {...formItemLayout}>
                                 {
-                                    getFieldDecorator('name', {
-                                        //initialValue:,
+                                    getFieldDecorator('state_list', {
+                                        //initialValue:'0',
                                     })(
-                                        <Select>
-                                            <Option value={1}>111</Option>
-                                            <Option value={1}>111</Option>
-                                            <Option value={1}>111</Option>
+                                        <Select onChange={e => this.handleState(e)}>
+                                            {
+                                                state_list.map((item, index) => {
+                                                    return <Option kye={index} value={index}>{item}</Option>
+                                                })
+                                            }
                                         </Select>
                                     )
                                 }
                             </FormItem>
                         </Col>
-                        <Col span={8} className={'item_table'}>
-                            <FormItem>
-                                <ul>
-                                    <li>
-                                        <em>待开会议</em>
-                                        <i>
-                                            {
-                                                getFieldDecorator('name1', {})
-                                                (
-                                                    <input type="text"/>
-                                                )
-                                            }
-                                        </i>
-                                    </li>
-                                    <li>
-                                        <em>项目名称</em>
-                                        <i>
-                                            {
-                                                getFieldDecorator('name2', {})
-                                                (
-                                                    <input type="text"/>
-                                                )
-                                            }
-                                        </i>
-                                    </li>
-                                    <li>
-                                        <em>参会人员</em>
-                                        <i>
-                                            {
-                                                getFieldDecorator('name3', {})
-                                                (
-                                                    <input type="text"/>
-                                                )
-                                            }
-                                        </i>
-                                    </li>
-                                    <li>
-                                        <em>投资人</em>
-                                        <i>
-                                            {
-                                                getFieldDecorator('name4', {})
-                                                (
-                                                    <input type="text"/>
-                                                )
-                                            }
-                                        </i>
-                                    </li>
-                                    <li>
-                                        <em>title</em>
-                                        <i>
-                                            {
-                                                getFieldDecorator('name5', {})
-                                                (
-                                                    <input type="text"/>
-                                                )
-                                            }
-                                        </i>
-                                    </li>
-                                    <li>
-                                        <em>地点</em>
-                                        <i>
-                                            {
-                                                getFieldDecorator('name6', {})
-                                                (
-                                                    <input type="text"/>
-                                                )
-                                            }
-                                        </i>
-                                    </li>
-                                    <li>
-                                        <em>时间</em>
-                                        <i>
-                                            {
-                                                getFieldDecorator('name7', {})
-                                                (
-                                                    <input type="text"/>
-                                                )
-                                            }
-                                        </i>
-                                    </li>
-                                    <li>
-                                        <em>备注</em>
-                                        <i>
-                                            {
-                                                getFieldDecorator('name8', {})
-                                                (
-                                                    <input type="text"/>
-                                                )
-                                            }
-                                        </i>
-                                    </li>
-                                </ul>
-                            </FormItem>
-                        </Col>
+                        {
+                            this.state.stateValue === 4 &&<Col span={8} className={'item_table'}>
+                                <FormItem>
+                                    <ul>
+                                        <li>
+                                            <em>待开会议</em>
+                                            <i>
+                                                {
+                                                    getFieldDecorator('name1', {})
+                                                    (
+                                                        <input type="text"/>
+                                                    )
+                                                }
+                                            </i>
+                                        </li>
+                                        <li>
+                                            <em>项目名称</em>
+                                            <i>
+                                                {
+                                                    getFieldDecorator('name2', {})
+                                                    (
+                                                        <input type="text"/>
+                                                    )
+                                                }
+                                            </i>
+                                        </li>
+                                        <li>
+                                            <em>参会人员</em>
+                                            <i>
+                                                {
+                                                    getFieldDecorator('name3', {})
+                                                    (
+                                                        <input type="text"/>
+                                                    )
+                                                }
+                                            </i>
+                                        </li>
+                                        <li>
+                                            <em>投资人</em>
+                                            <i>
+                                                {
+                                                    getFieldDecorator('name4', {})
+                                                    (
+                                                        <input type="text"/>
+                                                    )
+                                                }
+                                            </i>
+                                        </li>
+                                        <li>
+                                            <em>title</em>
+                                            <i>
+                                                {
+                                                    getFieldDecorator('name5', {})
+                                                    (
+                                                        <input type="text"/>
+                                                    )
+                                                }
+                                            </i>
+                                        </li>
+                                        <li>
+                                            <em>地点</em>
+                                            <i>
+                                                {
+                                                    getFieldDecorator('name6', {})
+                                                    (
+                                                        <input type="text"/>
+                                                    )
+                                                }
+                                            </i>
+                                        </li>
+                                        <li>
+                                            <em>时间</em>
+                                            <i>
+                                                {
+                                                    getFieldDecorator('name7', {})
+                                                    (
+                                                        <input type="text"/>
+                                                    )
+                                                }
+                                            </i>
+                                        </li>
+                                        <li>
+                                            <em>备注</em>
+                                            <i>
+                                                {
+                                                    getFieldDecorator('name8', {})
+                                                    (
+                                                        <input type="text"/>
+                                                    )
+                                                }
+                                            </i>
+                                        </li>
+                                    </ul>
+                                </FormItem>
+                            </Col>
+                        }
+
                     </Row>
                     <Row>
                         <Col span={16}>
@@ -284,12 +290,21 @@ class AddTl extends Component {
         );
     }
 
+    //保存
     handleSubmit = () => {
         let Values = this.props.form.getFieldsValue();
         console.log(Values)
     }
+    //取消
     handleExit = () => {
         this.props.fn()
+    }
+    //开会列表显示
+    handleState = (e) => {
+        let stateValue = e;
+        this.setState({
+            stateValue
+        })
     }
 }
 
