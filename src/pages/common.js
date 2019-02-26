@@ -53,7 +53,7 @@ export function jrFetchGet(jrApi, fetchPrm, loading = true) {
                     break
                 default:
                     message.info(ret.message || ret.msg)
-                    window.location.href = '/login'
+                    //window.location.href = '/login'
             }
         }, err => {
             // errorFun
@@ -94,7 +94,7 @@ export function jrFetchPost(jrApi, fetchPrm, loading = true) {
                     break
                 default:
                     message.info(ret.message || ret.msg)
-                    window.location.href = '/login'
+                    //window.location.href = '/login'
             }
         }, err => {
             // errorFun
@@ -127,7 +127,7 @@ export function jrFetchPostFile(jrApi, fetchPrm, loading) {
                     break
                 default:
                     message.info(ret.message || ret.msg)
-                    window.location.href = '/login'
+                    //window.location.href = '/login'
             }
         }, err => {
             // errorFun
