@@ -1,6 +1,6 @@
 import {fetchGet, fetchPost, fetchPostFile} from '../components/frFetch'
 import moment from 'moment'
-import {CODE_SUCCESS, CODE_UNLOGIN} from './consts'
+import {CODE_SUCCESS, CODE_UNLOGIN,CODE_LOGIN} from './consts'
 import React from 'react'
 import {SpinLogin} from '../admin'
 import message from 'antd/lib/message';
@@ -85,6 +85,9 @@ export function jrFetchPost(jrApi, fetchPrm, loading = true) {
                 case CODE_UNLOGIN:
                     message.info(ret.message || ret.msg)
                     window.location.href = '/admin'
+                    break
+                case CODE_LOGIN:
+                    message.info(ret.message || ret.msg)
                     break
                 default:
                     message.info(ret.message || ret.msg)
