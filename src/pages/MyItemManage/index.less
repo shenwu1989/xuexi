@@ -8,11 +8,97 @@
     font-weight: 400;
     color:#199ED8;
   }
-
+  .itemTl_div{
+        margin-top: 10px;
+  }
+  .itemTl_Row{
+    margin-bottom: 30px;
+    text-align: center;
+  }
 }
 .situationButton{
   margin-top: 60px;
   button:first-child{
     margin-right: 50px;
+  }
+}
+.tlDrawer{
+  padding: 30px 20px;
+  .item_table{
+   position: relative;
+    span{
+      width: 100%;
+      display: block;
+    }
+    ul{
+      list-style-type: none;
+      position: absolute;
+      width: 100%;
+      border:1px solid #898989;
+      padding: 0;
+      z-index: 1;
+      li{
+        border-bottom: 1px solid #898989;
+        background-color: #e4e4e4;
+        line-height: 20px;
+        display: flex;
+        &:last-child{
+          border-bottom: 0;
+        }
+        em{
+          display: inline-block;
+          width: 35%;
+          text-align: center;
+        }
+        i{
+          border-left: 1px solid #898989;
+          display: inline-block;
+          width: 64%;
+          word-break: break-word;
+          padding-left: 2px;
+          background-color: #ffffff;
+          input{
+            outline:none;
+            border:0;
+            &:active{
+              outline:none;
+              border:0;
+            }
+          }
+        }
+      }
+    }
+  }
+  .tl_lsfk{
+    div{
+      overflow-y: auto;
+      max-height: 150px;
+    }
+    em{
+      width: 20%;
+      float: left;
+    }
+    p{
+      float: left;
+      width: 80%;
+      span{
+        display: inline-flex;
+        width: 100%;
+      }
+    }
+  }
+}
+.item_lsjz{
+  >span{
+    display:inline-flex;
+    width: 80%;
+  }
+}
+.additem_lsjz{
+  >div{
+    >div{
+      line-height: 20px;
+      margin-top: 10px;
+    }
   }
 }

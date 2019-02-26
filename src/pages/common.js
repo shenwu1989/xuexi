@@ -377,7 +377,7 @@ export function getPagination(obj) {
                 ary.push(dataList[i])
             }
         }
-        let newObj = {pageLen:pageLen,dataSource:ary};
+        let newObj = {pageLen,dataSource:ary};
         return  newObj
     }
 }

@@ -308,13 +308,13 @@ class Additem extends Component {
                             </Col>
                             {
                                 !!this.state.id && <Col xs={{span: 24}} sm={{span: 24}}>
-                                    <FormItem label={'历史进展'} {...maxStyle} >
+                                    <FormItem label={'历史进展'} {...maxStyle} className={'additem_lsjz'}>
                                         {
                                             !queryNull(progress) &&
                                             <span>
-
                                                     <span>
-                                                        <em>{progress['0'].created_at}:</em>{progress['0'].progress}&nbsp;&nbsp;
+                                                        <em>{progress['0'].created_at}:</em>
+                                                        <i>{progress['0'].progress}</i>&nbsp;&nbsp;
                                                         <Button onClick={this.handleShow} type={"primary"}
                                                                 size={"small"}>
                                                             {this.state.evolve ? '收起' : '更多'}

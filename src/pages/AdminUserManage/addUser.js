@@ -36,6 +36,7 @@ class AddUser extends Component {
         id && jrFetchGet(`/ng-lingxi/api/user/view/${id}`).then((ret) => {
             ret.data.user && this.setState({
                 dataUser: ret.data.user,
+                projects_selected: ret.data.projects_selected,
                 projects_list: Object.keys(ret.data.projects_list)
 
             })
@@ -47,6 +48,7 @@ class AddUser extends Component {
         const {formItemLayout} = styleConfig;
         const {name = '', phone = '', email = ''} = this.state.dataUser || {};
         const projects_list = this.state.projects_list;
+        const projects_selected = this.state.projects_selected || [];
         const {data = {}} = this.state.projectsData || {};
         return (
             <div>
@@ -70,7 +72,7 @@ class AddUser extends Component {
 
                                         ]
                                     })(
-                                        <Input placeholder="姓名重复时系统自动添加后缀区别" />
+                                        <Input placeholder="姓名重复时系统自动添加后缀区别"/>
                                     )
                                 }
                             </FormItem>
@@ -129,7 +131,7 @@ class AddUser extends Component {
                             <FormItem label={'关联项目'} {...formItemLayout}>
                                 {
                                     getFieldDecorator('projects', {
-                                        initialValue: [...projects_list],
+                                        initialValue:projects_selected.map(i=>{return i+''}),
                                     })(
                                         <Select mode="multiple" placeholder={'请选择关联项目'}>
                                             {

@@ -118,13 +118,17 @@ class ItemSituation extends Component {
                 </Row>
                 <Row>
                     <Col xs={{span: 24}} sm={{span: 24}} className={'maxText'}>
-                      <span>
+                      <span className={'item_lsjz'}>
                           <em>历史进展：</em>
                           {
                               !queryNull(progress) &&
                               <span>
                                   <span>
-                                     <em style={{width: 'auto'}}>{progress['0'].created_at}:</em>{progress['0'].progress}&nbsp;&nbsp;
+                                      <span>
+                                          <em style={{width: 'auto'}}>{progress['0'].created_at}:</em>
+                                          <i>{progress['0'].progress}</i>
+                                      </span>
+                                      &nbsp;&nbsp;
                                       <Button
                                           onClick={this.handleShow} type={"primary"}
                                           size={"small"}
