@@ -119,11 +119,15 @@ class AddUser extends Component {
                             </FormItem>
                         </Col>
                         <Col xs={{span: 24}} sm={{span: 12}}>
-                            <FormItem label={'初始密码'} {...formItemLayout}>
-                                {
-                                    <p>888888</p>
-                                }
-                            </FormItem>
+                            {
+                                !this.state.id &&
+                                <FormItem label={'初始密码'} {...formItemLayout}>
+                                    {
+                                        <p>888888</p>
+                                    }
+                                </FormItem>
+                            }
+
                         </Col>
                     </Row>
                     <Row>
@@ -161,11 +165,11 @@ class AddUser extends Component {
     //提交数据
     handleSubmit = () => {
         let userInfo = this.props.form.getFieldsValue();
-        let md5Password = md5(888888);
+        //let md5Password = md5(888888);
         this.props.form.validateFields(
             (err) => {
                 if (!err) {
-                    userInfo.password = md5Password;
+                    //userInfo.password = md5Password;
                     userInfo.uid = this.state.id;
                     jrFetchPost(`/ng-lingxi/api/user/edit`, {
                         ...userInfo

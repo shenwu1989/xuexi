@@ -10,12 +10,21 @@ const {TextArea} = Input;
 class AddTl extends Component {
     constructor(props) {
         super(props);
+        this.state = {}
+    }
 
+    componentDidMount() {
+        jrFetchGet(`/ng-lingxi/api/project/internal/tl/view/create`).then(res => {
+            this.setState({
+                dataInfo: res.data
+            })
+        })
     }
 
     render() {
         const {getFieldDecorator} = this.props.form;
         const {formItemLayout, maxCol} = styleConfig;
+        const {attendee_list = {}, state_list = []} = this.state.dataInfo || {};
         return (
             <div className={'tlDrawer'}>
                 <Form>
@@ -64,13 +73,15 @@ class AddTl extends Component {
                         <Col span={8}>
                             <FormItem label={'参会人'} {...formItemLayout}>
                                 {
-                                    getFieldDecorator('name', {
+                                    getFieldDecorator('attendee_list', {
                                         //initialValue:,
                                     })(
                                         <Select mode={"multiple"}>
-                                            <Option value={1}>111</Option>
-                                            <Option value={1}>111</Option>
-                                            <Option value={1}>111</Option>
+                                            {
+                                                Object.keys(attendee_list).map((item, index) => {
+                                                    return <Option value={item} key={index}>{attendee_list[item]}</Option>
+                                                })
+                                            }
                                         </Select>
                                     )
                                 }
