@@ -23,6 +23,7 @@ export const STATUS =  true;
 export const CODE_SUCCESS = 0;
 export const CODE_UNLOGIN = 2010;
 export const CODE_LOGIN = 4001;
+export const CODE_PHONE = 2002;
 
 
 export const TYPE_A = '1';/* 内部页面 外部页面 */

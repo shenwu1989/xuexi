@@ -1,6 +1,6 @@
 import {fetchGet, fetchPost, fetchPostFile} from '../components/frFetch'
 import moment from 'moment'
-import {CODE_SUCCESS, CODE_UNLOGIN,CODE_LOGIN} from './consts'
+import {CODE_SUCCESS, CODE_UNLOGIN, CODE_LOGIN, CODE_PHONE} from './consts'
 import React from 'react'
 import {SpinLogin} from '../admin'
 import message from 'antd/lib/message';
@@ -87,6 +87,9 @@ export function jrFetchPost(jrApi, fetchPrm, loading = true) {
                     window.location.href = '/admin'
                     break
                 case CODE_LOGIN:
+                    message.info(ret.message || ret.msg)
+                    break
+                case CODE_PHONE:
                     message.info(ret.message || ret.msg)
                     break
                 default:
@@ -357,10 +360,11 @@ function judgeObj(obj) {
     }
     return false
 }
+
 //obj是对象传入页码，每页显示条数，data数据，sort排序方式
 export function getPagination(obj) {
     if (judgeObj(obj)) {
-        let {page, pageSize, dataList ,sort} = obj;
+        let {page, pageSize, dataList, sort} = obj;
         let pageLen = dataList.length;
         switch (sort) {
             case 'date':
@@ -374,13 +378,13 @@ export function getPagination(obj) {
                 break;
         }
 
-        let ary = [], len = (page-1) * pageSize + pageSize, start = (page-1) * pageSize;
+        let ary = [], len = (page - 1) * pageSize + pageSize, start = (page - 1) * pageSize;
         for (let i = start; i < len; i++) {
             if (!!dataList[i]) {
                 ary.push(dataList[i])
             }
         }
-        let newObj = {pageLen,dataSource:ary};
-        return  newObj
+        let newObj = {pageLen, dataSource: ary};
+        return newObj
     }
 }

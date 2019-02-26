@@ -5,6 +5,7 @@ import styleConfig from '../../config/styleConfig';
 import TableListConfig from './tableListConfig'
 import './index.less';
 import {Link} from "react-router-dom";
+import message from "antd/lib/message";
 
 const FormItem = Form.Item;
 const {Option} = Select;
@@ -111,9 +112,13 @@ class Index extends Component {
         jrFetchGet('/ng-lingxi/api/user/list', {
             ...userInfo
         }).then((ret) => {
-            this.setState({
-                dataSource: ret.data
-            })
+            if(ret.data.length === 0){
+                message.info('用户不存在，请确认关键字正确后重新搜索！')
+            }else {
+                this.setState({
+                    dataSource: ret.data
+                })
+            }
         })
     }
 }

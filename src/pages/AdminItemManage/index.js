@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import {cookieConfig, getCookie} from "../Cookie";
 import TableListConfig from './tableListConfig'
 import zhCN from "antd/lib/locale-provider/zh_CN";
+import message from "antd/lib/message";
 
 const FormItem = Form.Item;
 const {Option} = Select;
@@ -214,14 +215,18 @@ class Index extends Component {
         jrFetchGet('/ng-lingxi/api/project/internal/list', {
             ...itemInfo
         }).then((ret) => {
-            const projects = ret.data.projects;
-            let obj = {pageSize: 5, page: 1, dataList: projects, sort: 'date'};
-            let {pageLen, dataSource} = getPagination(obj);
-            this.setState({
-                dataList:ret.data,
-                dataSource,
-                pageLen
-            })
+            if(ret.data.projects.length === 0){
+                message.info('项目不存在，请确认关键字正确后重新搜索！')
+            }else {
+                const projects = ret.data.projects;
+                let obj = {pageSize: 5, page: 1, dataList: projects, sort: 'date'};
+                let {pageLen, dataSource} = getPagination(obj);
+                this.setState({
+                    dataList:ret.data,
+                    dataSource,
+                    pageLen
+                })
+            }
         })
     }
     //重置
