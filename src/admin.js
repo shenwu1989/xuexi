@@ -21,14 +21,14 @@ class Admin extends React.Component {
         SpinLogin = this;
     }
 
-    /*componentDidMount() {
+    componentDidMount() {
         const userInfo = getCookie(cookieConfig);
         if (!checkCookie(cookieConfig)) {
             window.location.replace(`/login`)
         }else {
             userInfo.user_admin === 'true' ? this.props.history.push(`/admin/adminitemmanage`) : this.props.history.push(`/admin/myitemmanage`);
         }
-    }*/
+    }
 
     render() {
         return (

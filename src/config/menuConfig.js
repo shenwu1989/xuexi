@@ -20,14 +20,8 @@ const menuList = [
         key: '/admin/investwarehouse'
     },
     {
-        title: '账户管理',
-        key: '/admin',
-        children: [
-            {
-                title: '密码修改',
-                key: '/admin/accountmanage'
-            }
-        ]
+        title: '密码修改',
+        key: '/admin/accountmanage'
     }
 ]
 
