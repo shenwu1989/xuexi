@@ -2,22 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a2452af-8dec-4a2d-a722-fc9fdc08a5a4" name="默认更改列表" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/f2e-lingxi.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/f2e-lingxi.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/admin.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavLeft/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavLeft/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/menuConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/menuConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/AccountManage/resetPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AccountManage/resetPassword.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/AdminItemManage/additem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AdminItemManage/additem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AdminItemManage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AdminItemManage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Login/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/MyItemManage/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MyItemManage/index.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemDate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemDate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemTL.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemTL.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemTL/addTL.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemTL/addTL.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/tableListCinfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/tableListCinfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/AdminUserManage/addUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AdminUserManage/addUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/AdminUserManage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AdminUserManage/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/AdminUserManage/tableListConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AdminUserManage/tableListConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/common.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,44 +19,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/common.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5460">
-              <caret line="364" column="36" selection-start-line="364" selection-start-column="36" selection-end-line="364" selection-end-column="36" />
-              <folding>
-                <element signature="e#0#72#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/AdminItemManage/tableListConfig.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2445">
-              <caret line="163" column="77" selection-start-line="163" selection-start-column="77" selection-end-line="163" selection-end-column="77" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pages/AdminItemManage/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="215" column="23" lean-forward="true" selection-start-line="215" selection-start-column="23" selection-end-line="215" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -139,9 +92,10 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="height" value="825" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -220,16 +174,15 @@
       <workItem from="1551077075951" duration="62333000" />
       <workItem from="1551240683931" duration="4890000" />
       <workItem from="1551247328729" duration="106000" />
-      <workItem from="1551247442239" duration="555000" />
+      <workItem from="1551247442239" duration="756000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68085000" />
+    <option name="totallyTimeSpent" value="68286000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="825" extended-state="1" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -246,7 +199,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4989429" weight="0.32891566" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5024665" side_tool="true" weight="0.28915662" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49753347" visible="true" weight="0.28674698" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49753347" visible="true" weight="0.32469305" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -663,19 +616,19 @@
     <entry file="file://$PROJECT_DIR$/src/pages/AdminItemManage/index.less">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/common.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/AdminItemManage/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5460">
-          <caret line="364" column="36" selection-start-line="364" selection-start-column="36" selection-end-line="364" selection-end-column="36" />
+        <state relative-caret-position="186">
+          <caret line="215" column="23" lean-forward="true" selection-start-line="215" selection-start-column="23" selection-end-line="215" selection-end-column="23" />
           <folding>
-            <element signature="e#0#72#0" expanded="true" />
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/AdminItemManage/tableListConfig.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2445">
+        <state relative-caret-position="418">
           <caret line="163" column="77" selection-start-line="163" selection-start-column="77" selection-end-line="163" selection-end-column="77" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
@@ -683,12 +636,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/AdminItemManage/index.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/common.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="215" column="23" lean-forward="true" selection-start-line="215" selection-start-column="23" selection-end-line="215" selection-end-column="23" />
+        <state relative-caret-position="418">
+          <caret line="363" column="36" selection-start-line="363" selection-start-column="36" selection-end-line="363" selection-end-column="36" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#0#72#0" expanded="true" />
           </folding>
         </state>
       </provider>

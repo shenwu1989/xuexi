@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Form, Popconfirm, Table, message} from 'antd'
-import {jrFetchGet} from '../common';
-import {withRouter} from 'react-router'
+import React, { Component } from 'react';
+import { Form, Popconfirm, Table, message } from 'antd'
+import { jrFetchGet, getPagination } from '../common';
+import { withRouter } from 'react-router'
 
 class TableListConfig extends Component {
     constructor(props) {
@@ -34,7 +34,6 @@ class TableListConfig extends Component {
                 width: 20,
                 dataIndex: 'id',
                 defaultSortOrder: 'ascend',
-                sorter: (a, b) => a.id - b.id,
             },
             {
                 title: '姓名',
@@ -60,40 +59,40 @@ class TableListConfig extends Component {
                 width: 350,
                 className: 'tableword',
                 render: (t, r, i) => {
-                    const {projects} = t;
+                    const { projects } = t;
                     return (
-                        <div style={{width: '100%', wordWrap: 'break-word'}}>
+                        <div style={{ width: '100%', wordWrap: 'break-word' }}>
                             {
                                 !!projects.length && projects.map((it, index) => {
-                                        if (projects.length > 3) {
-                                            if (index < 3) {
-                                                if (index === 2) {
-                                                    return <span key={it.id}>
-                                                            {it.name}&nbsp;
+                                    if (projects.length > 3) {
+                                        if (index < 3) {
+                                            if (index === 2) {
+                                                return <span key={it.id}>
+                                                    {it.name}&nbsp;
                                                         {
-                                                            this.state.more !== i &&
-                                                            <a id={i} onClick={(e) => this.showProjects(e)}>
-                                                                展开更多
+                                                        this.state.more !== i &&
+                                                        <a id={i} onClick={(e) => this.showProjects(e)}>
+                                                            展开更多
                                                             </a>
-                                                        }
-                                                    </span>
-                                                }
-                                                return <span key={it.id}>{it.name}&nbsp;</span>
-                                            } else {
-                                                if (index === projects.length - 1) {
-                                                    return this.state.more === i && <span key={it.id}>
-                                                            {it.name}&nbsp;
-                                                        <a id={i} onClick={this.hideProjects}>
-                                                                收起更多
-                                                            </a>
-                                                    </span>
-                                                }
-                                                return this.state.more === i && <span key={it.id}>{it.name}&nbsp;</span>
+                                                    }
+                                                </span>
                                             }
-                                        } else {
                                             return <span key={it.id}>{it.name}&nbsp;</span>
+                                        } else {
+                                            if (index === projects.length - 1) {
+                                                return this.state.more === i && <span key={it.id}>
+                                                    {it.name}&nbsp;
+                                                        <a id={i} onClick={this.hideProjects}>
+                                                        收起更多
+                                                            </a>
+                                                </span>
+                                            }
+                                            return this.state.more === i && <span key={it.id}>{it.name}&nbsp;</span>
                                         }
+                                    } else {
+                                        return <span key={it.id}>{it.name}&nbsp;</span>
                                     }
+                                }
                                 )
                             }
 
@@ -127,8 +126,8 @@ class TableListConfig extends Component {
                             <Popconfirm title="确定要编辑吗？" onConfirm={
                                 () => this.handleEdit(record.id, config['2'])
                             }
-                                        okText="是"
-                                        cancelText="否">
+                                okText="是"
+                                cancelText="否">
                                 <a>编辑</a>
                             </Popconfirm>
                             &nbsp;&nbsp;
@@ -136,22 +135,22 @@ class TableListConfig extends Component {
                                 !!is_active ? <Popconfirm title="确定要停用吗？" onConfirm={
                                     () => this.userOff(record.id, config['0'])
                                 }
-                                                          okText="是"
-                                                          cancelText="否">
+                                    okText="是"
+                                    cancelText="否">
                                     <a href="#">停用</a>
                                 </Popconfirm> : <Popconfirm title="确定要启用吗？" onConfirm={
                                     () => this.userOn(record.id, config['3'])
                                 }
-                                                            okText="是"
-                                                            cancelText="否">
-                                    <a href="#">启用</a>
-                                </Popconfirm>
+                                    okText="是"
+                                    cancelText="否">
+                                        <a href="#">启用</a>
+                                    </Popconfirm>
                             }&nbsp;&nbsp;
                             <Popconfirm title="确定要重置密码吗？" onConfirm={
                                 () => this.userReset(record.id, config['4'])
                             }
-                                        okText="是"
-                                        cancelText="否">
+                                okText="是"
+                                cancelText="否">
                                 <a href="#">重置密码</a>
                             </Popconfirm>
                         </span>
@@ -174,8 +173,12 @@ class TableListConfig extends Component {
     //获取用户列表
     getUserList = () => {
         jrFetchGet('/ng-lingxi/api/user/list', {}).then((ret) => {
+            const projects = ret.data;
+            let obj = { pageSize: 5, page: 1, dataList: projects };
+            let { pageLen, dataSource } = getPagination(obj);
+            this.props.fn(projects, pageLen)
             this.setState({
-                dataSource: ret.data
+                dataSource
             })
         })
     }

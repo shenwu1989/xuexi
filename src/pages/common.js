@@ -1,8 +1,8 @@
-import {fetchGet, fetchPost, fetchPostFile} from '../components/frFetch'
+import { fetchGet, fetchPost, fetchPostFile } from '../components/frFetch'
 import moment from 'moment'
-import {CODE_SUCCESS, CODE_UNLOGIN, CODE_LOGIN, CODE_PHONE} from './consts'
+import { CODE_SUCCESS, CODE_UNLOGIN, CODE_LOGIN, CODE_PHONE } from './consts'
 import React from 'react'
-import {SpinLogin} from '../admin'
+import { SpinLogin } from '../admin'
 import message from 'antd/lib/message';
 import notification from 'antd/lib/notification';
 
@@ -53,7 +53,7 @@ export function jrFetchGet(jrApi, fetchPrm, loading = true) {
                     break
                 default:
                     message.info(ret.message || ret.msg)
-                    //window.location.href = '/login'
+                //window.location.href = '/login'
             }
         }, err => {
             // errorFun
@@ -94,7 +94,7 @@ export function jrFetchPost(jrApi, fetchPrm, loading = true) {
                     break
                 default:
                     message.info(ret.message || ret.msg)
-                    //window.location.href = '/login'
+                //window.location.href = '/login'
             }
         }, err => {
             // errorFun
@@ -127,7 +127,7 @@ export function jrFetchPostFile(jrApi, fetchPrm, loading) {
                     break
                 default:
                     message.info(ret.message || ret.msg)
-                    //window.location.href = '/login'
+                //window.location.href = '/login'
             }
         }, err => {
             // errorFun
@@ -148,12 +148,12 @@ export const jrTip = function (type, msg, des, duration = 4.5) {
 
 export const formItemLayout = {
     labelCol: {
-        xs: {span: 24},
-        sm: {span: 5},
+        xs: { span: 24 },
+        sm: { span: 5 },
     },
     wrapperCol: {
-        xs: {span: 24},
-        sm: {span: 14},
+        xs: { span: 24 },
+        sm: { span: 14 },
     }
 }
 
@@ -217,7 +217,7 @@ export const getDefaultDate = (day) => {
 // 格式化checkbox项的值
 export const getOpt = (obj, name = 'name', id = 'id') => {
 
-    return obj.map(item => ({label: item[name], value: item[id]}))
+    return obj.map(item => ({ label: item[name], value: item[id] }))
 
 }
 // 获取checkbox select 选中的值
@@ -353,38 +353,39 @@ export function dateShift(date) {
     return newDate
 }
 
-//分页
+//分页验证参数
 function judgeObj(obj) {
     if (obj !== null && obj !== 'null' && !Array.isArray(obj) && typeof obj !== "number" && typeof obj !== "string") {
         return true
     }
     return false
 }
-
 //obj是对象传入页码，每页显示条数，data数据，sort排序方式
 export function getPagination(obj) {
     if (judgeObj(obj)) {
-        let {page, pageSize, dataList, sort} = obj;
+        let { page, pageSize, dataList, sort='' } = obj;
         let pageLen = dataList.length;
         switch (sort) {
             case 'date':
                 dataList.sort((a, b) => {
-                    let {establish_time: a_establish_time} = a;
-                    let {establish_time: b_establish_time} = b;
+                    let { establish_time: a_establish_time } = a;
+                    let { establish_time: b_establish_time } = b;
                     a_establish_time === null ? a_establish_time = 0 : a_establish_time = a_establish_time.toString().replace(/-/g, '');
                     b_establish_time === null ? b_establish_time = 0 : b_establish_time = b_establish_time.toString().replace(/-/g, '');
                     return a_establish_time - b_establish_time
                 }).reverse();
                 break;
+            default:
+                dataList.sort((a, b) => a.id - b.id);
+                break;    
         }
-
         let ary = [], len = (page - 1) * pageSize + pageSize, start = (page - 1) * pageSize;
         for (let i = start; i < len; i++) {
             if (!!dataList[i]) {
                 ary.push(dataList[i])
             }
         }
-        let newObj = {pageLen, dataSource: ary};
+        let newObj = { pageLen, dataSource: ary };
         return newObj
     }
 }

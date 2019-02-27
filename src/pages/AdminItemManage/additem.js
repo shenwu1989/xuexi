@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Form, Button, DatePicker, Row, Col, Select, Input, LocaleProvider, message, Drawer} from 'antd'
-import {jrFetchPost, jrFetchGet, equalNull, queryNull, judgeState, dateShift} from '../../../src/pages/common';
+import React, { Component } from 'react';
+import { Form, Button, DatePicker, Row, Col, Select, Input, LocaleProvider, message, Drawer } from 'antd'
+import { jrFetchPost, jrFetchGet, equalNull, queryNull, judgeState, dateShift } from '../../../src/pages/common';
 import styleConfig from '../../config/styleConfig';
 import zhCN from "antd/lib/locale-provider/zh_CN";
 import moment from 'moment';
@@ -10,8 +10,8 @@ import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
 
 const FormItem = Form.Item;
-const {Option} = Select;
-const {TextArea} = Input;
+const { Option } = Select;
+const { TextArea } = Input;
 
 class Additem extends Component {
     constructor(props) {
@@ -48,15 +48,15 @@ class Additem extends Component {
     }
 
     render() {
-        const {getFieldDecorator} = this.props.form;
-        const {formItemLayout, formItemStyle, maxStyle} = styleConfig;
-        const xs = {span: 24}, sm = {span: 8};
-        const {contract_state, currency, first_industry, info, names = this.state.dataInfo.users, phase, round, state} = this.state.dataInfo;
+        const { getFieldDecorator } = this.props.form;
+        const { formItemLayout, formItemStyle, maxStyle } = styleConfig;
+        const xs = { span: 24 }, sm = { span: 8 };
+        const { contract_state, currency, first_industry, info, names = this.state.dataInfo.users, phase, round, state } = this.state.dataInfo;
         const {
             name, pause_reason, amount, staffing, progress, agency_history, second_industry, establish_time, pause_time, currency: info_currency = 1,
             state: info_state = 0, phase: info_phase = 0, round: info_round = 0, first_industry: infofirst_industry = 0, contract_state: info_contract_state = 0
         } = info || {};
-        let {stateValue} = this.state;
+        let { stateValue } = this.state;
         return (
             <LocaleProvider locale={zhCN}>
                 <div className={'additem '}>
@@ -67,7 +67,7 @@ class Additem extends Component {
                     </Row>
                     <Form>
                         <Row>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'项目名称'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('name', {
@@ -79,18 +79,18 @@ class Additem extends Component {
                                             ]
 
                                         })(
-                                            <Input placeholder="请输入项目名称"/>
+                                            <Input placeholder="请输入项目名称" allowClear />
                                         )
                                     }
                                 </FormItem>
                             </Col>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'一级行业'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('first_industry', {
                                             initialValue: infofirst_industry,
                                         })(
-                                            <Select>
+                                            <Select allowClear>
                                                 {
                                                     !!first_industry && first_industry.map((item, index) => {
                                                         return <Option key={index} value={index}>{item}</Option>
@@ -101,26 +101,26 @@ class Additem extends Component {
                                     }
                                 </FormItem>
                             </Col>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'二级行业'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('second_industry', {
                                             initialValue: queryNull(second_industry) ? '' : second_industry,
                                         })(
-                                            <Input placeholder="请输入项目名称"/>
+                                            <Input placeholder="请输入项目名称" allowClear />
                                         )
                                     }
                                 </FormItem>
                             </Col>
                         </Row>
                         <Row>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'轮次'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('round', {
                                             initialValue: info_round,
                                         })(
-                                            <Select>
+                                            <Select allowClear>
                                                 {
                                                     !!round && round.map((item, index) => {
                                                         return <Option key={index} value={index}>{item}</Option>
@@ -131,13 +131,13 @@ class Additem extends Component {
                                     }
                                 </FormItem>
                             </Col>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'项目阶段'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('phase', {
                                             initialValue: info_phase,
                                         })(
-                                            <Select>
+                                            <Select allowClear>
                                                 {
                                                     phase && phase.map((item, index) => {
                                                         return <Option key={index} value={index}>{item}</Option>
@@ -148,7 +148,7 @@ class Additem extends Component {
                                     }
                                 </FormItem>
                             </Col>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'立项时间'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('establish_time', {
@@ -156,6 +156,7 @@ class Additem extends Component {
                                         })(
                                             <DatePicker
                                                 placeholder="请选择立项时间"
+                                                allowClear
                                             />
                                         )
                                     }
@@ -163,13 +164,13 @@ class Additem extends Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'项目状态'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('state', {
                                             initialValue: info_state
                                         })(
-                                            <Select onChange={(e) => this.getStateValue(e)}>
+                                            <Select onChange={(e) => this.getStateValue(e)} allowClear>
                                                 {
                                                     state && state.map((item, index) => {
                                                         return <Option key={index} value={index}>{item}</Option>
@@ -182,7 +183,7 @@ class Additem extends Component {
                             </Col>
                             {
                                 judgeState(stateValue) && <span>
-                                    <Col xs={{...xs}} sm={{...sm}}>
+                                    <Col xs={{ ...xs }} sm={{ ...sm }}>
                                         <FormItem label={stateValue === 2 ? '暂停时间' : 'close时间'} {...formItemLayout}>
                                             {
                                                 getFieldDecorator('pause_time', {
@@ -190,19 +191,23 @@ class Additem extends Component {
                                                 })(
                                                     <DatePicker
                                                         placeholder="请选择时间"
+                                                        allowClear
                                                     />
                                                 )
                                             }
                                         </FormItem>
                                     </Col>
-                                    <Col xs={{...xs}} sm={{...sm}}>
+                                    <Col xs={{ ...xs }} sm={{ ...sm }}>
                                         <FormItem label={stateValue === 2 ? '暂停原因' : 'close原因'} {...formItemLayout}>
                                             {
                                                 getFieldDecorator('pause_reason', {
                                                     initialValue: pause_reason
                                                 })(
-                                                    <TextArea placeholder="请输入原因"
-                                                              autosize={{minRows: 2, maxRows: 6}}/>
+                                                    <TextArea
+                                                        placeholder="请输入原因"
+                                                        autosize={{ minRows: 2, maxRows: 6 }}
+                                                        allowClear
+                                                    />
                                                 )
                                             }
                                         </FormItem>
@@ -211,7 +216,7 @@ class Additem extends Component {
                             }
                         </Row>
                         <Row>
-                            <Col s={{span: 24}} sm={{span: 9}}>
+                            <Col s={{ span: 24 }} sm={{ span: 9 }}>
                                 <FormItem label={'融资金额'} {...formItemStyle}>
                                     {
 
@@ -220,8 +225,12 @@ class Additem extends Component {
                                                 getFieldDecorator('amount', {
                                                     initialValue: equalNull(amount) ? '' : amount.toString(),
                                                 })(
-                                                    <Input placeholder="请输入额度" type={'Number'}
-                                                           style={{width: '45%'}}/>
+                                                    <Input
+                                                        placeholder="请输入额度"
+                                                        type={'Number'}
+                                                        style={{ width: '45%' }}
+                                                        allowClear
+                                                    />
                                                 )
                                             }
                                             &nbsp;(万)&nbsp;
@@ -229,11 +238,11 @@ class Additem extends Component {
                                                 getFieldDecorator('currency', {
                                                     initialValue: info_currency.toString()
                                                 })(
-                                                    <Select style={{width: '35%'}}>
+                                                    <Select style={{ width: '35%' }} allowClear>
                                                         {
                                                             currency && Object.keys(currency).map((item, index) => {
                                                                 return <Option key={index}
-                                                                               value={item}>{currency[item]}</Option>
+                                                                    value={item}>{currency[item]}</Option>
                                                             })
                                                         }
                                                     </Select>
@@ -244,13 +253,13 @@ class Additem extends Component {
                                     }
                                 </FormItem>
                             </Col>
-                            <Col s={{span: 24}} sm={{span: 7}}>
+                            <Col s={{ span: 24 }} sm={{ span: 7 }}>
                                 <FormItem label={'合同状态'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('contract_state', {
                                             initialValue: info_contract_state
                                         })(
-                                            <Select>
+                                            <Select allowClear>
                                                 {
                                                     contract_state && contract_state.map((item, index) => {
                                                         return <Option key={index} value={index}>{item}</Option>
@@ -263,7 +272,7 @@ class Additem extends Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'staffing'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('names', {
@@ -275,7 +284,7 @@ class Additem extends Component {
                                             ]
 
                                         })(
-                                            <Select mode={"multiple"}>
+                                            <Select mode={"multiple"} allowClear>
                                                 {
                                                     names && Object.keys(names).map((item, index) => {
                                                         return <Option key={index} value={item}>{names[item]}</Option>
@@ -286,40 +295,40 @@ class Additem extends Component {
                                     }
                                 </FormItem>
                             </Col>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'历史投资机构'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('agency_history', {
                                             initialValue: agency_history
                                         })(
-                                            <TextArea placeholder="请输入历史投资机构" autosize={{minRows: 2, maxRows: 6}}/>
+                                            <TextArea placeholder="请输入历史投资机构" autosize={{ minRows: 2, maxRows: 6 }}/>
                                         )
                                     }
                                 </FormItem>
                             </Col>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'新增进展'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('progress', {})(
-                                            <TextArea placeholder="请输入最新进展情况" autosize={{minRows: 2, maxRows: 6}}/>
+                                            <TextArea placeholder="请输入最新进展情况" autosize={{ minRows: 2, maxRows: 6 }}/>
                                         )
                                     }
                                 </FormItem>
                             </Col>
                             {
-                                !!this.state.id && <Col xs={{span: 24}} sm={{span: 24}}>
+                                !!this.state.id && <Col xs={{ span: 24 }} sm={{ span: 24 }}>
                                     <FormItem label={'历史进展'} {...maxStyle} className={'additem_lsjz'}>
                                         {
                                             !queryNull(progress) &&
                                             <span>
-                                                    <span>
-                                                        <em>{progress['0'].created_at}:</em>
-                                                        <i>{progress['0'].progress}</i>&nbsp;&nbsp;
+                                                <span>
+                                                    <em>{progress['0'].created_at}:</em>
+                                                    <i>{progress['0'].progress}</i>&nbsp;&nbsp;
                                                         <Button onClick={this.handleShow} type={"primary"}
-                                                                size={"small"}>
-                                                            {this.state.evolve ? '收起' : '更多'}
-                                                        </Button>
-                                                    </span>
+                                                        size={"small"}>
+                                                        {this.state.evolve ? '收起' : '更多'}
+                                                    </Button>
+                                                </span>
 
                                                 {
                                                     this.state.evolve &&
@@ -336,20 +345,20 @@ class Additem extends Component {
                                                         <div className={'primaryDiv'}>
                                                             <Row className={'primaryheader'}>
                                                                 <span>
-                                                                    <Col xs={{...xs}} sm={{span: 4}}><h3>时间</h3></Col>
-                                                                    <Col xs={{...xs}} sm={{span: 20}}
-                                                                         className={'primaryCol'}><h3>进展</h3></Col>
+                                                                    <Col xs={{ ...xs }} sm={{ span: 4 }}><h3>时间</h3></Col>
+                                                                    <Col xs={{ ...xs }} sm={{ span: 20 }}
+                                                                        className={'primaryCol'}><h3>进展</h3></Col>
                                                                 </span>
                                                             </Row>
                                                             {
                                                                 progress.map((item, index) => {
                                                                     return <Row className={'primaryContent'}>
-                                                                            <span key={index}>
-                                                                               <Col xs={{...xs}}
-                                                                                    sm={{span: 4}}> <em>{item.created_at}</em></Col>
-                                                                                <Col xs={{...xs}} sm={{span: 20}}
-                                                                                     className={'primaryCol'}> <i>{item.progress}</i> </Col>
-                                                                            </span>
+                                                                        <span key={index}>
+                                                                            <Col xs={{ ...xs }}
+                                                                                sm={{ span: 4 }}> <em>{item.created_at}</em></Col>
+                                                                            <Col xs={{ ...xs }} sm={{ span: 20 }}
+                                                                                className={'primaryCol'}> <i>{item.progress}</i> </Col>
+                                                                        </span>
 
                                                                     </Row>
                                                                 })
@@ -365,9 +374,9 @@ class Additem extends Component {
                             }
                         </Row>
                         <Row>
-                            <Col sm={{span: 8}} offset={10}>
+                            <Col sm={{ span: 8 }} offset={10}>
                                 <Button
-                                    style={{marginRight: '60px', marginTop: '40px'}}
+                                    style={{ marginRight: '60px', marginTop: '40px' }}
                                     onClick={() => {
                                         this.props.history.goBack();
                                     }}
@@ -405,8 +414,8 @@ class Additem extends Component {
                         })
                     }
                 }).catch((err) => {
-                console.log(err)
-            })
+                    console.log(err)
+                })
         } else {//编辑
             userInfo.pid = this.state.id;
             this.props.form.validateFields(
@@ -422,8 +431,8 @@ class Additem extends Component {
                         })
                     }
                 }).catch((err) => {
-                console.log(err)
-            })
+                    console.log(err)
+                })
         }
 
     }

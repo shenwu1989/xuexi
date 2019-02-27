@@ -72,7 +72,7 @@ class AddUser extends Component {
 
                                         ]
                                     })(
-                                        <Input placeholder="姓名重复时系统自动添加后缀区别"/>
+                                        <Input placeholder="姓名重复时系统自动添加后缀区别" allowClear/>
                                     )
                                 }
                             </FormItem>
@@ -94,7 +94,7 @@ class AddUser extends Component {
 
                                         ]
                                     })(
-                                        <Input placeholder="请输入11位手机号"/>
+                                        <Input placeholder="请输入11位手机号" allowClear/>
                                     )
                                 }
                             </FormItem>
@@ -113,7 +113,7 @@ class AddUser extends Component {
                                             }
                                         ]
                                     })(
-                                        <Input placeholder="请输入邮箱"/>
+                                        <Input placeholder="请输入邮箱" allowClear/>
                                     )
                                 }
                             </FormItem>
@@ -137,7 +137,7 @@ class AddUser extends Component {
                                     getFieldDecorator('projects', {
                                         initialValue:projects_selected.map(i=>{return i+''}),
                                     })(
-                                        <Select mode="multiple" placeholder={'请选择关联项目'}>
+                                        <Select mode="multiple" placeholder={'请选择关联项目'} allowClear> 
                                             {
                                                 Object.keys(data).map((tiem, index) => {
                                                     return <Option key={index} value={tiem}>{data[tiem]}</Option>
