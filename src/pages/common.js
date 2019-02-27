@@ -360,7 +360,7 @@ function judgeObj(obj) {
     }
     return false
 }
-//obj是对象传入页码，每页显示条数，data数据，sort排序方式
+//obj是对象传入页码，每页显示条数，data数据，sort排序方式默认ID排序，返回一个新的对象
 export function getPagination(obj) {
     if (judgeObj(obj)) {
         let { page, pageSize, dataList, sort='' } = obj;

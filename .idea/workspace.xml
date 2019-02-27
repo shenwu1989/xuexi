@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a2452af-8dec-4a2d-a722-fc9fdc08a5a4" name="默认更改列表" comment="">
-      <change beforePath="$PROJECT_DIR$/src/pages/AccountManage/resetPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AccountManage/resetPassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AdminItemManage/additem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AdminItemManage/additem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AdminUserManage/addUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AdminUserManage/addUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AdminUserManage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AdminUserManage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AdminUserManage/tableListConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AdminUserManage/tableListConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -174,17 +169,17 @@
       <workItem from="1551077075951" duration="62333000" />
       <workItem from="1551240683931" duration="4890000" />
       <workItem from="1551247328729" duration="106000" />
-      <workItem from="1551247442239" duration="756000" />
+      <workItem from="1551247442239" duration="961000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68286000" />
+    <option name="totallyTimeSpent" value="68491000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="825" extended-state="1" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -199,7 +194,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4989429" weight="0.32891566" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5024665" side_tool="true" weight="0.28915662" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49753347" visible="true" weight="0.32469305" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49753347" visible="true" weight="0.32469305" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />

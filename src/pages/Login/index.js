@@ -106,7 +106,7 @@ class Index extends Component {
                 jrFetchPost(' /ng-lingxi/api/user/login', {
                     password, phone
                 }, loading).then(ret => {
-                    let userInfo = {...ret.data, phone, password};
+                    let userInfo = {...ret.data, phone};
                     setCookie(userInfo);
                     userInfo.user_admin === 'true' ? this.props.history.push(`/admin/adminitemmanage`) : this.props.history.push(`/admin/myitemmanage`);
                 }).catch((err) => {
