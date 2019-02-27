@@ -4,6 +4,7 @@ import {jrFetchPost, jrFetchGet} from '../../../../src/pages/common';
 import styleConfig from '../../../config/styleConfig';
 import tableListConfig from "./tableListCinfig";
 import AddTl from './itemTL/addTL'
+import TableListConfig from './tableListCinfig';
 
 const FormItem = Form.Item;
 
@@ -13,7 +14,8 @@ class ItemTl extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false
+            visible: false,
+
         }
     }
 
@@ -110,13 +112,7 @@ class ItemTl extends Component {
                     </Row>
                 </Form>
                 <Row style={{marginTop: '20px'}}>
-                    <Table
-                        columns={columns}
-                        pagination={false}
-                        rowKey={'id'}
-                        bordered
-                        //dataSource={this.state.dataSource || []}
-                    />
+                    <TableListConfig fn={this.handleShow}/>
                 </Row>
                 <Drawer
                     title="新增事件"
@@ -134,12 +130,15 @@ class ItemTl extends Component {
 
     handleDrawer = () => {
         this.setState({
-            visible:!this.state.visible
+            visible: !this.state.visible
         })
     }
     handleSeek = () => {
         let itemInfo = this.props.form.getFieldsValue();
         console.log(itemInfo)
+    }
+    handleShow = (data) => {
+        this.props.fn(data)
     }
 }
 

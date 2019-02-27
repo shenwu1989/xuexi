@@ -218,7 +218,10 @@ class Index extends Component {
             if(ret.data.projects.length === 0){
                 message.info('项目不存在，请确认关键字正确后重新搜索！')
             }else {
-                const projects = ret.data.projects;
+                let projects = ret.data.projects;
+                if(!Array.isArray(projects)){
+                  projects =  Object.values(projects)
+                }
                 let obj = {pageSize: 5, page: 1, dataList: projects, sort: 'date'};
                 let {pageLen, dataSource} = getPagination(obj);
                 this.setState({

@@ -57,7 +57,6 @@ class Additem extends Component {
             state: info_state = 0, phase: info_phase = 0, round: info_round = 0, first_industry: infofirst_industry = 0, contract_state: info_contract_state = 0
         } = info || {};
         let {stateValue} = this.state;
-        console.log(pause_time, establish_time)
         return (
             <LocaleProvider locale={zhCN}>
                 <div className={'additem '}>

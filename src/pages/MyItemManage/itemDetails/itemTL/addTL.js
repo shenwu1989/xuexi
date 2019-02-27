@@ -252,23 +252,27 @@ class AddTl extends Component {
                     <Row className={'tl_lsfk'}>
                         <Col span={12}>
                             <em>历史反馈：</em>
-                            <p>
-                                <span>2019.01.05：XXXXXX;</span>
-                                <span>2019.01.05：XXXXXX;</span>
-                                <span>2019.01.05：XXXXXX;</span>
-                                <span>2019.01.05：XXXXXX;</span>
-                                <span>2019.01.05：XXXXXX;</span>
-                            </p>
+                            <div>
+                                <p>
+                                    <span>2019.01.05：XXXXXX;</span>
+                                    <span>2019.01.05：XXXXXX;</span>
+                                    <span>2019.01.05：XXXXXX;</span>
+                                    <span>2019.01.05：XXXXXX;</span>
+                                    <span>2019.01.05：XXXXXX;</span>
+                                </p>
+                            </div>
                         </Col>
                         <Col span={12}>
                             <em>修改记录：</em>
-                            <p>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                            </p>
+                            <div>
+                                <p>
+                                    <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
+                                    <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
+                                    <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
+                                    <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
+                                    <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
+                                </p>
+                            </div>
                         </Col>
                     </Row>
                     <Row>

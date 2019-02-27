@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Form, Row, Col, Tabs} from 'antd'
 import ItemSituation from './itemDetails/itemSituation';
 import ItemTl from './itemDetails/itemTL';
+import ItemDate from './itemDetails/itemDate';
+import DetailsTl from './itemDetails/itemTL/detailsTL';
 import './index.less'
 import {jrFetchGet} from "../common";
 
@@ -10,7 +12,9 @@ const TabPane = Tabs.TabPane;
 class ItemDetails extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            showTl: false,
+        }
     }
 
     componentDidMount() {
@@ -28,7 +32,6 @@ class ItemDetails extends Component {
     }
 
     render() {
-        const xs = {span: 24}, sm = {span: 8};
         const {info: {name} = {}} = this.state.dataInfo || {};
         return (
             <div>
@@ -42,14 +45,27 @@ class ItemDetails extends Component {
                                 <ItemSituation id={this.state.id} dataInfo={this.state.dataInfo}/>
                             </TabPane>
                             <TabPane tab="TL" key="2">
-                                <ItemTl/>
+                                {
+                                    this.state.showTl ? <DetailsTl fn={this.handleShow} id={this.state.idTl}/> :
+                                        <ItemTl fn={this.handleShow}/>
+                                }
                             </TabPane>
-                            <TabPane tab="资料" key="3">资料</TabPane>
+                            <TabPane tab="资料" key="3">
+                                <ItemDate/>
+                            </TabPane>
                         </Tabs>
                     </Col>
                 </Row>
             </div>
         );
+    }
+
+    handleShow = (data) => {
+        let {id = 0} = data || [];
+        this.setState({
+            showTl: !this.state.showTl,
+            idTl:id
+        })
     }
 }
 
