@@ -119,7 +119,7 @@ class TableListConfig extends Component {
                                 !is_active && <Popconfirm title="确定要删除吗？" onConfirm={
                                     () => this.handleDelete(record.id, config['1'])
                                 } okText="是" cancelText="否">
-                                    <a href="#">删除</a>
+                                    <a href="#" style={{color:'red'}}>删除</a>
                                 </Popconfirm>
                             }
                             &nbsp;&nbsp;

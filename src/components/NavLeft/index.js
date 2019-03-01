@@ -1,9 +1,9 @@
 import React from 'react';
-import {Menu, Icon} from 'antd';
+import { Menu, Icon } from 'antd';
 import MenuConfig from './../../config/menuConfig';
-import {NavLink, withRouter} from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import './index.less';
-import {getCookie, cookieConfig} from '../../pages/Cookie';
+import { getCookie, cookieConfig } from '../../pages/Cookie';
 
 const SubMenu = Menu.SubMenu;
 
@@ -12,10 +12,10 @@ class NavLeft extends React.Component {
         super(props);
         this.state = {
             menuTreeNode: null,
-            visible: false
+            visible: false,
+            key: sessionStorage.getItem("key") || '1'
         }
     }
-
 
     componentDidMount() {
         let menuList = this.renderMenu(MenuConfig);
@@ -24,9 +24,7 @@ class NavLeft extends React.Component {
         this.setState({
             menuTreeNode
         })
-
     }
-
     showDrawer = () => {
         this.setState({
             visible: true,
@@ -41,20 +39,21 @@ class NavLeft extends React.Component {
 
     render() {
         return (
-
             <div className={'navBox'}>
                 <p className={'logo'}>灵犀资本管理系统</p>
                 <Menu
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
-                    selectedKeys={[this.props.history.location.pathname]}
+                    defaultSelectedKeys={[this.state.key]}
                     mode="inline"
                     theme="dark"
+                    onSelect={
+                        k => {
+                            sessionStorage.setItem('key', k.key);
+                        }
+                    }
                 >
                     {this.state.menuTreeNode}
                 </Menu>
             </div>
-
         )
     }
 
@@ -62,23 +61,23 @@ class NavLeft extends React.Component {
     /*导航渲染*/
     renderMenu = (data) => {
         return data.map((item) => {
-                let {title, key, icon} = item;
-                if (item.children) {
-                    return (
-                        <SubMenu
-                            title={<span><Icon type={icon}/>{title}</span>} key={key}
-                        >
-                            {this.renderMenu(item.children)}
-                        </SubMenu>
-                    )
-                }
+            let { title, key, icon, url } = item;
+            if (item.children) {
                 return (
-                    <Menu.Item key={key}>
-                        <Icon type={icon}/>
-                        <NavLink to={key} onClick={this.action}>{title}</NavLink>
-                    </Menu.Item>
+                    <SubMenu
+                        title={<span><Icon type={icon} />{title}</span>} key={key}
+                    >
+                        {this.renderMenu(item.children)}
+                    </SubMenu>
                 )
             }
+            return (
+                <Menu.Item key={key}>
+                    <Icon type={icon} />
+                    <NavLink to={url} >{title}</NavLink>
+                </Menu.Item>
+            )
+        }
         )
     }
 

@@ -65,7 +65,7 @@ class Index extends Component {
                     </Upload>
                     <Button onClick={this.handleExit}>下载</Button>
                     <Popconfirm placement="top" title={'确定要删除吗'} onConfirm={this.handleRemove} okText="是" cancelText="否">
-                        <Button>删除</Button>
+                        <Button type={'danger'}>删除</Button>
                     </Popconfirm>
 
                 </div>

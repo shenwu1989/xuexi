@@ -16,8 +16,6 @@ import IntentionItem from './pages/ItemWarehouse/intentionItem';
 import AddIntentionItem from './pages/ItemWarehouse/addIntentionItem';
 
 class myRouter extends Component {
-
-
     render() {
         return (
             <Router>

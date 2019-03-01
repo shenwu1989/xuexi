@@ -1,19 +1,24 @@
-import React, {Component} from 'react';
-import {Button, Col, Form, Input, Row, Select, Upload, Icon} from 'antd'
-import {jrFetchPost, jrFetchGet} from '../../../common';
+import React, { Component } from 'react';
+import { Button, Col, Form, Input, Row, Select, Upload, Icon, Tooltip } from 'antd'
+import { jrFetchPost, jrFetchGet } from '../../../common';
 import styleConfig from '../../../../config/styleConfig';
 
 const FormItem = Form.Item;
-const {Option} = Select;
-const {TextArea} = Input;
+const { Option } = Select;
+const { TextArea } = Input;
 
 class AddTl extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+
+        }
     }
 
     componentDidMount() {
+        this.setState({
+            id: this.props.id
+        })
         jrFetchGet(`/ng-lingxi/api/project/internal/tl/view/create`).then(res => {
             this.setState({
                 dataInfo: res.data
@@ -22,9 +27,10 @@ class AddTl extends Component {
     }
 
     render() {
-        const {getFieldDecorator} = this.props.form;
-        const {formItemLayout, maxCol} = styleConfig;
-        const {attendee_list = {}, state_list = []} = this.state.dataInfo || {};
+        const { getFieldDecorator } = this.props.form;
+        const { formItemLayout, maxCol } = styleConfig;
+        const { attendee_list = {}, state_list = [] } = this.state.dataInfo || {};
+        const { id } = this.state;
         return (
             <div className={'tlDrawer'}>
                 <Form>
@@ -41,7 +47,7 @@ class AddTl extends Component {
                                         ]
 
                                     })(
-                                        <Input placeholder="投资机构"/>
+                                        <Input placeholder="投资机构" />
                                     )
                                 }
                             </FormItem>
@@ -52,7 +58,7 @@ class AddTl extends Component {
                                     getFieldDecorator('name', {
                                         //initialValue:,
                                     })(
-                                        <Input placeholder="请输入投资人"/>
+                                        <Input placeholder="请输入投资人" />
                                     )
                                 }
                             </FormItem>
@@ -63,7 +69,7 @@ class AddTl extends Component {
                                     getFieldDecorator('name', {
                                         //initialValue:,
                                     })(
-                                        <Input placeholder="请输入title"/>
+                                        <Input placeholder="请输入title" />
                                     )
                                 }
                             </FormItem>
@@ -80,7 +86,7 @@ class AddTl extends Component {
                                             {
                                                 Object.keys(attendee_list).map((item, index) => {
                                                     return <Option value={item}
-                                                                   key={index}>{attendee_list[item]}</Option>
+                                                        key={index}>{attendee_list[item]}</Option>
                                                 })
                                             }
                                         </Select>
@@ -106,7 +112,7 @@ class AddTl extends Component {
                             </FormItem>
                         </Col>
                         {
-                            this.state.stateValue === 4 &&<Col span={8} className={'item_table'}>
+                            this.state.stateValue === 4 && <Col span={8} className={'item_table'}>
                                 <FormItem>
                                     <ul>
                                         <li>
@@ -114,9 +120,9 @@ class AddTl extends Component {
                                             <i>
                                                 {
                                                     getFieldDecorator('name1', {})
-                                                    (
-                                                        <input type="text"/>
-                                                    )
+                                                        (
+                                                            <input type="text" />
+                                                        )
                                                 }
                                             </i>
                                         </li>
@@ -125,9 +131,9 @@ class AddTl extends Component {
                                             <i>
                                                 {
                                                     getFieldDecorator('name2', {})
-                                                    (
-                                                        <input type="text"/>
-                                                    )
+                                                        (
+                                                            <input type="text" />
+                                                        )
                                                 }
                                             </i>
                                         </li>
@@ -136,9 +142,9 @@ class AddTl extends Component {
                                             <i>
                                                 {
                                                     getFieldDecorator('name3', {})
-                                                    (
-                                                        <input type="text"/>
-                                                    )
+                                                        (
+                                                            <input type="text" />
+                                                        )
                                                 }
                                             </i>
                                         </li>
@@ -147,9 +153,9 @@ class AddTl extends Component {
                                             <i>
                                                 {
                                                     getFieldDecorator('name4', {})
-                                                    (
-                                                        <input type="text"/>
-                                                    )
+                                                        (
+                                                            <input type="text" />
+                                                        )
                                                 }
                                             </i>
                                         </li>
@@ -158,9 +164,9 @@ class AddTl extends Component {
                                             <i>
                                                 {
                                                     getFieldDecorator('name5', {})
-                                                    (
-                                                        <input type="text"/>
-                                                    )
+                                                        (
+                                                            <input type="text" />
+                                                        )
                                                 }
                                             </i>
                                         </li>
@@ -169,9 +175,9 @@ class AddTl extends Component {
                                             <i>
                                                 {
                                                     getFieldDecorator('name6', {})
-                                                    (
-                                                        <input type="text"/>
-                                                    )
+                                                        (
+                                                            <input type="text" />
+                                                        )
                                                 }
                                             </i>
                                         </li>
@@ -180,9 +186,9 @@ class AddTl extends Component {
                                             <i>
                                                 {
                                                     getFieldDecorator('name7', {})
-                                                    (
-                                                        <input type="text"/>
-                                                    )
+                                                        (
+                                                            <input type="text" />
+                                                        )
                                                 }
                                             </i>
                                         </li>
@@ -191,9 +197,9 @@ class AddTl extends Component {
                                             <i>
                                                 {
                                                     getFieldDecorator('name8', {})
-                                                    (
-                                                        <input type="text"/>
-                                                    )
+                                                        (
+                                                            <input type="text" />
+                                                        )
                                                 }
                                             </i>
                                         </li>
@@ -210,7 +216,7 @@ class AddTl extends Component {
                                     getFieldDecorator('name', {
                                         //initialValue:,
                                     })(
-                                        <TextArea autosize={{minRows: 2, maxRows: 6}}/>
+                                        <TextArea autosize={{ minRows: 2, maxRows: 6 }} />
                                     )
                                 }
                             </FormItem>
@@ -223,7 +229,7 @@ class AddTl extends Component {
                                     getFieldDecorator('name', {
                                         //initialValue:,
                                     })(
-                                        <TextArea autosize={{minRows: 2, maxRows: 6}}/>
+                                        <TextArea autosize={{ minRows: 2, maxRows: 6 }} />
                                     )
                                 }
                             </FormItem>
@@ -236,14 +242,24 @@ class AddTl extends Component {
                                     getFieldDecorator('name', {
                                         //initialValue:,
                                     })(
-                                        <Upload
-
-                                        >
-                                            <Button>
-                                                <Icon type="upload"/>
-                                                继续添加
-                                            </Button>
-                                        </Upload>
+                                        <span>
+                                            {
+                                                !!id ?
+                                                    <Upload>
+                                                        <Button>
+                                                            <Icon type="upload" />
+                                                            继续添加
+                                                        </Button>
+                                                    </Upload>
+                                                    :
+                                                    <Tooltip placement="right" title={'新建事件不能上传文件，请先保存事件，在编辑页面上传文件！'}>
+                                                        <Button>
+                                                            <Icon type="upload" />
+                                                            继续添加
+                                                        </Button>
+                                                    </Tooltip>
+                                            }
+                                        </span>
                                     )
                                 }
                             </FormItem>
@@ -280,9 +296,9 @@ class AddTl extends Component {
                     </Row>
                 </Form>
                 <Row>
-                    <Col sm={{span: 8}} offset={10}>
+                    <Col sm={{ span: 8 }} offset={10}>
                         <Button
-                            style={{marginRight: '60px', marginTop: '100px'}}
+                            style={{ marginRight: '60px', marginTop: '100px' }}
                             onClick={this.handleExit}
                         >
                             取消

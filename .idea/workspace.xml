@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a2452af-8dec-4a2d-a722-fc9fdc08a5a4" name="默认更改列表" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/AdminItemManage/tableListConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AdminItemManage/tableListConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemDate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemDate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemTL.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemTL.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemTL/addTL.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemTL/addTL.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemTL/detailsTL.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MyItemManage/itemDetails/itemTL/detailsTL.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -14,7 +20,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -35,6 +41,7 @@
       <find>stateValue</find>
       <find>console.log</find>
       <find>this</find>
+      <find>body</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -78,6 +85,7 @@
         <option value="$PROJECT_DIR$/src/pages/AdminItemManage/tableListConfig.js" />
         <option value="$PROJECT_DIR$/src/pages/common.js" />
         <option value="$PROJECT_DIR$/src/pages/AdminItemManage/index.js" />
+        <option value="/Applications/Visual Studio Code.app/Contents/Resources/app/out/vs/workbench/workbench.main.css" />
       </list>
     </option>
   </component>
@@ -87,7 +95,7 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="825" />
@@ -97,17 +105,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="f2e-lingxi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="f2e-lingxi" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="ProjectPane" />
       <pane id="Scope">
         <subPane subId="Scope '项目文件'; set:项目文件; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -169,17 +167,17 @@
       <workItem from="1551077075951" duration="62333000" />
       <workItem from="1551240683931" duration="4890000" />
       <workItem from="1551247328729" duration="106000" />
-      <workItem from="1551247442239" duration="961000" />
+      <workItem from="1551247442239" duration="2250000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68491000" />
+    <option name="totallyTimeSpent" value="69780000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="825" extended-state="1" />
+    <frame x="0" y="23" width="1440" height="825" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -194,7 +192,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4989429" weight="0.32891566" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5024665" side_tool="true" weight="0.28915662" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49753347" visible="true" weight="0.32469305" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49753347" visible="true" weight="0.32469305" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -244,15 +242,6 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/pages/AdminUserManage/fun.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/InvestWarehouse/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -638,6 +627,13 @@
           <folding>
             <element signature="e#0#72#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Applications/Visual Studio Code.app/Contents/Resources/app/out/vs/workbench/workbench.main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="12859" column="1" lean-forward="true" selection-start-line="12859" selection-start-column="1" selection-end-line="12859" selection-end-column="1" />
         </state>
       </provider>
     </entry>

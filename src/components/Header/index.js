@@ -62,6 +62,7 @@ class Header extends React.Component {
     }
     //退出
     handleExit = () => {
+        sessionStorage.clear();
         jrFetchPost(`/ng-lingxi/api/user/logout`).then(res => {
             removeCookie(cookieConfig)
         })

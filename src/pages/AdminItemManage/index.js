@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
-import {Form, Button, Row, Col, Select, Input, DatePicker, LocaleProvider, Pagination} from 'antd'
-import {jrFetchGet, dateShift, queryNull, getPagination} from '../../../src/pages/common';
+import React, { Component } from 'react';
+import { Form, Button, Row, Col, Select, Input, DatePicker, LocaleProvider, Pagination } from 'antd'
+import { jrFetchGet, dateShift, queryNull, getPagination } from '../../../src/pages/common';
 import styleConfig from '../../config/styleConfig';
-import {Link} from 'react-router-dom'
-import {cookieConfig, getCookie} from "../Cookie";
+import { NavLink } from 'react-router-dom'
+import { cookieConfig, getCookie } from "../Cookie";
 import TableListConfig from './tableListConfig'
 import zhCN from "antd/lib/locale-provider/zh_CN";
 import message from "antd/lib/message";
 
 const FormItem = Form.Item;
-const {Option} = Select;
+const { Option } = Select;
 
 
 class Index extends Component {
@@ -26,10 +26,10 @@ class Index extends Component {
     }
 
     render() {
-        const {getFieldDecorator} = this.props.form;
-        const {formItemLayout, minStyle} = styleConfig;
-        const xs = {span: 24}, sm = {span: 8};
-        const {phase = [], users = {}, state = [], round = [], first_industry = []} = this.state.dataList || {};
+        const { getFieldDecorator } = this.props.form;
+        const { formItemLayout, minStyle } = styleConfig;
+        const xs = { span: 24 }, sm = { span: 8 };
+        const { phase = [], users = {}, state = [], round = [], first_industry = [] } = this.state.dataList || {};
         return (
             <LocaleProvider locale={zhCN}>
                 <div>
@@ -40,16 +40,16 @@ class Index extends Component {
                     </Row>
                     <Form>
                         <Row>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'项目名称'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('name', {})(
-                                            <Input placeholder="请输入项目名称"/>
+                                            <Input placeholder="请输入项目名称" />
                                         )
                                     }
                                 </FormItem>
                             </Col>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'一级行业'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('first_industry', {
@@ -66,18 +66,18 @@ class Index extends Component {
                                     }
                                 </FormItem>
                             </Col>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'二级行业'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('second_industry', {})(
-                                            <Input placeholder="请输入二级行业"/>
+                                            <Input placeholder="请输入二级行业" />
                                         )
                                     }
                                 </FormItem>
                             </Col>
                         </Row>
                         <Row>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'轮次'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('round', {
@@ -94,7 +94,7 @@ class Index extends Component {
                                     }
                                 </FormItem>
                             </Col>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'项目阶段'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('phase', {
@@ -111,7 +111,7 @@ class Index extends Component {
                                     }
                                 </FormItem>
                             </Col>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'项目状态'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('state', {
@@ -130,7 +130,7 @@ class Index extends Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col xs={{...xs}} sm={{...sm}}>
+                            <Col xs={{ ...xs }} sm={{ ...sm }}>
                                 <FormItem label={'staffing'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('staffing', {})(
@@ -145,26 +145,26 @@ class Index extends Component {
                                     }
                                 </FormItem>
                             </Col>
-                            <Col xs={{...xs}} sm={{span: 13}}>
+                            <Col xs={{ ...xs }} sm={{ span: 13 }}>
                                 <FormItem label={'立项时间'} {...minStyle}>
                                     {
                                         <span>
-                                        {
-                                            getFieldDecorator('start_time', {})(
-                                                <DatePicker style={{width: '42%'}}
-                                                            placeholder="开始时间"
-                                                />
-                                            )
-                                        }
-                                            &nbsp;一&nbsp;
                                             {
-                                                getFieldDecorator('end_time', {})(
-                                                    <DatePicker style={{width: '42%'}}
-                                                                placeholder="结束时间"
+                                                getFieldDecorator('start_time', {})(
+                                                    <DatePicker style={{ width: '42%' }}
+                                                        placeholder="开始时间"
                                                     />
                                                 )
                                             }
-                                    </span>
+                                            &nbsp;一&nbsp;
+                                            {
+                                                getFieldDecorator('end_time', {})(
+                                                    <DatePicker style={{ width: '42%' }}
+                                                        placeholder="结束时间"
+                                                    />
+                                                )
+                                            }
+                                        </span>
                                     }
 
                                 </FormItem>
@@ -183,13 +183,13 @@ class Index extends Component {
                         <Col offset={1}>
                             {
                                 this.state.user_admin && <Button type={"primary"} size={"large"}>
-                                    <Link to={'/admin/additem?id=0'}>新建项目</Link>
+                                    <NavLink to={'/admin/additem?id=0'}>新建项目</NavLink>
                                 </Button>
                             }
                         </Col>
                     </Row>
-                    <Row style={{marginTop: '20px'}}>
-                        <TableListConfig dataSource={this.state.dataSource} fn={this.dataList}/>
+                    <Row style={{ marginTop: '20px' }}>
+                        <TableListConfig dataSource={this.state.dataSource} fn={this.dataList} />
                         <Pagination
                             className={'pagination'}
                             size="small"
@@ -215,17 +215,17 @@ class Index extends Component {
         jrFetchGet('/ng-lingxi/api/project/internal/list', {
             ...itemInfo
         }).then((ret) => {
-            if(ret.data.projects.length === 0){
+            if (ret.data.projects.length === 0) {
                 message.info('项目不存在，请确认关键字正确后重新搜索！')
-            }else {
+            } else {
                 let projects = ret.data.projects;
-                if(!Array.isArray(projects)){
-                  projects =  Object.values(projects)
+                if (!Array.isArray(projects)) {
+                    projects = Object.values(projects)
                 }
-                let obj = {pageSize: 5, page: 1, dataList: projects, sort: 'date'};
-                let {pageLen, dataSource} = getPagination(obj);
+                let obj = { pageSize: 5, page: 1, dataList: projects, sort: 'date' };
+                let { pageLen, dataSource } = getPagination(obj);
                 this.setState({
-                    dataList:ret.data,
+                    dataList: ret.data,
                     dataSource,
                     pageLen
                 })
@@ -234,7 +234,7 @@ class Index extends Component {
     }
     //重置
     handleClear = () => {
-        const {form} = this.props;
+        const { form } = this.props;
         form.resetFields();
     }
     //获取数据
@@ -246,8 +246,8 @@ class Index extends Component {
     }
     //分页
     getVule = (page, pageSize) => {
-        let obj = {pageSize, page, dataList:this.state.dataList.projects, sort: 'date'};
-        let {pageLen, dataSource} = getPagination(obj);
+        let obj = { pageSize, page, dataList: this.state.dataList.projects, sort: 'date' };
+        let { pageLen, dataSource } = getPagination(obj);
         this.setState({
             dataSource,
             pageLen

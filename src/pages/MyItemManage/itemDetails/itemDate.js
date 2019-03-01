@@ -26,7 +26,7 @@ class ItemDate extends Component {
                     <li><a>其他补充资料</a><i>3</i></li>
                 </ul>
                 <Drawer
-                    title="新增事件"
+                    title="Pitchbook文件夹"
                     placement="right"
                     width={600}
                     closable={false}

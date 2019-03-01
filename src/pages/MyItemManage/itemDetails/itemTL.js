@@ -15,7 +15,7 @@ class ItemTl extends Component {
         super(props);
         this.state = {
             visible: false,
-
+            id:0
         }
     }
 
@@ -122,7 +122,7 @@ class ItemTl extends Component {
                     onClose={this.onClose}
                     visible={this.state.visible}
                 >
-                    <AddTl fn={this.handleDrawer}/>
+                    <AddTl fn={this.handleDrawer} id={this.state.id}/>
                 </Drawer>
             </div>
         );

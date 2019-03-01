@@ -70,17 +70,17 @@ class Index extends Component {
                             <Row>
                                 <Col xs={{span: 24}} sm={{span: 12}}>
                                     <FormItem>
-                                        {
+                                        {/* {
                                             getFieldDecorator('remember', {
                                                 valuePropName: 'checked',
                                                 initialValue: true
                                             })(
                                                 <Checkbox className={'setpswd'}>记住密码</Checkbox>
                                             )
-                                        }
+                                        } */}
                                     </FormItem>
                                 </Col>
-                                <Col xs={{span: 24}} sm={{span: 12}}>
+                                <Col xs={{span: 24}} sm={{span: 12}} style={{marginBottom:'10px'}}>
                                     <Tooltip placement="bottomRight" title={
                                         '普通用户请联系admin,admin用户请联系工作人员重置密码'
                                     }>
@@ -108,7 +108,7 @@ class Index extends Component {
                 }, loading).then(ret => {
                     let userInfo = {...ret.data, phone};
                     setCookie(userInfo);
-                    userInfo.user_admin === 'true' ? this.props.history.push(`/admin/adminitemmanage`) : this.props.history.push(`/admin/myitemmanage`);
+                    userInfo.user_admin  ? this.props.history.push(`/admin/adminitemmanage`) : this.props.history.push(`/admin/myitemmanage`);
                 }).catch((err) => {
                     console.log(err)
                 })

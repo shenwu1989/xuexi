@@ -3,8 +3,8 @@ import {Form, Button, Row, Col, Select, Input, Table} from 'antd'
 import {jrFetchPost, jrFetchGet} from '../../../src/pages/common';
 import styleConfig from '../../config/styleConfig';
 import {Link} from "react-router-dom";
-import tableListConfig from './tableListConfig'
-
+import tableListConfig from './tableListConfig';
+import './index.less';
 const FormItem = Form.Item;
 const {Option} = Select;
 

@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
-import {Button, Col, Form, Input, Row, Select, Upload, Icon} from 'antd'
-import {jrFetchPost, jrFetchGet} from '../../../common';
+import React, { Component } from 'react';
+import { Button, Col, Form, Input, Row, Select, Drawer } from 'antd'
+import { jrFetchGet } from '../../../common';
 import styleConfig from '../../../../config/styleConfig';
+import AddTl from './addTL';
 
-const FormItem = Form.Item;
-const {Option} = Select;
-const {TextArea} = Input;
 
 class DetailsTl extends Component {
     constructor(props) {
         super(props);
         this.state = {
             stateValue: 0,
+            visible: false,
+            id:1
         }
     }
 
@@ -20,8 +20,8 @@ class DetailsTl extends Component {
     }
 
     render() {
-        const {getFieldDecorator} = this.props.form;
-        const {formItemLayout, maxCol} = styleConfig;
+        const { getFieldDecorator } = this.props.form;
+        const { formItemLayout, maxCol } = styleConfig;
         return (
             <div className={'detailsTl'}>
                 <Row className={'detailsTl_rol'}>
@@ -151,21 +151,32 @@ class DetailsTl extends Component {
                         </p>
                     </Col>
                 </Row>
+                <Drawer
+                    title="编辑事件"
+                    placement="right"
+                    width={800}
+                    closable={false}
+                    onClose={this.onClose}
+                    visible={this.state.visible}
+                >
+                    <AddTl fn={this.handleDrawer} id={this.state.id}/>
+                </Drawer>
                 <Row>
-                    <Col sm={{span: 14}} offset={9}>
+                    <Col sm={{ span: 14 }} offset={9}>
                         <Button onClick={this.handleExit}>返回</Button>
                         <Button onClick={this.handleSubmit}>删除</Button>
-                        <Button type={'primary'} onClick={this.handleSubmit}>编辑</Button>
+                        <Button type={'primary'} onClick={this.handleDrawer}>编辑</Button>
                     </Col>
                 </Row>
             </div>
         );
     }
 
-    //保存
-    handleSubmit = () => {
-        let Values = this.props.form.getFieldsValue();
-        console.log(Values)
+    //编辑
+    handleDrawer = () => {
+        this.setState({
+            visible: !this.state.visible
+        })
     }
     //取消
     handleExit = () => {
