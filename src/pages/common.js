@@ -185,7 +185,7 @@ export const formatDate = (now, flag = true) => {
     const minute = now.getMinutes()
     const second = now.getSeconds()
     if (flag) {
-        return year + '-' + month + '-' + date + '   ' + hour + ':' + minute + ':' + second
+        return year + '-' + month + '-' + date + ' ' + hour + ':' + minute + ':' + second
     }
     return year + '-' + month + '-' + date
 }
@@ -347,13 +347,31 @@ export function judgeState(text) {
 }
 
 //日期转换
-export function dateShift(date) {
-    let oldDate = new Date(date),
-        timeYear = oldDate.getFullYear(),
+export function dateShift(date, time = true) {
+    let oldDate = new Date(date);
+    if(!time){
+        oldDate = new Date(oldDate.toUTCString(oldDate.setTime(oldDate.getTime() - (1000 * 60 * 60 * 8))));
+    }
+    let timeYear = oldDate.getFullYear(),
         timeMonth = oldDate.getMonth() + 1,
-        timeDate = oldDate.getDate();
-    let newDate = timeYear + '-' + (timeMonth < 10 ? '0' + timeMonth : timeMonth) + '-' + (timeDate < 10 ? '0' + timeDate : timeDate);
-    return newDate
+        timeDate = oldDate.getDate(),
+        timeHour = oldDate.getHours(),
+        timeminute = oldDate.getMinutes(),
+        timesecond = oldDate.getSeconds();
+    function switchTime(t) {
+        if (t < 10) {
+            return '0' + t;
+        }
+        return t;
+    }
+    if (time) {
+        let newDate = timeYear + '-' + switchTime(timeMonth) + '-' + switchTime(timeDate);
+        return newDate
+    } else {
+        let newDate = timeYear + '-' + switchTime(timeMonth) + '-' + switchTime(timeDate) + ' ' + switchTime(timeHour) + ':' + switchTime(timeminute) + ':' + switchTime(timesecond);
+        return newDate
+    }
+
 }
 
 //分页验证参数
@@ -390,5 +408,16 @@ export function getPagination(obj) {
         }
         let newObj = { pageLen, dataSource: ary };
         return newObj
+    }
+}
+//计算文件大小
+export function fileSize(str){
+    let ren = str.toString().length;
+    if(ren <= 3){
+       return str +'B';
+    }else if(ren <= 6){
+        return Math.round(str/1000 )+ 'KB';
+    }else if(ren <=9){
+        return (str/1000/1000).toFixed(1) + 'MB';
     }
 }

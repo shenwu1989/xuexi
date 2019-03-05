@@ -5,7 +5,6 @@ import styleConfig from '../../config/styleConfig';
 import zhCN from "antd/lib/locale-provider/zh_CN";
 import moment from 'moment';
 import './additem.less';
-import 'moment/locale/zh-cn';
 
 moment.locale('zh-cn');
 

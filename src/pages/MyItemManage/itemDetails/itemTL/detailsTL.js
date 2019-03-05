@@ -1,46 +1,49 @@
 import React, { Component } from 'react';
-import { Button, Col, Form, Input, Row, Select, Drawer } from 'antd'
-import { jrFetchGet } from '../../../common';
-import styleConfig from '../../../../config/styleConfig';
+import { Button, Col, Form, Row, Modal, Drawer, message } from 'antd'
+import { jrFetchGet, fileSize } from '../../../common';
 import AddTl from './addTL';
 
-
+const confirm = Modal.confirm;
 class DetailsTl extends Component {
     constructor(props) {
         super(props);
         this.state = {
             stateValue: 0,
             visible: false,
-            id:1
+            id: 1
         }
     }
 
     componentDidMount() {
-        console.log(this.props.id)
+        let id = this.props.id
+        this.setState({
+            itemId: id
+        })
+        this.getDataInfo()
     }
 
     render() {
-        const { getFieldDecorator } = this.props.form;
-        const { formItemLayout, maxCol } = styleConfig;
+        const { info = {}, attendee_list = {}, state_list = [], attendee_selected = [], feedback = [], updated = [], memo = [], schedule = {} } = this.state.dataInfo || {};
+        const { agency, following_up, id, investor, investor_title, project_id, state } = info;
         return (
             <div className={'detailsTl'}>
                 <Row className={'detailsTl_rol'}>
                     <Col span={8}>
                         <em>投资机构：</em>
                         <p>
-                            <span>华兴资本</span>
+                            <span>{agency}</span>
                         </p>
                     </Col>
                     <Col span={8}>
                         <em>投资人：</em>
                         <p>
-                            <span>包不凡</span>
+                            <span>{investor}</span>
                         </p>
                     </Col>
                     <Col span={8}>
                         <em>title：</em>
                         <p>
-                            <span>MD</span>
+                            <span>{investor_title}</span>
                         </p>
                     </Col>
                 </Row>
@@ -49,19 +52,28 @@ class DetailsTl extends Component {
                     <Col span={8}>
                         <em>参会人：</em>
                         <p>
-                            <span>张艺兴</span>
+                            <span>
+                                {
+                                    attendee_selected.map((item, index) => {
+                                        if (index === attendee_selected.length - 1) {
+                                            return <b key={index}>{attendee_list[item]}</b>
+                                        }
+                                        return <b key={index}>{attendee_list[item]},</b>
+                                    })
+                                }
+                            </span>
                         </p>
                     </Col>
                     <Col span={8} className={'gj'}>
                         <em>下一步跟进：</em>
                         <p>
-                            <span>收到NDA，已发资料</span>
+                            <span>{following_up}</span>
                         </p>
                     </Col>
                     <Col span={8}>
                         <em>事件状态：</em>
                         <p>
-                            <span>待开会</span>
+                            <span>{state_list[state]}</span>
                         </p>
                         {
                             this.state.stateValue === 4 &&
@@ -69,35 +81,31 @@ class DetailsTl extends Component {
                                 <ul>
                                     <li>
                                         <em>待开会议</em>
-                                        <i>123</i>
-                                    </li>
-                                    <li>
-                                        <em>项目名称</em>
-                                        <i>123</i>
+                                        <i>{schedule.meeting}</i>
                                     </li>
                                     <li>
                                         <em>参会人员</em>
-                                        <i>123</i>
+                                        <i>{schedule.attendee}</i>
                                     </li>
                                     <li>
                                         <em>投资人</em>
-                                        <i>123</i>
+                                        <i>{schedule.investor}</i>
                                     </li>
                                     <li>
                                         <em>title</em>
-                                        <i>123</i>
+                                        <i>{schedule.title}</i>
                                     </li>
                                     <li>
                                         <em>地点</em>
-                                        <i>123</i>
+                                        <i>{schedule.location}</i>
                                     </li>
                                     <li>
                                         <em>时间</em>
-                                        <i>123</i>
+                                        <i>{schedule.time}</i>
                                     </li>
                                     <li>
                                         <em>备注</em>
-                                        <i>123</i>
+                                        <i>{schedule.remark}</i>
                                     </li>
                                 </ul>
                             </Col>
@@ -109,15 +117,11 @@ class DetailsTl extends Component {
                         <em>历史反馈：</em>
                         <div>
                             <p>
-                                <span>2019.01.05：XXXXXXXXXXX;</span>
-                                <span>2019.01.05：XXXXXXXXXXXX;</span>
-                                <span>2019.01.05：XXXXXXXXXXXXXX;</span>
-                                <span>2019.01.05：XXXXXXXXXXXXXXX;</span>
-                                <span>2019.01.05：XXXXXXXXXXXXXXXX;</span>
-                                <span>2019.01.05：XXXXXXXXXXXXXXXX;</span>
-                                <span>2019.01.05：XXXXXXXXXXXXXXXX;</span>
-                                <span>2019.01.05：XXXXXXXXXXXXXXXX;</span>
-                                <span>2019.01.05：XXXXXXXXXXXXXXXX;</span>
+                                {
+                                    feedback.map(item => {
+                                        return <span key={item.id}>{item.created_at}&nbsp;{item.feedback}</span>
+                                    })
+                                }
                             </p>
                         </div>
                     </Col>
@@ -125,19 +129,12 @@ class DetailsTl extends Component {
                         <em>修改记录：</em>
                         <div>
                             <p>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
-                                <span>2019.01.05：事件状态由“加微信”变更为“待开会”;</span>
+                                {
+                                    updated.map(
+                                        (item, index) => {
+                                            return <span key={index}>{item.created_at}&nbsp;{item.value}</span>
+                                        })
+                                }
                             </p>
                         </div>
                     </Col>
@@ -146,8 +143,15 @@ class DetailsTl extends Component {
                     <Col>
                         <em>会议memo：</em>
                         <p>
-                            <span>Test纪要.doc (395K)</span>
-                            <span>测试B.pdf (1.32MB)</span>
+                            {
+                                memo.map(item => {
+                                    return <span key={item.id}>
+                                        <a href={item.url} target='_blank'>
+                                            {item.name}({fileSize(item.size)})
+                                        </a>
+                                    </span>
+                                })
+                            }
                         </p>
                     </Col>
                 </Row>
@@ -159,19 +163,27 @@ class DetailsTl extends Component {
                     onClose={this.onClose}
                     visible={this.state.visible}
                 >
-                    <AddTl fn={this.handleDrawer} id={this.state.id}/>
+                    <AddTl fn={this.handleDrawer} state={this.state} info={this.getDataInfo}/>
                 </Drawer>
-                <Row>
+                <Row className='detailsTl_button'>
                     <Col sm={{ span: 14 }} offset={9}>
                         <Button onClick={this.handleExit}>返回</Button>
-                        <Button onClick={this.handleSubmit}>删除</Button>
                         <Button type={'primary'} onClick={this.handleDrawer}>编辑</Button>
+                        <Button type={'danger'} onClick={this.handleDelete}>删除</Button>
                     </Col>
                 </Row>
             </div>
         );
     }
-
+    //初始化信息
+    getDataInfo=()=>{
+        jrFetchGet(`/ng-lingxi/api/project/internal/tl/view/sketch/${this.props.id}`).then(res => {
+            this.setState({
+                dataInfo: res.data,
+                stateValue: res.data.info.state
+            })
+        })
+    }
     //编辑
     handleDrawer = () => {
         this.setState({
@@ -188,6 +200,30 @@ class DetailsTl extends Component {
         this.setState({
             stateValue
         })
+    }
+    //删除
+    handleDelete = () => {
+        let id = this.props.id;
+        let handleExit = this.handleExit;
+        confirm({
+            title: '是否要删除？',
+            content: '此次操作将删除当前事件！',
+            okText: '确定',
+            okType: 'danger',
+            cancelText: '再想想',
+            onOk() {
+                jrFetchGet(`/ng-lingxi/api/project/internal/tl/delete/${id}`).then(res => {
+                    if (res.code === 0) {
+                        message.success('删除成功', 1, onclose => {
+                            handleExit();
+                        })
+                    } else {
+                        message.info(res.message)
+                    }
+                })
+            },
+            onCancel() { },
+        });
     }
 }
 

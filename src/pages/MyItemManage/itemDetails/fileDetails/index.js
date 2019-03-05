@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Form, Button, Popconfirm, Table, Upload} from 'antd'
 import {jrFetchPost, jrFetchGet} from '../../../../../src/pages/common';
-import styleConfig from '../../../../config/styleConfig';
 
 const FormItem = Form.Item;
 const data = [];

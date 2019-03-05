@@ -47,7 +47,7 @@ class ItemDetails extends Component {
                             <TabPane tab="TL" key="2">
                                 {
                                     this.state.showTl ? <DetailsTl fn={this.handleShow} id={this.state.idTl}/> :
-                                        <ItemTl fn={this.handleShow}/>
+                                        <ItemTl fn={this.handleShow} id={this.state.id}/>
                                 }
                             </TabPane>
                             <TabPane tab="资料" key="3">
@@ -60,11 +60,10 @@ class ItemDetails extends Component {
         );
     }
 
-    handleShow = (data) => {
-        let {id = 0} = data || [];
+    handleShow = (data = 0) => {
         this.setState({
             showTl: !this.state.showTl,
-            idTl:id
+            idTl:data
         })
     }
 }

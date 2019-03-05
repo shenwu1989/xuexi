@@ -1,107 +1,143 @@
-import React, {Component} from 'react';
-import {Col, Form, Row, Progress, Input, Select, Button, Table, Drawer} from 'antd'
-import {jrFetchPost, jrFetchGet} from '../../../../src/pages/common';
+import React, { Component } from 'react';
+import { Col, Form, Row, Progress, Input, Select, Button, Table, Drawer } from 'antd'
+import { jrFetchGet } from '../../../../src/pages/common';
 import styleConfig from '../../../config/styleConfig';
-import tableListConfig from "./tableListCinfig";
 import AddTl from './itemTL/addTL'
-import TableListConfig from './tableListCinfig';
+import TableListConfig from './tableListConfig';
 
 const FormItem = Form.Item;
 
-const {Option} = Select;
+const { Option } = Select;
 
 class ItemTl extends Component {
     constructor(props) {
         super(props);
         this.state = {
             visible: false,
-            id:0
+            id: 0,
         }
     }
-
+    componentDidMount() {
+        this.getItemList()
+        this.setState({
+            itemId: this.props.id
+        })
+    }
     render() {
-        const columns = tableListConfig;
-        const {getFieldDecorator} = this.props.form;
-        const {minCol} = styleConfig;
-        const xs = {span: 24}, sm = {span: 6};
+        const { getFieldDecorator } = this.props.form;
+        const { minCol } = styleConfig;
+        const { tl_state = [], users = {}, state_statistics = {} } = this.state || {};
+        const { all, followed, met, pushed, tomeet } = state_statistics;
+        const xs = { span: 24 }, sm = { span: 6 };
         return (
             <div className={'itemTl'}>
                 <Form>
                     <Row className={'itemTl_Row'}>
-                        <Col xs={{...xs}} sm={{...sm}}>
+                        <Col xs={{ ...xs }} sm={{ ...sm }}>
                             <div>
                                 <em>已推送机构：</em>
-                                <b>18</b>
+                                <b>{pushed}</b>
                                 <div className={'itemTl_div'}>
-                                    <Progress type="circle" percent={30} width={50} strokeColor={'#199ED8'}/>
+                                    <Progress
+                                        type="circle"
+                                        percent={Math.round(pushed / all * 100)}
+                                        width={50}
+                                        strokeColor={'#199ED8'}
+                                        format={percent => percent + '%'}
+                                    />
                                 </div>
                             </div>
                         </Col>
-                        <Col xs={{...xs}} sm={{...sm}}>
+                        <Col xs={{ ...xs }} sm={{ ...sm }}>
                             <div>
                                 <em>已开会机构:</em>
-                                <b>18</b>
+                                <b>{met}</b>
                                 <div className={'itemTl_div'}>
-                                    <Progress type="circle" percent={30} width={50} strokeColor={'#199ED8'}/>
+                                    <Progress
+                                        type="circle"
+                                        percent={Math.round(met / all * 100)}
+                                        width={50}
+                                        strokeColor={'#199ED8'}
+                                        format={percent => percent + '%'}
+                                    />
                                 </div>
                             </div>
                         </Col>
-                        <Col xs={{...xs}} sm={{...sm}}>
+                        <Col xs={{ ...xs }} sm={{ ...sm }}>
                             <div>
                                 <em>在跟进机构：</em>
-                                <b>18</b>
+                                <b>{followed}</b>
                                 <div className={'itemTl_div'}>
-                                    <Progress type="circle" percent={30} width={50} strokeColor={'#199ED8'}/>
+                                    <Progress
+                                        type="circle"
+                                        percent={Math.round(followed / all * 100)}
+                                        width={50}
+                                        strokeColor={'#199ED8'}
+                                        format={percent => percent + '%'}
+                                    />
                                 </div>
                             </div>
                         </Col>
-                        <Col xs={{...xs}} sm={{...sm}}>
+                        <Col xs={{ ...xs }} sm={{ ...sm }}>
                             <div>
                                 <em>待排会机构：</em>
-                                <b>18</b>
+                                <b>{tomeet}</b>
                                 <div className={'itemTl_div'}>
-                                    <Progress type="circle" percent={30} width={50} strokeColor={'#199ED8'}/>
+                                    <Progress
+                                        type="circle"
+                                        percent={Math.round(tomeet / all * 100)}
+                                        width={50}
+                                        strokeColor={'#199ED8'}
+                                        format={percent => percent + '%'}
+                                    />
                                 </div>
                             </div>
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs={{...xs}} sm={{span: 7}}>
+                        <Col xs={{ ...xs }} sm={{ span: 7 }}>
                             <FormItem label={'投资机构'} {...minCol}>
                                 {
-                                    getFieldDecorator('name', {})(
-                                        <Input placeholder="请输入投资机构"/>
+                                    getFieldDecorator('agency', {})(
+                                        <Input placeholder="请输入投资机构" />
                                     )
                                 }
                             </FormItem>
                         </Col>
-                        <Col xs={{...xs}} sm={{span: 7}}>
+                        <Col xs={{ ...xs }} sm={{ span: 7 }}>
                             <FormItem label={'参会人'} {...minCol}>
                                 {
-                                    getFieldDecorator('name1', {})(
+                                    getFieldDecorator('attendee', {})(
                                         <Select mode="multiple" placeholder={'请选择参会人'}>
-                                            <Option value={'1'}>金融</Option>
-                                            <Option value={'2'}>金融2</Option>
-                                            <Option value={'3'}>金融3</Option>
+                                            {
+
+                                                Object.keys(users).map((item, index) => {
+                                                    return <Option key={index} value={item}>{users[item]}</Option>
+                                                })
+                                            }
                                         </Select>
                                     )
                                 }
                             </FormItem>
                         </Col>
-                        <Col xs={{...xs}} sm={{span: 7}}>
+                        <Col xs={{ ...xs }} sm={{ span: 7 }}>
                             <FormItem label={'事件状态'} {...minCol}>
                                 {
-                                    getFieldDecorator('name2', {})(
+                                    getFieldDecorator('state', {
+                                        initialValue: 0,
+                                    })(
                                         <Select placeholder={'请选择事件状态'}>
-                                            <Option value={'1'}>金融</Option>
-                                            <Option value={'2'}>金融2</Option>
-                                            <Option value={'3'}>金融3</Option>
+                                            {
+                                                tl_state.map((item, index) => {
+                                                    return <Option key={index} value={index}>{item}</Option>
+                                                })
+                                            }
                                         </Select>
                                     )
                                 }
                             </FormItem>
                         </Col>
-                        <Col xs={{...xs}} sm={{span: 3}} style={{marginTop: '3px'}}>
+                        <Col xs={{ ...xs }} sm={{ span: 3 }} style={{ marginTop: '3px' }}>
                             <Button type={"primary"} size={"default"} onClick={this.handleSeek}>查询</Button>
                         </Col>
                     </Row>
@@ -111,8 +147,8 @@ class ItemTl extends Component {
                         </Col>
                     </Row>
                 </Form>
-                <Row style={{marginTop: '20px'}}>
-                    <TableListConfig fn={this.handleShow}/>
+                <Row style={{ marginTop: '20px' }}>
+                    <TableListConfig fn={this.handleShow} dataInfo={this.state} />
                 </Row>
                 <Drawer
                     title="新增事件"
@@ -122,20 +158,43 @@ class ItemTl extends Component {
                     onClose={this.onClose}
                     visible={this.state.visible}
                 >
-                    <AddTl fn={this.handleDrawer} id={this.state.id}/>
+                    <AddTl fn={this.handleDrawer} state={this.state} info={this.getItemList} />
                 </Drawer>
             </div>
         );
     }
+    //获取初始数据
+    getItemList = () => {
+        jrFetchGet(`/ng-lingxi/api/project/internal/tl/list`, {
+            project: this.props.id
+        }).then(ret => {
+            const { tl_state, tls, users, state_statistics } = ret.data;
+            this.setState({
+                tl_state,
+                tls,
+                users,
+                state_statistics
+            })
+        })
+    }
 
-    handleDrawer = () => {
+    handleDrawer = (i) => {
+        console.log(i)
         this.setState({
             visible: !this.state.visible
         })
     }
+    //查询
     handleSeek = () => {
         let itemInfo = this.props.form.getFieldsValue();
-        console.log(itemInfo)
+        itemInfo.project = this.props.id;
+        jrFetchGet(`/ng-lingxi/api/project/internal/tl/list`, {
+            ...itemInfo
+        }).then(ret => {
+            this.setState({
+                tls: ret.data.tls
+            })
+        })
     }
     handleShow = (data) => {
         this.props.fn(data)

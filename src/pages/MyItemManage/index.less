@@ -15,6 +15,9 @@
     margin-bottom: 30px;
     text-align: center;
   }
+  .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+    padding: 8px;
+  } 
 }
 .situationButton{
   margin-top: 60px;
@@ -29,44 +32,53 @@
   padding: 30px 20px;
   .item_table{
    position: relative;
-    span{
+    span.ant-form-item-children{
       width: 100%;
       display: block;
-    }
-    ul{
-      list-style-type: none;
-      position: absolute;
-      width: 100%;
-      border:1px solid #898989;
-      padding: 0;
-      z-index: 1;
-      li{
-        border-bottom: 1px solid #898989;
-        background-color: #e4e4e4;
-        line-height: 20px;
-        display: flex;
-        &:last-child{
-          border-bottom: 0;
-        }
-        em{
-          display: inline-block;
-          width: 35%;
-          text-align: center;
-        }
-        i{
-          border-left: 1px solid #898989;
-          display: inline-block;
-          width: 64%;
-          word-break: break-word;
-          padding-left: 2px;
-          background-color: #ffffff;
-          input{
-            outline:none;
-            border:0;
-            &:active{
+      >ul{
+        list-style-type: none;
+        position: absolute;
+        width: 100%;
+        border:1px solid #898989;
+        padding: 0;
+        z-index: 1;
+        >li{
+          border-bottom: 1px solid #898989;
+          background-color: #e4e4e4;
+          line-height: 20px;
+          display: flex;
+          &:last-child{
+            border-bottom: 0;
+          }
+          em{
+            display: inline-block;
+            width: 35%;
+            text-align: center;
+          }
+          >i{
+            border-left: 1px solid #898989;
+            display: inline-block;
+            width: 64%;
+            word-break: break-word;
+            padding-left: 2px;
+            background-color: #ffffff;
+            input{
               outline:none;
               border:0;
+              &:active{
+                outline:none;
+                border:0;
+              }
             }
+          }
+          i.schedule_time{
+            width: auto;
+            i{
+              width: auto;
+            }
+          }
+          .ant-select-selection--multiple{
+            border:0;
           }
         }
       }
@@ -134,8 +146,18 @@
         width: 50%;
         float: left;
       }
+      
       &:first-child{
         background-color: #fafafa;
+      }
+    }
+  }
+}
+.detailsTl{
+  ul{
+    li{
+      i{
+        width: 72%;
       }
     }
   }
@@ -169,7 +191,7 @@
       max-height: 109px;
     }
     em{
-      min-width: 9.3%;
+      //min-width: 9.3%;
       max-width: 28%;
     }
     p{
@@ -199,5 +221,13 @@
   button{
     margin-right:60px;
     margin-top:30px;
+  }
+}
+.detailsTl{
+  min-height: 400px;
+  .detailsTl_button{
+    position: absolute;
+    bottom: 0;
+    width:100%;
   }
 }
