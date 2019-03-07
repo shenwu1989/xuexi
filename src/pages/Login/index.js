@@ -108,9 +108,9 @@ class Index extends Component {
                 }, loading).then(ret => {
                     let userInfo = {...ret.data, phone};
                     setCookie(userInfo);
-                    userInfo.user_admin  ? this.props.history.push(`/admin/adminitemmanage`) : this.props.history.push(`/admin/myitemmanage`);
-                }).catch((err) => {
-                    console.log(err)
+                    if(ret.code === 0){
+                        userInfo.user_admin  ? this.props.history.push(`/admin/adminitemmanage`) : this.props.history.push(`/admin/myitemmanage`);
+                    }
                 })
             }
 

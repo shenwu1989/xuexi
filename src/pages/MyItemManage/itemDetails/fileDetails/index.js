@@ -64,8 +64,6 @@ class Index extends Component {
                         data={{ doc: 'xx', folder, project, token }}
                         showUploadList={false}
                         onChange={(res) => {
-                            console.log(res)
-
                             //开启上传LOADING
                             this.setState({
                                 showUp: true
@@ -140,7 +138,6 @@ class Index extends Component {
         let key = this.state.selectedRowKeys;
         jrFetchGet(`/ng-lingxi/api/project/internal/doc/delete/${key}`)
             .then(res => {
-                console.log(res);
                 this.dataInfo();
                 this.props.fn('on')
                 message.success('删除成功');
