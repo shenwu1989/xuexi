@@ -81,7 +81,7 @@ class Index extends Component {
                             if (!queryNull(res.file.response) && res.file.response.code === 0) {
                                 message.success(`${res.file.name}上传成功！`, 3)
                                 this.dataInfo();
-                                //this.props.fn('on');
+                                this.props.fn('on');
                             }
                             //上传失败
                             if (!queryNull(res.file.response) && res.file.response.code !== 0) {

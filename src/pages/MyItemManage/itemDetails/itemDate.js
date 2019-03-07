@@ -7,7 +7,8 @@ class ItemDate extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false
+            visible: false,
+            file_name:''
         }
     }
     componentDidMount() {
@@ -23,7 +24,7 @@ class ItemDate extends Component {
                     {
                         Object.keys(folder_map).map((item, index) => {
                             let count,
-                                obj = { folder: item, project: this.props.id };
+                                obj = { folder: item, project: this.props.id ,name:folder_map[item]};
                             list.map(i => {
                                 if(i.folder == item )
                                 count =  i.count;
@@ -33,7 +34,7 @@ class ItemDate extends Component {
                     }
                 </ul>
                 <Drawer
-                    title="Pitchbook文件夹"
+                    title={this.state.file_name}
                     placement="right"
                     width={600}
                     closable={false}
@@ -59,7 +60,8 @@ class ItemDate extends Component {
         if(obj === 'on') return this.dataInfo()
         this.setState({
             visible: !this.state.visible,
-            folder:obj
+            folder:obj,
+            file_name:obj.name
         })
     }
 }
