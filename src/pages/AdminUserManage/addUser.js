@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Form, Button, Row, Col, Select, Input, message} from 'antd';
-import md5 from 'md5';
 import {jrFetchPost, jrFetchGet} from '../../../src/pages/common';
 import styleConfig from '../../config/styleConfig';
 import {getCookie, cookieConfig} from '../Cookie';
@@ -12,7 +11,8 @@ class AddUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            projects_list: []
+            projects_list: [],
+            button_Switch: true
         }
 
     }
@@ -47,7 +47,6 @@ class AddUser extends Component {
         const {getFieldDecorator} = this.props.form;
         const {formItemLayout} = styleConfig;
         const {name = '', phone = '', email = ''} = this.state.dataUser || {};
-        const projects_list = this.state.projects_list;
         const projects_selected = this.state.projects_selected || [];
         const {data = {}} = this.state.projectsData || {};
         return (
@@ -154,7 +153,7 @@ class AddUser extends Component {
                             <Button style={{marginRight: '60px', marginTop: '100px'}} onClick={() => {
                                 this.props.history.goBack();
                             }}>取消</Button>
-                            <Button type={'primary'} onClick={this.handleSubmit}>保存</Button>
+                            <Button type={'primary'} onClick={() => this.state.button_Switch && this.handleSubmit()}>保存</Button>
                         </Col>
                     </Row>
                 </Form>
@@ -164,6 +163,9 @@ class AddUser extends Component {
 
     //提交数据
     handleSubmit = () => {
+        this.setState({
+            button_Switch: false
+        })
         let userInfo = this.props.form.getFieldsValue();
         //let md5Password = md5(888888);
         this.props.form.validateFields(
@@ -175,31 +177,25 @@ class AddUser extends Component {
                         ...userInfo
                     }).then(ret => {
                         console.log(ret)
-                        if (ret.code === 0)
+                        if (ret.code === 0){
                             message.success('操作成功！', 1, onClose => {
                                 this.props.history.goBack();
                             })
-                    }).catch((err) => {
-                        console.log(err)
+                        }else{
+                            this.setState({
+                                button_Switch: true
+                            })
+                        }
+                    })
+                }else{
+                    this.setState({
+                        button_Switch: true
                     })
                 }
             }
         );
     }
 
-    //检测用户名是否重复
-    /*handleBlur = () => {
-        let name = this.props.form.getFieldValue('name');
-        let reg = /^[^\s]*$/;
-        !(!!this.state.id) &&
-        reg.test(name) &&
-        jrFetchGet('/ng-lingxi/api/user/list', {
-            name
-        }).then((ret) => {
-            if (!(ret.data.length === 0))
-                this.props.form.setFields({name: {value: name + '1'}})
-        })
-    }*/
 }
 
 export default Form.create()(AddUser);

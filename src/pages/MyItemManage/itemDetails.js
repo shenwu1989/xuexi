@@ -51,7 +51,7 @@ class ItemDetails extends Component {
                                 }
                             </TabPane>
                             <TabPane tab="资料" key="3">
-                                <ItemDate/>
+                                <ItemDate id={this.state.id}/>
                             </TabPane>
                         </Tabs>
                     </Col>

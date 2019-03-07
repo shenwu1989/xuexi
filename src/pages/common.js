@@ -58,6 +58,7 @@ export function jrFetchGet(jrApi, fetchPrm, loading = true) {
                 default:
                     message.info(ret.message || ret.msg)
             }
+
         }, err => {
             // errorFun
             loading && updateFetchState(false)
@@ -76,7 +77,6 @@ export function jrFetchPost(jrApi, fetchPrm, loading = true) {
     Object.assign(initPrm, fetchPrm)
 
     loading && updateFetchState(true)
-
     return new Promise(resolve => {
         fetchPost(jrApi, initPrm, ret => {
             // successFun
@@ -95,6 +95,7 @@ export function jrFetchPost(jrApi, fetchPrm, loading = true) {
                     break
                 default:
                     message.info(ret.message || ret.msg)
+                    resolve(ret)
             }
         }, err => {
             // errorFun
@@ -349,7 +350,7 @@ export function judgeState(text) {
 //日期转换
 export function dateShift(date, time = true) {
     let oldDate = new Date(date);
-    if(!time){
+    if (!time) {
         oldDate = new Date(oldDate.toUTCString(oldDate.setTime(oldDate.getTime() - (1000 * 60 * 60 * 8))));
     }
     let timeYear = oldDate.getFullYear(),
@@ -411,13 +412,13 @@ export function getPagination(obj) {
     }
 }
 //计算文件大小
-export function fileSize(str){
+export function fileSize(str) {
     let ren = str.toString().length;
-    if(ren <= 3){
-       return str +'B';
-    }else if(ren <= 6){
-        return Math.round(str/1000 )+ 'KB';
-    }else if(ren <=9){
-        return (str/1000/1000).toFixed(1) + 'MB';
+    if (ren <= 3) {
+        return str + 'B';
+    } else if (ren <= 6) {
+        return Math.round(str / 1000) + 'KB';
+    } else if (ren <= 9) {
+        return (str / 1000 / 1000).toFixed(1) + 'MB';
     }
 }

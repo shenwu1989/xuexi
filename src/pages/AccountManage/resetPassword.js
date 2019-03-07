@@ -1,5 +1,5 @@
 import md5 from 'md5';
-import { jrFetchPost, jrFetchGet } from '../common';
+import { jrFetchPost } from '../common';
 import React, { PureComponent } from 'react'
 import { getCookie, cookieConfig } from '../Cookie';
 
@@ -52,7 +52,7 @@ class AccountManage extends PureComponent {
                             label="当前密码"
                         >
                             {
-                                getFieldDecorator("old_pwd", {
+                                getFieldDecorator("pre", {
                                     rules: [
                                         { required: true, message: '请输入当前密码！' },
                                     ],
@@ -68,9 +68,9 @@ class AccountManage extends PureComponent {
                             label="设置新密码"
                         >
                             {
-                                getFieldDecorator("new_pwd_set", {
+                                getFieldDecorator("post", {
                                     rules: [
-                                        { required: true, message: '请输入新密码！' },
+                                        { pattern: /^[\w_-]{6,16}$/, required: true, message: `请输入新密码,6-16位字母数字！` },
                                     ],
                                 })(
                                     <Input
@@ -84,9 +84,9 @@ class AccountManage extends PureComponent {
                             label="确认新密码"
                         >
                             {
-                                getFieldDecorator("new_pwd", {
+                                getFieldDecorator("new_post", {
                                     rules: [
-                                        { required: true, message: '请确认新密码！' },
+                                        { pattern: /^[\w_-]{6,16}$/, required: true, message: '请确认新密码,6-16位字母数字！' },
                                     ],
                                 })(
                                     <Input
@@ -119,17 +119,17 @@ class AccountManage extends PureComponent {
         form.validateFields((err) => {
             if (!err) {
                 const formObj = form.getFieldsValue();
-                if (formObj.new_pwd_set != formObj.new_pwd) {
+                if (formObj.post !== formObj.new_post) {
                     message.warn("两次新密码输入不同！");
                     return;
                 }
-                /*jrFetchPost("/ng-open_platform/api/changePwd", {
-                    new_pwd: md5(formObj.new_pwd + ".mifeng888"),
-                    old_pwd: md5(formObj.old_pwd + ".mifeng888"),
-                }).then((ret) => {
-
-                    message.info("更改成功！");
-                })*/
+                jrFetchPost("/ng-lingxi/api/user/update/password", {
+                    post: md5(formObj.post),
+                    pre: md5(formObj.pre),
+                }).then(ret => {
+                    message.success("更改成功！")
+                    form.resetFields();
+                })
             }
         });
     }

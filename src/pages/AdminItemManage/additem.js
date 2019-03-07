@@ -18,7 +18,7 @@ class Additem extends Component {
         this.state = {
             evolve: false,
             dataInfo: {},
-            login: false
+            button_Switch: true
         }
     }
 
@@ -36,7 +36,7 @@ class Additem extends Component {
 
         })
         //编辑用户获取数据
-        let url = `/ng-lingxi/api/project/internal/view/edit/${id}`
+        let url = `/ng-lingxi/api/project/internal/view/edit/${id}`;
         !!id && jrFetchGet(url).then(ret => {
             this.setState({
                 dataInfo: ret.data,
@@ -281,7 +281,6 @@ class Additem extends Component {
                                                     required: true, message: '必填'
                                                 }
                                             ]
-
                                         })(
                                             <Select mode={"multiple"} allowClear>
                                                 {
@@ -300,7 +299,7 @@ class Additem extends Component {
                                         getFieldDecorator('agency_history', {
                                             initialValue: agency_history
                                         })(
-                                            <TextArea placeholder="请输入历史投资机构" autosize={{ minRows: 2, maxRows: 6 }}/>
+                                            <TextArea placeholder="请输入历史投资机构" autosize={{ minRows: 2, maxRows: 6 }} />
                                         )
                                     }
                                 </FormItem>
@@ -309,7 +308,7 @@ class Additem extends Component {
                                 <FormItem label={'新增进展'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('progress', {})(
-                                            <TextArea placeholder="请输入最新进展情况" autosize={{ minRows: 2, maxRows: 6 }}/>
+                                            <TextArea placeholder="请输入最新进展情况" autosize={{ minRows: 2, maxRows: 6 }} />
                                         )
                                     }
                                 </FormItem>
@@ -328,7 +327,6 @@ class Additem extends Component {
                                                         {this.state.evolve ? '收起' : '更多'}
                                                     </Button>
                                                 </span>
-
                                                 {
                                                     this.state.evolve &&
                                                     <Drawer
@@ -358,7 +356,6 @@ class Additem extends Component {
                                                                             <Col xs={{ ...xs }} sm={{ span: 20 }}
                                                                                 className={'primaryCol'}> <i>{item.progress}</i> </Col>
                                                                         </span>
-
                                                                     </Row>
                                                                 })
                                                             }
@@ -367,7 +364,6 @@ class Additem extends Component {
                                                 }
                                             </span>
                                         }
-
                                     </FormItem>
                                 </Col>
                             }
@@ -382,7 +378,7 @@ class Additem extends Component {
                                 >
                                     取消
                                 </Button>
-                                <Button type={'primary'} onClick={this.handleSubmit}>保存</Button>
+                                <Button type={'primary'} onClick={()=> this.state.button_Switch && this.handleSubmit()}>保存</Button>
                             </Col>
                         </Row>
                     </Form>
@@ -394,6 +390,9 @@ class Additem extends Component {
 
     //提交
     handleSubmit = () => {
+        this.setState({
+            button_Switch: false
+        })
         let userInfo = this.props.form.getFieldsValue();
         userInfo.staffing = userInfo.names;
         queryNull(userInfo.pause_time) ? userInfo.pause_time = '' : (userInfo.pause_time = dateShift(userInfo.pause_time._d));
@@ -406,14 +405,21 @@ class Additem extends Component {
                         jrFetchPost(`/ng-lingxi/api/project/internal/create`, {
                             ...userInfo
                         }).then(ret => {
-                            if (ret.code === 0)
+                            if (ret.code === 0){
                                 message.success('新建成功！', 1, onClose => {
                                     this.props.history.goBack();
                                 })
+                            }else{
+                                this.setState({
+                                    button_Switch: true
+                                })  
+                            }
+                        })
+                    }else{
+                        this.setState({
+                            button_Switch: true
                         })
                     }
-                }).catch((err) => {
-                    console.log(err)
                 })
         } else {//编辑
             userInfo.pid = this.state.id;
@@ -423,17 +429,23 @@ class Additem extends Component {
                         jrFetchPost(`/ng-lingxi//api/project/internal/edit`, {
                             ...userInfo
                         }).then(ret => {
-                            if (ret.code === 0)
+                            if (ret.code === 0){
                                 message.success('编辑成功！', 1, onClose => {
                                     this.props.history.goBack();
                                 })
+                            }else{
+                                this.setState({
+                                    button_Switch: true
+                                })
+                            }
+                        })
+                    }else{
+                        this.setState({
+                            button_Switch: true
                         })
                     }
-                }).catch((err) => {
-                    console.log(err)
                 })
         }
-
     }
     //显示更多
     handleShow = () => {

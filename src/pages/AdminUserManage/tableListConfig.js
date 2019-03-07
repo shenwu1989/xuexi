@@ -164,7 +164,7 @@ class TableListConfig extends Component {
                 columns={columns}
                 pagination={false}
                 rowKey={'id'}
-                bordered
+                // bordered
                 dataSource={this.state.dataSource || []}
             />
         );

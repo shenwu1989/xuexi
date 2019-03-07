@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button, Col, Form, Row, Modal, Drawer, message } from 'antd'
 import { jrFetchGet, fileSize } from '../../../common';
 import AddTl from './addTL';
-
 const confirm = Modal.confirm;
 class DetailsTl extends Component {
     constructor(props) {
@@ -23,8 +22,23 @@ class DetailsTl extends Component {
     }
 
     render() {
-        const { info = {}, attendee_list = {}, state_list = [], attendee_selected = [], feedback = [], updated = [], memo = [], schedule = {} } = this.state.dataInfo || {};
+        const { info = {}, attendee_list = {}, state_list = [], attendee_selected = [], feedback = [], updated = [], memo = [], schedule = {}, tl_record_fields = {} } = this.state.dataInfo || {};
         const { agency, following_up, id, investor, investor_title, project_id, state } = info;
+        let updatedConfig = {};
+        //解构tl_record_fields获取字典
+        Object.keys(tl_record_fields).map(item => {
+            let key = tl_record_fields[item].index,
+                value = tl_record_fields[item].name;
+            updatedConfig[key] = value;
+        })
+        //处理updated
+        let sort_update_arr = updated.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at))
+        let updated_arr = sort_update_arr.map((item, i) => {
+            let find_arr = sort_update_arr.slice(i + 1)
+            let edit_data = find_arr.find(it => it.field === item.field)
+            let res = edit_data && [item, edit_data] || ""
+            return res
+        }).filter(Boolean)
         return (
             <div className={'detailsTl'}>
                 <Row className={'detailsTl_rol'}>
@@ -48,7 +62,6 @@ class DetailsTl extends Component {
                     </Col>
                 </Row>
                 <Row className={'detailsTl_rol'}>
-
                     <Col span={8}>
                         <em>参会人：</em>
                         <p>
@@ -56,9 +69,9 @@ class DetailsTl extends Component {
                                 {
                                     attendee_selected.map((item, index) => {
                                         if (index === attendee_selected.length - 1) {
-                                            return <b key={index}>{attendee_list[item]}</b>
+                                            return <s key={index}>{attendee_list[item]}</s>
                                         }
-                                        return <b key={index}>{attendee_list[item]},</b>
+                                        return <s key={index}>{attendee_list[item]},</s>
                                     })
                                 }
                             </span>
@@ -125,14 +138,24 @@ class DetailsTl extends Component {
                             </p>
                         </div>
                     </Col>
-                    <Col span={this.state.stateValue === 4 ? 18 : 12}>
+                </Row>
+                <Row>
+                    <Col span={this.state.stateValue === 4 ? 18 : 18}>
                         <em>修改记录：</em>
                         <div>
                             <p>
                                 {
-                                    updated.map(
-                                        (item, index) => {
-                                            return <span key={index}>{item.created_at}&nbsp;{item.value}</span>
+                                    updated_arr.map(
+                                        i => {
+                                            return i.map((item, index) => {
+                                                let oldValue = i[1].value;
+                                                return index === 0 && <span key={index}>
+                                                    {item.created_at}&nbsp;
+                                                    <b>{updatedConfig[item.field]}</b> 由
+                                                    <strong>{item.field !== 3 ? oldValue : state_list[oldValue]}</strong> 变更为
+                                                    <strong>{item.field !== 3 ? item.value : state_list[item.value]}</strong>
+                                                </span>
+                                            })
                                         })
                                 }
                             </p>
@@ -162,8 +185,9 @@ class DetailsTl extends Component {
                     closable={false}
                     onClose={this.onClose}
                     visible={this.state.visible}
+                    destroyOnClose={true}
                 >
-                    <AddTl fn={this.handleDrawer} state={this.state} info={this.getDataInfo}/>
+                    <AddTl fn={this.handleDrawer} state={this.state} info={this.getDataInfo} />
                 </Drawer>
                 <Row className='detailsTl_button'>
                     <Col sm={{ span: 14 }} offset={9}>
@@ -176,7 +200,7 @@ class DetailsTl extends Component {
         );
     }
     //初始化信息
-    getDataInfo=()=>{
+    getDataInfo = () => {
         jrFetchGet(`/ng-lingxi/api/project/internal/tl/view/sketch/${this.props.id}`).then(res => {
             this.setState({
                 dataInfo: res.data,
@@ -225,6 +249,7 @@ class DetailsTl extends Component {
             onCancel() { },
         });
     }
+
 }
 
 export default Form.create()(DetailsTl);

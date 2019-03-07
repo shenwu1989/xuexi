@@ -15,7 +15,8 @@ class AddTl extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showUp: false
+            showUp: false,
+            button_Switch: true
         }
     }
 
@@ -37,12 +38,27 @@ class AddTl extends Component {
     render() {
         const { getFieldDecorator } = this.props.form;
         const { formItemLayout, maxCol } = styleConfig;
-        const { attendee_list = {}, state_list = [], attendee_selected = [], info = {}, schedule = {}, feedback = [], updated = [], memo = [] } = this.state.dataInfo || {};
+        const { attendee_list = {}, state_list = [], attendee_selected = [], info = {}, schedule = {}, feedback = [], updated = [], memo = [], tl_record_fields = {} } = this.state.dataInfo || {};
         const { agency = '', investor = '', investor_title = '', state = 0 } = info;
         const { attendee, investor: investor_schedule, location, meeting, remark, time, title } = schedule;
-        const { id } = this.state;
+        const { id, button_Switch } = this.state;
         const token = getCookie(cookieConfig).access_token;
         const tid = this.state.itemId;
+        let updatedConfig = {};
+        //解构tl_record_fields获取字典
+        Object.keys(tl_record_fields).map(item => {
+            let key = tl_record_fields[item].index,
+                value = tl_record_fields[item].name
+            updatedConfig[key] = value;
+        })
+        //处理updated
+        let sort_update_arr = updated.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at))
+        let updated_arr = sort_update_arr.map((item, i) => {
+            let find_arr = sort_update_arr.slice(i + 1)
+            let edit_data = find_arr.find(it => it.field === item.field)
+            let res = edit_data && [item, edit_data] || ""
+            return res
+        }).filter(Boolean)
         return (
             <LocaleProvider locale={zhCN}>
                 <div className={'tlDrawer'}>
@@ -278,15 +294,16 @@ class AddTl extends Component {
                                                                 })
 
                                                                 //是否完成所有文件上传
-                                                                let show = res.fileList.every(item=>{
-                                                                   return item.status !=='uploading' 
+                                                                let show = res.fileList.every(item => {
+                                                                    return item.status !== 'uploading'
                                                                 })
                                                                 show && this.setState({
                                                                     showUp: false
-                                                                  })
+                                                                })
                                                                 if (!queryNull(res.file.response) && res.file.response.code === 0) {
                                                                     message.success(`${res.file.name}上传成功！`, 3)
-                                                                    this.editDataInfo()
+                                                                    this.editDataInfo();
+                                                                    this.props.info();
                                                                 }
                                                                 //上传失败
                                                                 if (!queryNull(res.file.response) && res.file.response.code !== 0) {
@@ -350,14 +367,22 @@ class AddTl extends Component {
                                         </p>
                                     </div>
                                 </Col>
-                                <Col span={12}>
+                                <Col span={24}>
                                     <em>修改记录：</em>
                                     <div>
                                         <p>
                                             {
-                                                updated.map(
-                                                    (item, index) => {
-                                                        return <span key={index}>{item.created_at}&nbsp;{item.value}</span>
+                                                updated_arr.map(
+                                                    i => {
+                                                        return i.map((item, index) => {
+                                                            let oldValue = i[1].value;
+                                                            return index === 0 && <span key={index}>
+                                                                {item.created_at}&nbsp;
+                                                                <b>{updatedConfig[item.field]}</b> 由“
+                                                                <strong>{item.field !== 3 ? oldValue : state_list[oldValue]}</strong> ”变更为“
+                                                                <strong>{item.field !== 3 ? item.value : state_list[item.value]}</strong>”
+                                                            </span>
+                                                        })
                                                     })
                                             }
                                         </p>
@@ -374,7 +399,7 @@ class AddTl extends Component {
                             >
                                 取消
                         </Button>
-                            <Button type={'primary'} onClick={() => this.handleSubmit(id)}>保存</Button>
+                            <Button type={'primary'} onClick={() => button_Switch && this.handleSubmit(id)}>保存</Button>
                         </Col>
                     </Row>
                 </div>
@@ -383,6 +408,9 @@ class AddTl extends Component {
     }
     //保存
     handleSubmit = (id) => {
+        this.setState({
+            button_Switch: false
+        })
         let Values = this.props.form.getFieldsValue();
         delete Values.memo;
         Values['project'] = this.state.itemId;
@@ -398,22 +426,29 @@ class AddTl extends Component {
                             this.handleExit();
                             this.props.info();
                         })
+                    }else{
+                        this.setState({
+                            button_Switch: true
+                        })
                     }
-                }).catch(err => {
-                    message.info(err.message)
                 })
         } else {
             delete Values.project;
             Values['tid'] = this.state.itemId;
             jrFetchPost(`/ng-lingxi/api/project/internal/tl/edit`, {
                 ...Values
-            }).then(res => { 
-                message.success('操作成功！', 1, onClose => {
-                    this.handleExit();
-                    this.props.info();
-                })
+            }).then(res => {
+                if(res.code === 0){
+                    message.success('操作成功！', 1, onClose => {
+                        this.handleExit();
+                        this.props.info();
+                    })
+                }else{
+                    this.setState({
+                        button_Switch: true
+                    })
+                }
             }).catch(err => {
-                console.log(err)
                 message.info(err.message)
             })
         }

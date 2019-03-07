@@ -157,6 +157,7 @@ class ItemTl extends Component {
                     closable={false}
                     onClose={this.onClose}
                     visible={this.state.visible}
+                    destroyOnClose={true}
                 >
                     <AddTl fn={this.handleDrawer} state={this.state} info={this.getItemList} />
                 </Drawer>
@@ -179,7 +180,6 @@ class ItemTl extends Component {
     }
 
     handleDrawer = (i) => {
-        console.log(i)
         this.setState({
             visible: !this.state.visible
         })
@@ -200,5 +200,4 @@ class ItemTl extends Component {
         this.props.fn(data)
     }
 }
-
 export default Form.create()(ItemTl);
