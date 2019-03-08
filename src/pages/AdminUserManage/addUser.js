@@ -176,7 +176,6 @@ class AddUser extends Component {
                     jrFetchPost(`/ng-lingxi/api/user/edit`, {
                         ...userInfo
                     }).then(ret => {
-                        console.log(ret)
                         if (ret.code === 0){
                             message.success('操作成功！', 1, onClose => {
                                 this.props.history.goBack();

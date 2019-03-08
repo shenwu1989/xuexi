@@ -37,7 +37,7 @@ class TableListConfig extends Component {
                 dataIndex: 'name',
                 render: (t, r) => {
                     return (
-                        <Link to={`/admin/itemdetails/?id=${r.id}`}>{t}</Link>
+                        <Link to={`/admin/itemdetails?id=${r.id}`}>{t}</Link>
                     )
                 }
             },

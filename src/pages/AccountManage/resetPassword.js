@@ -1,9 +1,9 @@
 import md5 from 'md5';
 import { jrFetchPost } from '../common';
 import React, { PureComponent } from 'react'
-import { getCookie, cookieConfig } from '../Cookie';
+import { getCookie, cookieConfig, removeCookie } from '../Cookie';
 
-import { Form, Input, Button, message, Row, Col } from 'antd'
+import { Form, Input, Button, message, Row, Col, Modal } from 'antd'
 
 
 const FormItem = Form.Item;
@@ -116,6 +116,7 @@ class AccountManage extends PureComponent {
     //发送请求
     handleSubmit = () => {
         const { form } = this.props;
+        let _this = this;
         form.validateFields((err) => {
             if (!err) {
                 const formObj = form.getFieldsValue();
@@ -127,8 +128,18 @@ class AccountManage extends PureComponent {
                     post: md5(formObj.post),
                     pre: md5(formObj.pre),
                 }).then(ret => {
-                    message.success("更改成功！")
-                    form.resetFields();
+                    if (ret.code === 0) {
+                        Modal.success({
+                            title: '密码修改成功！',
+                            content: '修改成功后需要重新登录',
+                            onOk() {
+                                sessionStorage.clear();
+                                jrFetchPost(`/ng-lingxi/api/user/logout`).then(res => {
+                                    removeCookie(cookieConfig)
+                                })
+                            },
+                        })
+                    }
                 })
             }
         });
@@ -137,6 +148,9 @@ class AccountManage extends PureComponent {
     handleClear = () => {
         const { form } = this.props;
         form.resetFields();
+    }
+    hideModal = () => {
+        console.log(1);
     }
 }
 

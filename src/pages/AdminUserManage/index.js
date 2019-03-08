@@ -92,7 +92,7 @@ class Index extends Component {
                     <Row>
                         <Col span={3} style={{ marginLeft: '10px', marginBottom: '20px' }}>
                             <Button type={'primary'} size={'large'}>
-                                <Link to={'/admin/adduser/?id=0'}>新增用户</Link>
+                                <Link to={'/admin/adduser?id=0'}>新增用户</Link>
                             </Button>
                         </Col>
                     </Row>

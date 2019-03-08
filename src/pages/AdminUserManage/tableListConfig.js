@@ -196,7 +196,7 @@ class TableListConfig extends Component {
     }
     //用户编辑
     handleEdit = (id) => {
-        this.props.history.push(`/admin/adduser/?id=${id}`);
+        this.props.history.push(`/admin/adduser?id=${id}`);
     }
     //停用
     userOff = (id, text) => {

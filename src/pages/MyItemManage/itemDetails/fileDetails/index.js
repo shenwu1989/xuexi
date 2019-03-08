@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Popconfirm, Table, Upload, message, Icon } from 'antd';
+import { Form, Button, Popconfirm, Table, Upload, message, Icon ,Tooltip} from 'antd';
 import { jrFetchGet, fileSize, queryNull, } from '../../../../../src/pages/common';
 import { getCookie, cookieConfig } from '../../../Cookie';
 
@@ -25,7 +25,8 @@ class Index extends Component {
         super(props);
         this.state = {
             selectedRowKeys: [],
-            showUp: false
+            showUp: false,
+            radio_on: false
         }
     }
 
@@ -34,7 +35,7 @@ class Index extends Component {
     }
 
     render() {
-        const { selectedRowKeys, docs = [], objSelect = {} } = this.state;
+        const { selectedRowKeys, docs = [], objSelect = {} ,radio_on} = this.state;
         const token = getCookie(cookieConfig).access_token;
         const rowSelection = {
             selectedRowKeys,
@@ -63,6 +64,13 @@ class Index extends Component {
                         multiple={true}
                         data={{ doc: 'xx', folder, project, token }}
                         showUploadList={false}
+                        beforeUpload={(file)=>{
+                            const isLt2M = file.size / 1024 / 1024 < 20;
+                            if (!isLt2M) {
+                                message.error('上传的文件大小不能超过20MB!');
+                              }
+                              return isLt2M
+                        }}
                         onChange={(res) => {
                             //开启上传LOADING
                             this.setState({
@@ -93,11 +101,20 @@ class Index extends Component {
                             上传
                         </Button>
                     </Upload>
-                    <Button onClick={this.handleLoding}>下载</Button>
-                    <Popconfirm placement="top" title={'确定要删除吗'} onConfirm={this.handleRemove} okText="是" cancelText="否">
-                        <Button type={'danger'}>删除</Button>
-                    </Popconfirm>
-
+                    {
+                            radio_on ? 
+                            <Button onClick={this.handleLoding}>下载</Button> 
+                            :
+                            <Tooltip placement="bottom" title={'请先选择文件'}><Button disabled={true}>下载</Button></Tooltip>
+                    }
+                    {
+                         radio_on ? 
+                         <Popconfirm placement="top" title={'确定要删除吗'} onConfirm={this.handleRemove} okText="是" cancelText="否">
+                            <Button type={'danger'}>删除</Button>
+                        </Popconfirm>
+                        :
+                        <Tooltip placement="bottom" title={'请先选择文件'}><Button type={'danger'} disabled={true}>删除</Button></Tooltip>
+                    }
                 </div>
             </div>
         );
@@ -114,6 +131,9 @@ class Index extends Component {
     }
     //选择事件
     onSelectChange = (selectedRowKeys) => {
+        this.setState({
+            radio_on: true
+        })
         let objSelect;
         for (let item of selectedRowKeys) {
             objSelect = this.state.docs.map(i => {

@@ -35,7 +35,7 @@ class ItemSituation extends Component {
 
     render() {
         const xs = { span: 24 }, sm = { span: 8 };
-        const { info = {}, first_industry, round, phase, state, currency, contract_state, users } = this.state.dataInfo || {};
+        const { info = {}, first_industry = [], round = [], phase = [], state = [], currency, contract_state, users } = this.state.dataInfo || {};
         const {
             name, pause_time, pause_reason, amount, staffing, progress, agency_history, contract_state: info_contract_state, currency: info_currency, first_industry: info_first_industry,
             second_industry, round: info_round, phase: info_phase, establish_time, state: info_state
@@ -48,7 +48,7 @@ class ItemSituation extends Component {
                     </Col>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
                         <p>
-                            <em>一级行业：</em>{first_industry && first_industry[info_first_industry]}
+                            <em>一级行业：</em>{first_industry[info_first_industry]}
                         </p>
                     </Col>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
@@ -57,10 +57,10 @@ class ItemSituation extends Component {
                 </Row>
                 <Row>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
-                        <p><em>轮次：</em>{round && round[info_round]}</p>
+                        <p><em>轮次：</em>{round[info_round]}</p>
                     </Col>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
-                        <p><em>项目阶段：</em>{phase && phase[info_phase]}</p>
+                        <p><em>项目阶段：</em>{phase[info_phase]}</p>
                     </Col>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
                         <p><em>立项时间：</em>{establish_time}</p>
@@ -68,16 +68,16 @@ class ItemSituation extends Component {
                 </Row>
                 <Row>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
-                        <p><em>项目状态：</em>{state && state[info_state]}</p>
+                        <p><em>项目状态：</em>{state[info_state]}</p>
                     </Col>
                     {
                         judgeState(info_state) &&
                         <span>
                             <Col xs={{ ...xs }} sm={{ ...sm }}>
-                                <p><em>{info_state === 2 ? '暂停时间：' : 'colse时间：'}</em>{pause_time}</p>
+                                <p><em>{info_state === 2 ? '暂停时间：' : 'colse时间：'}</em><span>{pause_time}</span></p>
                             </Col>
                             <Col xs={{ ...xs }} sm={{ ...sm }}>
-                                <p><em>{info_state === 2 ? '暂停原因：' : 'colse原因：'}</em>{pause_reason}</p>
+                                <p><em>{info_state === 2 ? '暂停原因：' : 'colse原因：'}</em><span>{pause_reason}</span></p>
                             </Col>
                         </span>
 
@@ -224,8 +224,6 @@ class ItemSituation extends Component {
                             props.goBack()
                         })
 
-                }).catch((err) => {
-                    console.log(err)
                 })
             },
             onCancel() {

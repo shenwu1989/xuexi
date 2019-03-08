@@ -285,6 +285,13 @@ class AddTl extends Component {
                                                             multiple={true}
                                                             data={{ token, tid }}
                                                             showUploadList={false}
+                                                            beforeUpload={(file)=>{
+                                                                const isLt2M = file.size / 1024 / 1024 < 20;
+                                                                if (!isLt2M) {
+                                                                    message.error('上传的文件大小不能超过20MB!');
+                                                                  }
+                                                                  return isLt2M
+                                                            }}
                                                             onChange={(res) => {
                                                                 console.log(res)
 
