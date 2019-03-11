@@ -58,49 +58,51 @@ class Index extends Component {
                 </Form>
                 <div className={'file_button'}>
                     <Button onClick={this.handleExit}>关闭</Button>
-                    <Upload
-                        name='doc'
-                        action='/ng-lingxi/api/project/internal/doc/upload'
-                        multiple={true}
-                        data={{ doc: 'xx', folder, project, token }}
-                        showUploadList={false}
-                        beforeUpload={(file) => {
-                            const isLt2M = file.size / 1024 / 1024 < 20;
-                            if (!isLt2M) {
-                                message.error('上传的文件大小不能超过20MB!');
-                            }
-                            return isLt2M
-                        }}
-                        onChange={(res) => {
-                            //开启上传LOADING
-                            this.setState({
-                                showUp: true
-                            })
+                    {
+                        folder !== '8' && <Upload
+                            name='doc'
+                            action='/ng-lingxi/api/project/internal/doc/upload'
+                            multiple={true}
+                            data={{ folder, project, token }}
+                            showUploadList={false}
+                            beforeUpload={(file) => {
+                                const isLt2M = file.size / 1024 / 1024 < 20;
+                                if (!isLt2M) {
+                                    message.error('上传的文件大小不能超过20MB!');
+                                }
+                                return isLt2M
+                            }}
+                            onChange={(res) => {
+                                //开启上传LOADING
+                                this.setState({
+                                    showUp: true
+                                })
 
-                            //是否完成所有文件上传
-                            let show = res.fileList.every(item => {
-                                return item.status !== 'uploading'
-                            })
-                            show && this.setState({
-                                showUp: false
-                            })
-                            if (!queryNull(res.file.response) && res.file.response.code === 0) {
-                                message.success(`${res.file.name}上传成功！`, 3)
-                                this.dataInfo();
-                                this.props.fn('on');
-                            }
-                            //上传失败
-                            if (!queryNull(res.file.response) && res.file.response.code !== 0) {
-                                message.info(`上传失败！`)
-                            }
-                        }}
-                    >
+                                //是否完成所有文件上传
+                                let show = res.fileList.every(item => {
+                                    return item.status !== 'uploading'
+                                })
+                                show && this.setState({
+                                    showUp: false
+                                })
+                                if (!queryNull(res.file.response) && res.file.response.code === 0) {
+                                    message.success(`${res.file.name}上传成功！`, 3)
+                                    this.dataInfo();
+                                    this.props.fn('on');
+                                }
+                                //上传失败
+                                if (!queryNull(res.file.response) && res.file.response.code !== 0) {
+                                    message.info(`上传失败！`)
+                                }
+                            }}
+                        >
 
-                        <Button>
-                            <Icon type={this.state.showUp ? 'loading' : 'upload'} />
-                            上传
+                            <Button>
+                                <Icon type={this.state.showUp ? 'loading' : 'upload'} />
+                                上传
                         </Button>
-                    </Upload>
+                        </Upload>
+                    }
                     {
                         radio_on ?
                             <Button onClick={this.handleDownLoad}>下载</Button>
@@ -151,17 +153,27 @@ class Index extends Component {
     //下载
     handleDownLoad = () => {
         let url = this.state.objSelect[0].url;
-        window.open(`${url}`,`download`, `_blank`);
+        window.open(`${url}`, `download`, `_blank`);
     }
     //删除
     handleRemove = () => {
+        const { folder } = this.props.folder;
         let key = this.state.selectedRowKeys;
-        jrFetchGet(`/ng-lingxi/api/project/internal/doc/delete/${key}`)
+        if (folder === '8') {
+            jrFetchGet(`/ng-lingxi/api/project/internal/tl/delete_memo/${key}`)
             .then(res => {
                 this.dataInfo();
                 this.props.fn('on')
                 message.success('删除成功');
             })
+        } else {
+            jrFetchGet(`/ng-lingxi/api/project/internal/doc/delete/${key}`)
+                .then(res => {
+                    this.dataInfo();
+                    this.props.fn('on')
+                    message.success('删除成功');
+                })
+        }
     }
 }
 

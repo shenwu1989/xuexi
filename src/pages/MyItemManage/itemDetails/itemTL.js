@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Col, Form, Row, Progress, Input, Select, Button, Drawer } from 'antd'
-import { jrFetchGet } from '../../../../src/pages/common';
+import { Col, Form, Row, Progress, Input, Select, Button, Drawer, Pagination } from 'antd'
+import { jrFetchGet, getVule, seekList } from '../../../../src/pages/common';
 import styleConfig from '../../../config/styleConfig';
 import AddTl from './itemTL/addTL'
 import TableListConfig from './tableListConfig';
@@ -26,7 +26,7 @@ class ItemTl extends Component {
     render() {
         const { getFieldDecorator } = this.props.form;
         const { minCol } = styleConfig;
-        const { tl_state = [], users = {}, state_statistics = {} } = this.state || {};
+        const { tl_state = [], users = {}, state_statistics = {}, tls = [] } = this.state || {};
         const { all, followed, met, pushed, tomeet } = state_statistics;
         const xs = { span: 24 }, sm = { span: 6 };
         return (
@@ -149,6 +149,17 @@ class ItemTl extends Component {
                 </Form>
                 <Row style={{ marginTop: '20px' }}>
                     <TableListConfig fn={this.handleShow} dataInfo={this.state} />
+                    <Pagination
+                        className={'pagination'}
+                        size="small"
+                        defaultPageSize={10}
+                        pageSizeOptions={['10', '20', '30']}
+                        total={this.state.pageLen}
+                        showSizeChanger
+                        showQuickJumper
+                        onChange={(v, i) => getVule.call(this, v, i, tls)}
+                        onShowSizeChange={(v, i) => getVule.call(this, v, i, tls)}
+                    />
                 </Row>
                 <Drawer
                     title="新增事件"
@@ -170,11 +181,12 @@ class ItemTl extends Component {
             project: this.props.id
         }).then(ret => {
             const { tl_state, tls, users, state_statistics } = ret.data;
+            seekList.call(this, tls, 10);
             this.setState({
                 tl_state,
                 tls,
                 users,
-                state_statistics
+                state_statistics,
             })
         })
     }
@@ -189,13 +201,14 @@ class ItemTl extends Component {
         let itemInfo = this.props.form.getFieldsValue();
         itemInfo.project = this.props.id;
         Object.keys(itemInfo).map(key => {
-            if(key === 'state'){
-                itemInfo[key] = itemInfo[key] === undefined ? 0 : itemInfo[key] 
+            if (key === 'state') {
+                itemInfo[key] = itemInfo[key] === undefined ? 0 : itemInfo[key]
             }
         })
         jrFetchGet(`/ng-lingxi/api/project/internal/tl/list`, {
             ...itemInfo
         }).then(ret => {
+            seekList.call(this, ret.data.tls, 10);
             this.setState({
                 tls: ret.data.tls
             })

@@ -388,7 +388,7 @@ export function getPagination(obj) {
         let { page, pageSize, dataList, sort = '' } = obj;
         let pageLen = dataList.length;
         switch (sort) {
-            case 'date':
+            case 'date'://日期排序
                 dataList.sort((a, b) => {
                     let { establish_time: a_establish_time } = a;
                     let { establish_time: b_establish_time } = b;
@@ -410,6 +410,24 @@ export function getPagination(obj) {
         let newObj = { pageLen, dataSource: ary };
         return newObj
     }
+}
+//分页切换事件,请传入原列表数据不要传入已被处理的列表
+export function getVule(page, pageSize, dataList = [], sort = '') {
+    let obj = { pageSize, page, dataList, sort };
+    let { pageLen, dataSource } = getPagination(obj);
+    this.setState({
+        dataSource,
+        pageLen
+    })
+}
+//处理传入列表数据处理,默认起始显示条数
+export function seekList(dataList,pageSize) {
+    let obj = { pageSize, page: 1, dataList};
+    let { pageLen, dataSource } = getPagination(obj);
+    this.setState({
+        dataSource,
+        pageLen
+    })
 }
 //计算文件大小
 export function fileSize(str) {

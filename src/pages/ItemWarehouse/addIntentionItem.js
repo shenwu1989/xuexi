@@ -179,6 +179,7 @@ class AddIntentionItem extends Component {
         })
         let form = this.props.form;
         let valuse = form.getFieldsValue();
+        //处理默认值
         Object.keys(valuse).map(key => {
             if (key === 'first_industry') {
                 valuse[key] = valuse[key] === undefined ? 0 : valuse[key]

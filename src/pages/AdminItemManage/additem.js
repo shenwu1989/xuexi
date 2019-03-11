@@ -29,22 +29,13 @@ class Additem extends Component {
         this.setState({
             id
         })
-        //新增用户获取数据
-        !id && jrFetchGet('/ng-lingxi/api/project/internal/view/create').then((ret) => {
+        const getUrl = !!id ? `/ng-lingxi/api/project/internal/view/edit/${id}` : '/ng-lingxi/api/project/internal/view/create'
+        //新增/编辑用户获取数据
+       jrFetchGet(getUrl).then((ret) => {
             ret.data && this.setState({
                 dataInfo: ret.data
             })
-
         })
-        //编辑用户获取数据
-        let url = `/ng-lingxi/api/project/internal/view/edit/${id}`;
-        !!id && jrFetchGet(url).then(ret => {
-            this.setState({
-                dataInfo: ret.data,
-                stateValue: ret.data.info.state
-            })
-        })
-
     }
 
     render() {

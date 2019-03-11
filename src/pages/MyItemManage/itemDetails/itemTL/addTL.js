@@ -39,7 +39,7 @@ class AddTl extends Component {
         const { getFieldDecorator } = this.props.form;
         const { formItemLayout, maxCol } = styleConfig;
         const { attendee_list = {}, state_list = [], attendee_selected = [], info = {}, schedule = {}, feedback = [], updated = [], memo = [], tl_record_fields = {} } = this.state.dataInfo || {};
-        const { agency = '', investor = '', investor_title = '', state = 0 } = info;
+        const { agency = '', investor = '', investor_title = '', state, following_up = '' } = info;
         const { attendee, investor: investor_schedule, location, meeting, remark, time, title } = schedule;
         const { id, button_Switch } = this.state;
         const token = getCookie(cookieConfig).access_token;
@@ -261,7 +261,7 @@ class AddTl extends Component {
                                 <FormItem label={'下一步跟进'} {...maxCol}>
                                     {
                                         getFieldDecorator('following_up', {
-                                            //initialValue:,
+                                            initialValue: following_up,
                                         })(
                                             <TextArea autosize={{ minRows: 2, maxRows: 6 }} />
                                         )
@@ -285,12 +285,12 @@ class AddTl extends Component {
                                                             multiple={true}
                                                             data={{ token, tid }}
                                                             showUploadList={false}
-                                                            beforeUpload={(file)=>{
+                                                            beforeUpload={(file) => {
                                                                 const isLt2M = file.size / 1024 / 1024 < 20;
                                                                 if (!isLt2M) {
                                                                     message.error('上传的文件大小不能超过20MB!');
-                                                                  }
-                                                                  return isLt2M
+                                                                }
+                                                                return isLt2M
                                                             }}
                                                             onChange={(res) => {
                                                                 console.log(res)
@@ -421,6 +421,11 @@ class AddTl extends Component {
         let Values = this.props.form.getFieldsValue();
         delete Values.memo;
         Values['project'] = this.state.itemId;
+        Object.keys(Values).map(key => {
+            if (key === 'state') {
+                Values[key] = Values[key] === undefined ? 0 : Values[key]
+            }
+        })
         queryNull(Values.schedule_time) ? Values.schedule_time = '' : Values.schedule_time = dateShift(Values.schedule_time._d, false)
         if (!id) {
             jrFetchPost(`/ng-lingxi/api/project/internal/tl/create`,
@@ -433,7 +438,7 @@ class AddTl extends Component {
                             this.handleExit();
                             this.props.info();
                         })
-                    }else{
+                    } else {
                         this.setState({
                             button_Switch: true
                         })
@@ -445,12 +450,12 @@ class AddTl extends Component {
             jrFetchPost(`/ng-lingxi/api/project/internal/tl/edit`, {
                 ...Values
             }).then(res => {
-                if(res.code === 0){
+                if (res.code === 0) {
                     message.success('操作成功！', 1, onClose => {
                         this.handleExit();
                         this.props.info();
                     })
-                }else{
+                } else {
                     this.setState({
                         button_Switch: true
                     })
