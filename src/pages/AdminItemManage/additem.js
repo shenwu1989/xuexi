@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Form, Button, DatePicker, Row, Col, Select, Input, LocaleProvider, message, Drawer } from 'antd'
+import { Form, Button, DatePicker, Row, Col, Select, Input,  message, Drawer } from 'antd'
 import { jrFetchPost, jrFetchGet, equalNull, queryNull, judgeState, dateShift } from '../../../src/pages/common';
 import styleConfig from '../../config/styleConfig';
-import zhCN from "antd/lib/locale-provider/zh_CN";
 import moment from 'moment';
 import './additem.less';
 
@@ -50,14 +49,17 @@ class Additem extends Component {
         const { getFieldDecorator } = this.props.form;
         const { formItemLayout, formItemStyle, maxStyle } = styleConfig;
         const xs = { span: 24 }, sm = { span: 8 };
-        const { contract_state, currency, first_industry, info, names = this.state.dataInfo.users, phase, round, state } = this.state.dataInfo;
+        const { contract_state, currency, first_industry, info, names = this.state.dataInfo.users, phase, round, state, admin = '' } = this.state.dataInfo;
         const {
-            name, pause_reason, amount, staffing, progress, agency_history, second_industry, establish_time, pause_time, currency: info_currency = 1,
+            name, pause_reason, amount, staffing = [], progress, agency_history, second_industry, establish_time, pause_time, currency: info_currency = 1,
             state: info_state = 0, phase: info_phase = 0, round: info_round = 0, first_industry: infofirst_industry = 0, contract_state: info_contract_state = 0
         } = info || {};
         let { stateValue } = this.state;
+        let ban;//判断哪个staffing是创建的用户并禁止删除
+        Object.keys(staffing).forEach(i => {
+            if(staffing[i] === 1 )  ban = i
+        })
         return (
-            <LocaleProvider locale={zhCN}>
                 <div className={'additem '}>
                     <Row>
                         <Col span={22} offset={1}>
@@ -275,19 +277,21 @@ class Additem extends Component {
                                 <FormItem label={'staffing'} {...formItemLayout}>
                                     {
                                         getFieldDecorator('names', {
-                                            initialValue: staffing && staffing.map(item => item.toString()),
+                                            initialValue: !this.state.id ? admin.toString() : Object.keys(staffing),
                                             rules: [
                                                 {
                                                     required: true, message: '必填'
                                                 }
                                             ]
                                         })(
-                                            <Select mode={"multiple"} allowClear>
+                                            <Select
+                                                mode={"multiple"}
+                                            >
                                                 {
                                                     names && Object.keys(names).map((item, index) => {
-                                                        return <Option key={index} value={item}>{names[item]}</Option>
-                                                    })
-                                                }
+                                                        return <Option key={index} value={item} disabled={+item === admin || item === ban}>{names[item]}</Option>
+                                                })
+                                            }
                                             </Select>
                                         )
                                     }
@@ -378,12 +382,11 @@ class Additem extends Component {
                                 >
                                     取消
                                 </Button>
-                                <Button type={'primary'} onClick={()=> this.state.button_Switch && this.handleSubmit()}>保存</Button>
+                                <Button type={'primary'} onClick={() => this.state.button_Switch && this.handleSubmit()}>保存</Button>
                             </Col>
                         </Row>
                     </Form>
                 </div>
-            </LocaleProvider>
         );
     }
 
@@ -405,17 +408,17 @@ class Additem extends Component {
                         jrFetchPost(`/ng-lingxi/api/project/internal/create`, {
                             ...userInfo
                         }).then(ret => {
-                            if (ret.code === 0){
+                            if (ret.code === 0) {
                                 message.success('新建成功！', 1, onClose => {
                                     this.props.history.goBack();
                                 })
-                            }else{
+                            } else {
                                 this.setState({
                                     button_Switch: true
-                                })  
+                                })
                             }
                         })
-                    }else{
+                    } else {
                         this.setState({
                             button_Switch: true
                         })
@@ -429,17 +432,17 @@ class Additem extends Component {
                         jrFetchPost(`/ng-lingxi//api/project/internal/edit`, {
                             ...userInfo
                         }).then(ret => {
-                            if (ret.code === 0){
+                            if (ret.code === 0) {
                                 message.success('编辑成功！', 1, onClose => {
                                     this.props.history.goBack();
                                 })
-                            }else{
+                            } else {
                                 this.setState({
                                     button_Switch: true
                                 })
                             }
                         })
-                    }else{
+                    } else {
                         this.setState({
                             button_Switch: true
                         })

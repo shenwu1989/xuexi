@@ -1,6 +1,6 @@
 import { fetchGet, fetchPost, fetchPostFile } from '../components/frFetch'
 import moment from 'moment'
-import { CODE_SUCCESS, CODE_UNLOGIN, CODE_LOGIN, CODE_PHONE, CODE_INVALID } from './consts'
+import { CODE_SUCCESS, CODE_UNLOGIN, CODE_INVALID } from './consts'
 import React from 'react'
 import { SpinLogin } from '../admin'
 import message from 'antd/lib/message';
@@ -421,4 +421,9 @@ export function fileSize(str) {
     } else if (ren <= 9) {
         return (str / 1000 / 1000).toFixed(1) + 'MB';
     }
+}
+//
+export function qk() {
+    const { form } = this.props;
+    form.resetFields();
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Popconfirm, Table, Upload, message, Icon ,Tooltip} from 'antd';
+import { Form, Button, Popconfirm, Table, Upload, message, Icon, Tooltip } from 'antd';
 import { jrFetchGet, fileSize, queryNull, } from '../../../../../src/pages/common';
 import { getCookie, cookieConfig } from '../../../Cookie';
 
@@ -35,7 +35,7 @@ class Index extends Component {
     }
 
     render() {
-        const { selectedRowKeys, docs = [], objSelect = {} ,radio_on} = this.state;
+        const { selectedRowKeys, docs = [], radio_on } = this.state;
         const token = getCookie(cookieConfig).access_token;
         const rowSelection = {
             selectedRowKeys,
@@ -64,12 +64,12 @@ class Index extends Component {
                         multiple={true}
                         data={{ doc: 'xx', folder, project, token }}
                         showUploadList={false}
-                        beforeUpload={(file)=>{
+                        beforeUpload={(file) => {
                             const isLt2M = file.size / 1024 / 1024 < 20;
                             if (!isLt2M) {
                                 message.error('上传的文件大小不能超过20MB!');
-                              }
-                              return isLt2M
+                            }
+                            return isLt2M
                         }}
                         onChange={(res) => {
                             //开启上传LOADING
@@ -102,18 +102,18 @@ class Index extends Component {
                         </Button>
                     </Upload>
                     {
-                            radio_on ? 
-                            <Button onClick={this.handleLoding}>下载</Button> 
+                        radio_on ?
+                            <Button onClick={this.handleLoding}>下载</Button>
                             :
                             <Tooltip placement="bottom" title={'请先选择文件'}><Button disabled={true}>下载</Button></Tooltip>
                     }
                     {
-                         radio_on ? 
-                         <Popconfirm placement="top" title={'确定要删除吗'} onConfirm={this.handleRemove} okText="是" cancelText="否">
-                            <Button type={'danger'}>删除</Button>
-                        </Popconfirm>
-                        :
-                        <Tooltip placement="bottom" title={'请先选择文件'}><Button type={'danger'} disabled={true}>删除</Button></Tooltip>
+                        radio_on ?
+                            <Popconfirm placement="top" title={'确定要删除吗'} onConfirm={this.handleRemove} okText="是" cancelText="否">
+                                <Button type={'danger'}>删除</Button>
+                            </Popconfirm>
+                            :
+                            <Tooltip placement="bottom" title={'请先选择文件'}><Button type={'danger'} disabled={true}>删除</Button></Tooltip>
                     }
                 </div>
             </div>

@@ -15,7 +15,7 @@ class TableListConfig extends Component {
         this.getItemList()
     }
 
-    componentWillReceiveProps(nextProps, nextContext) {
+    componentWillReceiveProps(nextProps) {
         nextProps.data && this.setState({
             dataInfo: nextProps.data
         })
@@ -24,9 +24,11 @@ class TableListConfig extends Component {
         const {
             first_industry,
             phase,
-            projects,
+            projects = [],
             following_state = []
         } = this.state.dataInfo || {};
+        projects.forEach((a, i) => a.keyId = i )
+
         //项目列表
         const columns = [
             {
@@ -35,7 +37,7 @@ class TableListConfig extends Component {
                 width: 30,
                 dataIndex: 'id',
                 render(r, t, i) {
-                    return i
+                    return i + 1
                 }
             },
             {
@@ -101,8 +103,8 @@ class TableListConfig extends Component {
             <Table
                 columns={columns}
                 pagination={false}
-                rowKey={'name'}
-                dataSource={projects || []}
+                rowKey={'keyId'}
+                dataSource={projects}
             />
         )
     }

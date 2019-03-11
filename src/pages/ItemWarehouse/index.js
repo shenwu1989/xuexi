@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Button, Row, Col, Select, Input, Table } from 'antd'
-import { jrFetchPost, jrFetchGet } from '../../../src/pages/common';
+import { Form, Button, Row, Col, Select, Input, } from 'antd'
+import { jrFetchGet } from '../../../src/pages/common';
 import styleConfig from '../../config/styleConfig';
 import { Link } from "react-router-dom";
 import TableListConfig from './tableListConfig';
@@ -32,7 +32,7 @@ class Index extends Component {
                             <FormItem label={'项目名称'} {...formItemLayout}>
                                 {
                                     getFieldDecorator('name', {})(
-                                        <Input placeholder="请输入项目名称" allowClear/>
+                                        <Input placeholder="请输入项目名称" allowClear />
                                     )
                                 }
                             </FormItem>
@@ -59,7 +59,7 @@ class Index extends Component {
                                 {
                                     getFieldDecorator('second_industry', {
                                     })(
-                                        <Input placeholder="请输入二级行业" allowClear/>
+                                        <Input placeholder="请输入二级行业" allowClear />
                                     )
                                 }
                             </FormItem>
@@ -72,9 +72,9 @@ class Index extends Component {
                                     getFieldDecorator('staffing', {})(
                                         <Select placeholder={'请选择轮次'} mode={"multiple"}>
                                             {
-                                               Object.keys(users).map((item,index)=>{
-                                                   return <Option key={index} value={item}>{users[item]}</Option>
-                                               })
+                                                Object.keys(users).map((item, index) => {
+                                                    return <Option key={index} value={item}>{users[item]}</Option>
+                                                })
                                             }
                                         </Select>
                                     )
@@ -130,7 +130,7 @@ class Index extends Component {
                     </Col>
                 </Row>
                 <Row style={{ marginTop: '20px' }}>
-                    <TableListConfig fn={this.getChildrenData} data={this.state.dataInfo}/>
+                    <TableListConfig fn={this.getChildrenData} data={this.state.dataInfo} />
                 </Row>
             </div>
         );
@@ -144,11 +144,11 @@ class Index extends Component {
     //搜索
     handleSeek = () => {
         let itemInfo = this.props.form.getFieldsValue();
-        jrFetchGet(`/ng-lingxi/api/project/external/list`,{
+        jrFetchGet(`/ng-lingxi/api/project/external/list`, {
             ...itemInfo
         }).then(res => {
             this.setState({
-                dataInfo:res.data
+                dataInfo: res.data
             })
         })
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Form, Row, Progress, Input, Select, Button, Table, Drawer } from 'antd'
+import { Col, Form, Row, Progress, Input, Select, Button,  Drawer } from 'antd'
 import { jrFetchGet } from '../../../../src/pages/common';
 import styleConfig from '../../../config/styleConfig';
 import AddTl from './itemTL/addTL'

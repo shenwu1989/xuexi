@@ -143,13 +143,6 @@ class TableListConfig extends Component {
                 align: 'center',
                 dataIndex: 'establish_time',
                 defaultSortOrder: 'descend',
-                /*sorter: (a, b) => {
-                    let {establish_time: a_establish_time} = a;
-                    let {establish_time: b_establish_time} = b;
-                    a_establish_time === null ? a_establish_time = 0 : a_establish_time = a_establish_time.toString().replace(/-/g, '');
-                    b_establish_time === null ? b_establish_time = 0 : b_establish_time = b_establish_time.toString().replace(/-/g, '');
-                    return a_establish_time - b_establish_time
-                },*/
             }
         ]
         return (

@@ -70,11 +70,11 @@ class AccountManage extends PureComponent {
                             {
                                 getFieldDecorator("post", {
                                     rules: [
-                                        { pattern: /^[\w_-]{6,16}$/, required: true, message: `请输入新密码,6-16位字母数字！` },
+                                        { pattern: /^[\w_-]{6,10}$/, required: true, message: `请输入新密码,6~10位数字、字母、字母数字组合，字母区分大小写！` },
                                     ],
                                 })(
                                     <Input
-                                        placeholder="请输入6-16位新密码"
+                                        placeholder="请输入6-10位新密码"
                                     />
                                 )
                             }
@@ -86,11 +86,11 @@ class AccountManage extends PureComponent {
                             {
                                 getFieldDecorator("new_post", {
                                     rules: [
-                                        { pattern: /^[\w_-]{6,16}$/, required: true, message: '请确认新密码,6-16位字母数字！' },
+                                        { pattern: /^[\w_-]{6,10}$/, required: true, message: '请确认新密码,6~10位数字、字母、字母数字组合，字母区分大小写！' },
                                     ],
                                 })(
                                     <Input
-                                        placeholder="请输入新密码"
+                                        placeholder="请再次输入新密码"
                                     />
                                 )
                             }
@@ -116,7 +116,6 @@ class AccountManage extends PureComponent {
     //发送请求
     handleSubmit = () => {
         const { form } = this.props;
-        let _this = this;
         form.validateFields((err) => {
             if (!err) {
                 const formObj = form.getFieldsValue();

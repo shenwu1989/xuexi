@@ -103,7 +103,7 @@ class ItemSituation extends Component {
                             <em>staffing：</em>
                             <strong>
                                 {
-                                    users && Object.values(staffing).map(i => {
+                                    users && Object.keys(staffing).map(i => {
                                         if (users.hasOwnProperty(i)) {
                                             return users[i].toString()
                                         }

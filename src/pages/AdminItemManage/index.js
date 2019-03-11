@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Form, Button, Row, Col, Select, Input, DatePicker, LocaleProvider, Pagination } from 'antd'
+import { Form, Button, Row, Col, Select, Input, DatePicker,  Pagination } from 'antd'
 import { jrFetchGet, dateShift, queryNull, getPagination } from '../../../src/pages/common';
 import styleConfig from '../../config/styleConfig';
 import { NavLink } from 'react-router-dom'
 import { cookieConfig, getCookie } from "../Cookie";
 import TableListConfig from './tableListConfig'
-import zhCN from "antd/lib/locale-provider/zh_CN";
 import message from "antd/lib/message";
 
 const FormItem = Form.Item;
@@ -31,7 +30,6 @@ class Index extends Component {
         const xs = { span: 24 }, sm = { span: 8 };
         const { phase = [], users = {}, state = [], round = [], first_industry = [] } = this.state.dataList || {};
         return (
-            <LocaleProvider locale={zhCN}>
                 <div>
                     <Row>
                         <Col span={22} offset={1}>
@@ -203,7 +201,6 @@ class Index extends Component {
                         />
                     </Row>
                 </div>
-            </LocaleProvider>
         );
     }
 

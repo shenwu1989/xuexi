@@ -119,17 +119,20 @@ class TableListConfig extends Component {
                                 !is_active && <Popconfirm title="确定要删除吗？" onConfirm={
                                     () => this.handleDelete(record.id, config['1'])
                                 } okText="是" cancelText="否">
-                                    <a href="#" style={{color:'red'}}>删除</a>
+                                    <a href="#" style={{ color: 'red' }}>删除</a>
                                 </Popconfirm>
                             }
                             &nbsp;&nbsp;
-                            <Popconfirm title="确定要编辑吗？" onConfirm={
-                                () => this.handleEdit(record.id, config['2'])
+                            {
+                                !!is_active && <Popconfirm title="确定要编辑吗？" onConfirm={
+                                    () => this.handleEdit(record.id, config['2'])
+                                }
+                                    okText="是"
+                                    cancelText="否">
+                                    <a>编辑</a>
+                                </Popconfirm>
                             }
-                                okText="是"
-                                cancelText="否">
-                                <a>编辑</a>
-                            </Popconfirm>
+
                             &nbsp;&nbsp;
                             {
                                 !!is_active ? <Popconfirm title="确定要停用吗？" onConfirm={
@@ -146,13 +149,16 @@ class TableListConfig extends Component {
                                         <a href="#">启用</a>
                                     </Popconfirm>
                             }&nbsp;&nbsp;
-                            <Popconfirm title="确定要重置密码吗？" onConfirm={
-                                () => this.userReset(record.id, config['4'])
+                            {
+                               !!is_active && <Popconfirm title="确定要重置密码吗？" onConfirm={
+                                    () => this.userReset(record.id, config['4'])
+                                }
+                                    okText="是"
+                                    cancelText="否">
+                                    <a href="#">重置密码</a>
+                                </Popconfirm>
                             }
-                                okText="是"
-                                cancelText="否">
-                                <a href="#">重置密码</a>
-                            </Popconfirm>
+
                         </span>
 
                     )

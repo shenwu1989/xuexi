@@ -97,7 +97,7 @@ class AddIntentionItem extends Component {
                             <FormItem label={'录入人'} {...formItemLayout}>
                                 {
                                     getFieldDecorator('staffing', {
-                                        initialValue: !queryNull(info.staffing) && info.staffing.map(item => item.toString()) || undefined,
+                                        initialValue: !queryNull(info.staffing) ? info.staffing.map(item => item.toString()) : undefined,
                                         rules: [
                                             {
                                                 required: true, message: '必填'

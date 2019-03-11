@@ -26,10 +26,11 @@ class ItemDate extends Component {
                             let count,
                                 obj = { folder: item, project: this.props.id ,name:folder_map[item]};
                             list.map(i => {
-                                if(i.folder == item )
+                                if(i.folder === Number(item) )
                                 count =  i.count;
+                                return null;
                             })
-                            return <li key={index}><a onClick={() => this.handleDrawer(obj)}>{folder_map[item]}</a><i>{count || 0}</i></li>
+                            return <li key={index} ><a onClick={() => this.handleDrawer(obj)}>{folder_map[item]}</a><i>{count || 0}</i></li>
                         })
                     }
                 </ul>

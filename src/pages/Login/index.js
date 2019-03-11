@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Form, Input, Icon, Checkbox, Tooltip, Row, Col} from 'antd';
+import {Button, Form, Input, Icon, Tooltip, Row, Col} from 'antd';
 import {jrFetchPost} from "../common";
 import {cookieConfig, setCookie, checkCookie, getCookie} from '../Cookie';
 import md5 from 'md5';
