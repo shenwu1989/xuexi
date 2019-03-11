@@ -101,8 +101,8 @@ class Index extends Component {
                         <Pagination
                             className={'pagination'}
                             size="small"
-                            defaultPageSize={5}
-                            pageSizeOptions={['5', '10', '15']}
+                            defaultPageSize={10}
+                            pageSizeOptions={['10', '20', '30']}
                             total={this.state.pageLen}
                             showSizeChanger
                             showQuickJumper
@@ -130,7 +130,7 @@ class Index extends Component {
                 if(!Array.isArray(projects)){
                   projects =  Object.values(projects)
                 }
-                let obj = {pageSize: 5, page: 1, dataList: projects};
+                let obj = {pageSize: 10, page: 1, dataList: projects};
                 let {pageLen, dataSource} = getPagination(obj);
                 this.setState({
                     dataSource,

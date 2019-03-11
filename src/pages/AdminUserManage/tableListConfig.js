@@ -16,7 +16,7 @@ class TableListConfig extends Component {
         this.getUserList()
     }
 
-    componentWillReceiveProps(nextProps, nextContext) {
+    componentWillReceiveProps(nextProps) {
         let dataSource = nextProps.dataSource;
         if (dataSource.constructor === Object) {
             dataSource = Object.values(nextProps.dataSource)
@@ -180,7 +180,7 @@ class TableListConfig extends Component {
     getUserList = () => {
         jrFetchGet('/ng-lingxi/api/user/list', {}).then((ret) => {
             const projects = ret.data;
-            let obj = { pageSize: 5, page: 1, dataList: projects };
+            let obj = { pageSize: 10, page: 1, dataList: projects };
             let { pageLen, dataSource } = getPagination(obj);
             this.props.fn(projects, pageLen)
             this.setState({

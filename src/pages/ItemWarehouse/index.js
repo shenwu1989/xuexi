@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Button, Row, Col, Select, Input, } from 'antd'
-import { jrFetchGet } from '../../../src/pages/common';
+import { Form, Button, Row, Col, Select, Input, Pagination, message } from 'antd'
+import { jrFetchGet, getPagination } from '../../../src/pages/common';
 import styleConfig from '../../config/styleConfig';
 import { Link } from "react-router-dom";
 import TableListConfig from './tableListConfig';
@@ -131,14 +131,26 @@ class Index extends Component {
                 </Row>
                 <Row style={{ marginTop: '20px' }}>
                     <TableListConfig fn={this.getChildrenData} data={this.state.dataInfo} />
+                    <Pagination
+                        className={'pagination'}
+                        size="small"
+                        defaultPageSize={10}
+                        pageSizeOptions={['10', '20', '30']}
+                        total={this.state.pageLen}
+                        showSizeChanger
+                        showQuickJumper
+                        onChange={(v, i) => this.getVule(v, i)}
+                        onShowSizeChange={(v, i) => this.getVule(v, i)}
+                    />
                 </Row>
             </div>
         );
     }
     //获取子级数据
-    getChildrenData = (data) => {
+    getChildrenData = (data, pageLen) => {
         this.setState({
-            dataInfo: data
+            dataInfo: data,
+            pageLen
         })
     }
     //搜索
@@ -147,12 +159,32 @@ class Index extends Component {
         jrFetchGet(`/ng-lingxi/api/project/external/list`, {
             ...itemInfo
         }).then(res => {
-            this.setState({
-                dataInfo: res.data
-            })
+            if (res.data.projects.length === 0) {
+                message.info('项目不存在，请确认关键字正确后重新搜索！')
+            } else {
+                const dataInfo = res.data;
+                dataInfo.projects.map((a,b) => a.sortId = b+1)
+                let obj = { pageSize: 10, page: 1, dataList:dataInfo.projects };
+                let { pageLen, dataSource } = getPagination(obj);
+                dataInfo.infoList = dataSource;
+                this.setState({
+                    dataInfo,
+                    pageLen
+                })
+            }
         })
     }
-
+    //分页
+    getVule = (page, pageSize) => {
+        let obj = { pageSize, page, dataList: this.state.dataInfo.projects };
+        let { pageLen, dataSource } = getPagination(obj);
+        let dataInfo = this.state.dataInfo;
+        dataInfo.infoList = dataSource;
+        this.setState({
+            dataInfo,
+            pageLen
+        })
+    }
 }
 
 export default Form.create()(Index);

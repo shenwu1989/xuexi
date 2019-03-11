@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button, DatePicker, Row, Col, Select, Input,  message, Drawer } from 'antd'
 import { jrFetchPost, jrFetchGet, equalNull, queryNull, judgeState, dateShift } from '../../../src/pages/common';
 import styleConfig from '../../config/styleConfig';
+import 'moment/locale/zh-cn';
 import moment from 'moment';
 import './additem.less';
 
@@ -225,12 +226,18 @@ class Additem extends Component {
                                             {
                                                 getFieldDecorator('amount', {
                                                     initialValue: equalNull(amount) ? '' : amount.toString(),
+                                                    rules: [
+                                                        {
+                                                            pattern: /^\d/g, message: '不能输入负数'
+                                                        }
+                                                    ]
                                                 })(
                                                     <Input
                                                         placeholder="请输入额度"
                                                         type={'Number'}
                                                         style={{ width: '45%' }}
                                                         allowClear
+                                                        className={'input_right'}
                                                     />
                                                 )
                                             }

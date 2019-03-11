@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { Form, Table } from 'antd'
-import { jrFetchGet } from '../common';
+import { jrFetchGet ,getPagination} from '../common';
 import { NavLink } from 'react-router-dom';
 
 class TableListConfig extends Component {
@@ -24,10 +24,10 @@ class TableListConfig extends Component {
         const {
             first_industry,
             phase,
-            projects = [],
+            infoList = [],
             following_state = []
         } = this.state.dataInfo || {};
-        projects.forEach((a, i) => a.keyId = i )
+        infoList.forEach((a, i) => a.keyId = i )
 
         //项目列表
         const columns = [
@@ -35,10 +35,7 @@ class TableListConfig extends Component {
                 title: 'ID',
                 align: 'center',
                 width: 30,
-                dataIndex: 'id',
-                render(r, t, i) {
-                    return i + 1
-                }
+                dataIndex: 'sortId',
             },
             {
                 title: '项目名称',
@@ -104,17 +101,22 @@ class TableListConfig extends Component {
                 columns={columns}
                 pagination={false}
                 rowKey={'keyId'}
-                dataSource={projects}
+                dataSource={infoList}
             />
         )
     }
     //数据初始
     getItemList = () => {
         jrFetchGet(`/ng-lingxi/api/project/external/list`).then(res => {
+            const dataInfo = res.data;
+            dataInfo.projects.map((a,b) => a.sortId = b+1);
+            let obj = { pageSize: 10, page: 1, dataList:dataInfo.projects };
+            let { pageLen, dataSource } = getPagination(obj);
+            dataInfo.infoList = dataSource;
+            this.props.fn(dataInfo, pageLen);
             this.setState({
-                dataInfo: res.data
+                dataInfo
             })
-            this.props.fn(res.data)
         })
     }
 }

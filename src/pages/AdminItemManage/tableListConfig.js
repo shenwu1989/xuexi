@@ -160,7 +160,7 @@ class TableListConfig extends Component {
     getItemList = () => {
         jrFetchGet(`/ng-lingxi/api/project/internal/list`).then(ret => {
             const projects = ret.data.projects;
-            let obj = { pageSize: 5, page: 1, dataList: projects, sort: 'date' };
+            let obj = { pageSize: 10, page: 1, dataList: projects, sort: 'date' };
             let { pageLen, dataSource } = getPagination(obj);
             this.props.fn(ret.data, pageLen)
             this.setState({
