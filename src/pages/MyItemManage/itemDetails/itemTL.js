@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Form, Row, Progress, Input, Select, Button,  Drawer } from 'antd'
+import { Col, Form, Row, Progress, Input, Select, Button, Drawer } from 'antd'
 import { jrFetchGet } from '../../../../src/pages/common';
 import styleConfig from '../../../config/styleConfig';
 import AddTl from './itemTL/addTL'
@@ -124,7 +124,7 @@ class ItemTl extends Component {
                             <FormItem label={'事件状态'} {...minCol}>
                                 {
                                     getFieldDecorator('state', {
-                                        initialValue: 0,
+                                        //initialValue: 0,
                                     })(
                                         <Select placeholder={'请选择事件状态'}>
                                             {
@@ -188,6 +188,11 @@ class ItemTl extends Component {
     handleSeek = () => {
         let itemInfo = this.props.form.getFieldsValue();
         itemInfo.project = this.props.id;
+        Object.keys(itemInfo).map(key => {
+            if(key === 'state'){
+                itemInfo[key] = itemInfo[key] === undefined ? 0 : itemInfo[key] 
+            }
+        })
         jrFetchGet(`/ng-lingxi/api/project/internal/tl/list`, {
             ...itemInfo
         }).then(ret => {

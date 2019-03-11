@@ -64,7 +64,7 @@ class AddIntentionItem extends Component {
                             <FormItem label={'一级行业'} {...formItemLayout}>
                                 {
                                     getFieldDecorator('first_industry', {
-                                        initialValue: info.first_industry || 0,
+                                        initialValue: info.first_industry,
                                     })(
                                         <Select>
                                             {
@@ -179,8 +179,13 @@ class AddIntentionItem extends Component {
         })
         let form = this.props.form;
         let valuse = form.getFieldsValue();
+        Object.keys(valuse).map(key => {
+            if (key === 'first_industry') {
+                valuse[key] = valuse[key] === undefined ? 0 : valuse[key]
+            }
+        })
         let id = this.state.id;
-        if(!!id) valuse.pid = id;
+        if (!!id) valuse.pid = id;
         form.validateFields((err) => {
             if (!err) {
                 jrFetchPost(url, {

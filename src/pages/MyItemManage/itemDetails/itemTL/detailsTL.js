@@ -23,14 +23,14 @@ class DetailsTl extends Component {
 
     render() {
         const { info = {}, attendee_list = {}, state_list = [], attendee_selected = [], feedback = [], updated = [], memo = [], schedule = {}, tl_record_fields = {} } = this.state.dataInfo || {};
-        const { agency, following_up, investor, investor_title,  state } = info;
+        const { agency, following_up, investor, investor_title, state } = info;
         let updatedConfig = {};
         //解构tl_record_fields获取字典
         Object.keys(tl_record_fields).map(item => {
             let key = tl_record_fields[item].index,
                 value = tl_record_fields[item].name;
-                updatedConfig[key] = value;
-                return null;
+            updatedConfig[key] = value;
+            return null;
         })
         //处理updated
         let sort_update_arr = updated.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at))
@@ -170,7 +170,7 @@ class DetailsTl extends Component {
                             {
                                 memo.map(item => {
                                     return <span key={item.id}>
-                                        <a href={item.url} target='_blank'>
+                                        <a href={item.url} download target='_blank'>
                                             {item.name}({fileSize(item.size)})
                                         </a>
                                     </span>

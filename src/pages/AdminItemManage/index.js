@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Row, Col, Select, Input, DatePicker,  Pagination } from 'antd'
+import { Form, Button, Row, Col, Select, Input, DatePicker, Pagination } from 'antd'
 import { jrFetchGet, dateShift, queryNull, getPagination } from '../../../src/pages/common';
 import styleConfig from '../../config/styleConfig';
 import { NavLink } from 'react-router-dom'
@@ -30,177 +30,177 @@ class Index extends Component {
         const xs = { span: 24 }, sm = { span: 8 };
         const { phase = [], users = {}, state = [], round = [], first_industry = [] } = this.state.dataList || {};
         return (
-                <div>
+            <div>
+                <Row>
+                    <Col span={22} offset={1}>
+                        <h1 className={'title'}>{this.state.user_admin ? '项目管理' : '我的项目'}</h1>
+                    </Col>
+                </Row>
+                <Form>
                     <Row>
-                        <Col span={22} offset={1}>
-                            <h1 className={'title'}>{this.state.user_admin ? '项目管理' : '我的项目'}</h1>
+                        <Col xs={{ ...xs }} sm={{ ...sm }}>
+                            <FormItem label={'项目名称'} {...formItemLayout}>
+                                {
+                                    getFieldDecorator('name', {})(
+                                        <Input placeholder="请输入项目名称" />
+                                    )
+                                }
+                            </FormItem>
+                        </Col>
+                        <Col xs={{ ...xs }} sm={{ ...sm }}>
+                            <FormItem label={'一级行业'} {...formItemLayout}>
+                                {
+                                    getFieldDecorator('first_industry', {
+                                        // initialValue: 0,
+                                    })(
+                                        <Select placeholder={'请选择一级行业'}>
+                                            {
+                                                first_industry.map((item, index) => {
+                                                    return <Option key={index} value={index}>{item}</Option>
+                                                })
+                                            }
+                                        </Select>
+                                    )
+                                }
+                            </FormItem>
+                        </Col>
+                        <Col xs={{ ...xs }} sm={{ ...sm }}>
+                            <FormItem label={'二级行业'} {...formItemLayout}>
+                                {
+                                    getFieldDecorator('second_industry', {})(
+                                        <Input placeholder="请输入二级行业" />
+                                    )
+                                }
+                            </FormItem>
                         </Col>
                     </Row>
-                    <Form>
-                        <Row>
-                            <Col xs={{ ...xs }} sm={{ ...sm }}>
-                                <FormItem label={'项目名称'} {...formItemLayout}>
-                                    {
-                                        getFieldDecorator('name', {})(
-                                            <Input placeholder="请输入项目名称" />
-                                        )
-                                    }
-                                </FormItem>
-                            </Col>
-                            <Col xs={{ ...xs }} sm={{ ...sm }}>
-                                <FormItem label={'一级行业'} {...formItemLayout}>
-                                    {
-                                        getFieldDecorator('first_industry', {
-                                            initialValue: 0,
-                                        })(
-                                            <Select placeholder={'请选择一级行业'}>
-                                                {
-                                                    first_industry.map((item, index) => {
-                                                        return <Option key={index} value={index}>{item}</Option>
-                                                    })
-                                                }
-                                            </Select>
-                                        )
-                                    }
-                                </FormItem>
-                            </Col>
-                            <Col xs={{ ...xs }} sm={{ ...sm }}>
-                                <FormItem label={'二级行业'} {...formItemLayout}>
-                                    {
-                                        getFieldDecorator('second_industry', {})(
-                                            <Input placeholder="请输入二级行业" />
-                                        )
-                                    }
-                                </FormItem>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col xs={{ ...xs }} sm={{ ...sm }}>
-                                <FormItem label={'轮次'} {...formItemLayout}>
-                                    {
-                                        getFieldDecorator('round', {
-                                            initialValue: 0,
-                                        })(
-                                            <Select placeholder={'请选择轮次'}>
-                                                {
-                                                    round.map((item, index) => {
-                                                        return <Option key={index} value={index}>{item}</Option>
-                                                    })
-                                                }
-                                            </Select>
-                                        )
-                                    }
-                                </FormItem>
-                            </Col>
-                            <Col xs={{ ...xs }} sm={{ ...sm }}>
-                                <FormItem label={'项目阶段'} {...formItemLayout}>
-                                    {
-                                        getFieldDecorator('phase', {
-                                            initialValue: 0,
-                                        })(
-                                            <Select placeholder={'请选择准备阶段'}>
-                                                {
-                                                    phase.map((item, index) => {
-                                                        return <Option key={index} value={index}>{item}</Option>
-                                                    })
-                                                }
-                                            </Select>
-                                        )
-                                    }
-                                </FormItem>
-                            </Col>
-                            <Col xs={{ ...xs }} sm={{ ...sm }}>
-                                <FormItem label={'项目状态'} {...formItemLayout}>
-                                    {
-                                        getFieldDecorator('state', {
-                                            initialValue: 0,
-                                        })(
-                                            <Select placeholder={'请选择项目状态'}>
-                                                {
-                                                    state.map((item, index) => {
-                                                        return <Option key={index} value={index}>{item}</Option>
-                                                    })
-                                                }
-                                            </Select>
-                                        )
-                                    }
-                                </FormItem>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col xs={{ ...xs }} sm={{ ...sm }}>
-                                <FormItem label={'staffing'} {...formItemLayout}>
-                                    {
-                                        getFieldDecorator('staffing', {})(
-                                            <Select mode="multiple" placeholder={'请选择项目人员'}>
-                                                {
-                                                    Object.keys(users).map((item, index) => {
-                                                        return <Option key={index} value={item}>{users[item]}</Option>
-                                                    })
-                                                }
-                                            </Select>
-                                        )
-                                    }
-                                </FormItem>
-                            </Col>
-                            <Col xs={{ ...xs }} sm={{ span: 13 }}>
-                                <FormItem label={'立项时间'} {...minStyle}>
-                                    {
-                                        <span>
+                    <Row>
+                        <Col xs={{ ...xs }} sm={{ ...sm }}>
+                            <FormItem label={'轮次'} {...formItemLayout}>
+                                {
+                                    getFieldDecorator('round', {
+                                        // initialValue: 0,
+                                    })(
+                                        <Select placeholder={'请选择轮次'}>
                                             {
-                                                getFieldDecorator('start_time', {})(
-                                                    <DatePicker style={{ width: '42%' }}
-                                                        placeholder="开始时间"
-                                                    />
-                                                )
+                                                round.map((item, index) => {
+                                                    return <Option key={index} value={index}>{item}</Option>
+                                                })
                                             }
-                                            &nbsp;一&nbsp;
+                                        </Select>
+                                    )
+                                }
+                            </FormItem>
+                        </Col>
+                        <Col xs={{ ...xs }} sm={{ ...sm }}>
+                            <FormItem label={'项目阶段'} {...formItemLayout}>
+                                {
+                                    getFieldDecorator('phase', {
+                                        // initialValue: 0,
+                                    })(
+                                        <Select placeholder={'请选择准备阶段'}>
                                             {
-                                                getFieldDecorator('end_time', {})(
-                                                    <DatePicker style={{ width: '42%' }}
-                                                        placeholder="结束时间"
-                                                    />
-                                                )
+                                                phase.map((item, index) => {
+                                                    return <Option key={index} value={index}>{item}</Option>
+                                                })
                                             }
-                                        </span>
-                                    }
+                                        </Select>
+                                    )
+                                }
+                            </FormItem>
+                        </Col>
+                        <Col xs={{ ...xs }} sm={{ ...sm }}>
+                            <FormItem label={'项目状态'} {...formItemLayout}>
+                                {
+                                    getFieldDecorator('state', {
+                                        // initialValue: 0,
+                                    })(
+                                        <Select placeholder={'请选择项目状态'}>
+                                            {
+                                                state.map((item, index) => {
+                                                    return <Option key={index} value={index}>{item}</Option>
+                                                })
+                                            }
+                                        </Select>
+                                    )
+                                }
+                            </FormItem>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={{ ...xs }} sm={{ ...sm }}>
+                            <FormItem label={'staffing'} {...formItemLayout}>
+                                {
+                                    getFieldDecorator('staffing', {})(
+                                        <Select mode="multiple" placeholder={'请选择项目人员'}>
+                                            {
+                                                Object.keys(users).map((item, index) => {
+                                                    return <Option key={index} value={item}>{users[item]}</Option>
+                                                })
+                                            }
+                                        </Select>
+                                    )
+                                }
+                            </FormItem>
+                        </Col>
+                        <Col xs={{ ...xs }} sm={{ span: 13 }}>
+                            <FormItem label={'立项时间'} {...minStyle}>
+                                {
+                                    <span>
+                                        {
+                                            getFieldDecorator('start_time', {})(
+                                                <DatePicker style={{ width: '42%' }}
+                                                    placeholder="开始时间"
+                                                />
+                                            )
+                                        }
+                                        &nbsp;一&nbsp;
+                                            {
+                                            getFieldDecorator('end_time', {})(
+                                                <DatePicker style={{ width: '42%' }}
+                                                    placeholder="结束时间"
+                                                />
+                                            )
+                                        }
+                                    </span>
+                                }
 
-                                </FormItem>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col offset={19}>
-                                <Button type={"primary"} size={"large"} onClick={this.handleSeek}>搜索</Button>
-                                &nbsp;
-                                &nbsp;
-                                <Button size={"large"} onClick={this.handleClear}>重置</Button>
-                            </Col>
-                        </Row>
-                    </Form>
-                    <Row>
-                        <Col offset={1}>
-                            {
-                                this.state.user_admin && <Button type={"primary"} size={"large"}>
-                                    <NavLink to={'/admin/additem?id=0'}>新建项目</NavLink>
-                                </Button>
-                            }
+                            </FormItem>
                         </Col>
                     </Row>
-                    <Row style={{ marginTop: '20px' }}>
-                        <TableListConfig dataSource={this.state.dataSource} fn={this.dataList} />
-                        <Pagination
-                            className={'pagination'}
-                            size="small"
-                            defaultPageSize={10}
-                            pageSizeOptions={['10', '20', '30']}
-                            total={this.state.pageLen}
-                            showSizeChanger
-                            showQuickJumper
-                            onChange={(v, i) => this.getVule(v, i)}
-                            onShowSizeChange={(v, i) => this.getVule(v, i)}
-                        />
+                    <Row>
+                        <Col offset={19}>
+                            <Button type={"primary"} size={"large"} onClick={this.handleSeek}>搜索</Button>
+                            &nbsp;
+                            &nbsp;
+                                <Button size={"large"} onClick={this.handleClear}>重置</Button>
+                        </Col>
                     </Row>
-                </div>
+                </Form>
+                <Row>
+                    <Col offset={1}>
+                        {
+                            this.state.user_admin && <Button type={"primary"} size={"large"}>
+                                <NavLink to={'/admin/additem?id=0'}>新建项目</NavLink>
+                            </Button>
+                        }
+                    </Col>
+                </Row>
+                <Row style={{ marginTop: '20px' }}>
+                    <TableListConfig dataSource={this.state.dataSource} fn={this.dataList} />
+                    <Pagination
+                        className={'pagination'}
+                        size="small"
+                        defaultPageSize={10}
+                        pageSizeOptions={['10', '20', '30']}
+                        total={this.state.pageLen}
+                        showSizeChanger
+                        showQuickJumper
+                        onChange={(v, i) => this.getVule(v, i)}
+                        onShowSizeChange={(v, i) => this.getVule(v, i)}
+                    />
+                </Row>
+            </div>
         );
     }
 
@@ -209,6 +209,11 @@ class Index extends Component {
         let itemInfo = this.props.form.getFieldsValue();
         queryNull(itemInfo.start_time) ? itemInfo.start_time = '' : (itemInfo.start_time = dateShift(itemInfo.start_time._d));
         queryNull(itemInfo.end_time) ? itemInfo.end_time = '' : (itemInfo.end_time = dateShift(itemInfo.end_time._d));
+        Object.keys(itemInfo).map(key => {
+            if (key === 'first_industry' || key === 'round' || key === 'phase' || key === 'state') {
+                itemInfo[key] = itemInfo[key] === undefined ? 0 : itemInfo[key]
+            }
+        })
         jrFetchGet('/ng-lingxi/api/project/internal/list', {
             ...itemInfo
         }).then((ret) => {

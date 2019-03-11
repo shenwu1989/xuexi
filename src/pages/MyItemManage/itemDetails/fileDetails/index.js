@@ -103,7 +103,7 @@ class Index extends Component {
                     </Upload>
                     {
                         radio_on ?
-                            <Button onClick={this.handleLoding}>下载</Button>
+                            <Button onClick={this.handleDownLoad}>下载</Button>
                             :
                             <Tooltip placement="bottom" title={'请先选择文件'}><Button disabled={true}>下载</Button></Tooltip>
                     }
@@ -149,9 +149,9 @@ class Index extends Component {
         this.props.fn('off')
     }
     //下载
-    handleLoding = () => {
+    handleDownLoad = () => {
         let url = this.state.objSelect[0].url;
-        window.open(`${url}`, `_blank`);
+        window.open(`${url}`,`download`, `_blank`);
     }
     //删除
     handleRemove = () => {

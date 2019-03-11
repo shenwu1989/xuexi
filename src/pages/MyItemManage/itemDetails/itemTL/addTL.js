@@ -483,7 +483,10 @@ class AddTl extends Component {
     //删除
     handleDelete = (id) => {
         jrFetchGet(`/ng-lingxi/api/project/internal/tl/delete_memo/${id}`).then(res => {
-            message.success('删除成功！', 1, onClose => this.editDataInfo())
+            message.success('删除成功！', 1, onClose => {
+                this.editDataInfo();
+                this.props.info();
+            })
         }).catch(err => {
             message.info(err.message)
         })
