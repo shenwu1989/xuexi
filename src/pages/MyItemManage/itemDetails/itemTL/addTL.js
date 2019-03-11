@@ -261,7 +261,7 @@ class AddTl extends Component {
                                 <FormItem label={'下一步跟进'} {...maxCol}>
                                     {
                                         getFieldDecorator('following_up', {
-                                            initialValue: following_up,
+                                            initialValue: following_up === null ? '' : following_up,
                                         })(
                                             <TextArea autosize={{ minRows: 2, maxRows: 6 }} />
                                         )
@@ -293,8 +293,6 @@ class AddTl extends Component {
                                                                 return isLt2M
                                                             }}
                                                             onChange={(res) => {
-                                                                console.log(res)
-
                                                                 //开启上传LOADING
                                                                 this.setState({
                                                                     showUp: true

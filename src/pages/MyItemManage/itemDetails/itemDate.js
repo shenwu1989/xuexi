@@ -8,13 +8,12 @@ class ItemDate extends Component {
         super(props);
         this.state = {
             visible: false,
-            file_name:''
+            file_name: ''
         }
     }
     componentDidMount() {
-       this.dataInfo()
+        this.dataInfo()
     }
-
     render() {
         const { folder_map = {}, list = [] } = this.state.dataInfo || {};
         return (
@@ -24,10 +23,10 @@ class ItemDate extends Component {
                     {
                         Object.keys(folder_map).map((item, index) => {
                             let count,
-                                obj = { folder: item, project: this.props.id ,name:folder_map[item]};
+                                obj = { folder: item, project: this.props.id, name: folder_map[item] };
                             list.map(i => {
-                                if(i.folder === Number(item) )
-                                count =  i.count;
+                                if (i.folder === Number(item))
+                                    count = i.count;
                                 return null;
                             })
                             return <li key={index} ><a onClick={() => this.handleDrawer(obj)}>{folder_map[item]}</a><i>{count || 0}</i></li>
@@ -42,14 +41,14 @@ class ItemDate extends Component {
                     onClose={this.onClose}
                     visible={this.state.visible}
                     destroyOnClose={true}
-                >   
-                    <File fn={this.handleDrawer} folder={this.state.folder}/>
+                >
+                    <File fn={this.handleDrawer} folder={this.state.folder} />
                 </Drawer>
             </div>
         );
     }
     //数据初始
-    dataInfo =()=>{
+    dataInfo = () => {
         jrFetchGet(`/ng-lingxi/api/project/internal/doc/folder_list/${this.props.id}`).then(res => {
             this.setState({
                 dataInfo: res.data
@@ -58,11 +57,11 @@ class ItemDate extends Component {
     }
     //弹窗显示设置传递props
     handleDrawer = (obj) => {
-        if(obj === 'on') return this.dataInfo()
+        if (obj === 'on') return this.dataInfo()
         this.setState({
             visible: !this.state.visible,
-            folder:obj,
-            file_name:obj.name
+            folder: obj,
+            file_name: obj.name
         })
     }
 }

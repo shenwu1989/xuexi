@@ -98,12 +98,6 @@ class AddIntentionItem extends Component {
                                 {
                                     getFieldDecorator('staffing', {
                                         initialValue: !queryNull(info.staffing) ? info.staffing.map(item => item.toString()) : undefined,
-                                        rules: [
-                                            {
-                                                required: true, message: '必填'
-                                            }
-                                        ]
-
                                     })(
                                         <Select mode={"multiple"}>
                                             {
