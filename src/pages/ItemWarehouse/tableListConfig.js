@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { Form, Table } from 'antd'
-import { jrFetchGet ,getPagination} from '../common';
+import { jrFetchGet, getPagination } from '../common';
 import { NavLink } from 'react-router-dom';
 
 class TableListConfig extends Component {
@@ -27,6 +27,8 @@ class TableListConfig extends Component {
             infoList = [],
             following_state = []
         } = this.state.dataInfo || {};
+        
+        JSON.stringify(infoList) !== '[]' && console.log(infoList,'渲染后');
         //项目列表
         const columns = [
             {
@@ -107,11 +109,13 @@ class TableListConfig extends Component {
     getItemList = () => {
         jrFetchGet(`/ng-lingxi/api/project/external/list`).then(res => {
             const dataInfo = res.data;
-            dataInfo.projects.map((a,b) => a.id = b+1);
-            let obj = { pageSize: 10, page: 1, dataList:dataInfo.projects };
+            dataInfo.projects.map((a, b) => a.id = b + 1);
+            console.log(dataInfo.projects, '添加ID后');
+            let obj = { pageSize: 10, page: 1, dataList: dataInfo.projects };
             let { pageLen, dataSource } = getPagination(obj);
             dataInfo.infoList = dataSource;
             this.props.fn(dataInfo, pageLen);
+            console.log(dataInfo, '第一次处理分页');
             this.setState({
                 dataInfo
             })
