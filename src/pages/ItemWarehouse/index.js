@@ -168,7 +168,7 @@ class Index extends Component {
                 message.info('项目不存在，请确认关键字正确后重新搜索！')
             } else {
                 const dataInfo = res.data;
-                dataInfo.projects.map((a, b) => a.sortId = b + 1)
+                dataInfo.projects.map((a, b) => a.id = b + 1)
                 let obj = { pageSize: 10, page: 1, dataList: dataInfo.projects };
                 let { pageLen, dataSource } = getPagination(obj);
                 dataInfo.infoList = dataSource;

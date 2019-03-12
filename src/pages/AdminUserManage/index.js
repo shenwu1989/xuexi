@@ -32,7 +32,6 @@ class Index extends Component {
         const { getFieldDecorator } = this.props.form;
         const { formItemLayout } = styleConfig;
         const { data: listData = {} } = this.state.listData || {};
-        console.log(this.state);
         return (
             <div>
                 <Row>
