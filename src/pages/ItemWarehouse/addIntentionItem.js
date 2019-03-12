@@ -84,7 +84,7 @@ class AddIntentionItem extends Component {
                                     getFieldDecorator('second_industry', {
                                         initialValue: info.second_industry || "",
                                     })(
-                                        <Input placeholder="请输入项目名称" allowClear />
+                                        <Input placeholder="请输入二级行业" allowClear />
                                     )
                                 }
                             </FormItem>

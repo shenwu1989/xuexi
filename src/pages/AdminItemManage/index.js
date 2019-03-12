@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button, Row, Col, Select, Input, DatePicker, Pagination } from 'antd'
-import { jrFetchGet, dateShift, queryNull, getPagination } from '../../../src/pages/common';
+import { jrFetchGet, dateShift, queryNull, getVule, seekList } from '../../../src/pages/common';
 import styleConfig from '../../config/styleConfig';
 import { NavLink } from 'react-router-dom'
 import { cookieConfig, getCookie } from "../Cookie";
@@ -28,7 +28,7 @@ class Index extends Component {
         const { getFieldDecorator } = this.props.form;
         const { formItemLayout, minStyle } = styleConfig;
         const xs = { span: 24 }, sm = { span: 8 };
-        const { phase = [], users = {}, state = [], round = [], first_industry = [] } = this.state.dataList || {};
+        const { phase = [], users = {}, state = [], round = [], first_industry = [], projects = [] } = this.state.dataList || {};
         return (
             <div>
                 <Row>
@@ -196,8 +196,8 @@ class Index extends Component {
                         total={this.state.pageLen}
                         showSizeChanger
                         showQuickJumper
-                        onChange={(v, i) => this.getVule(v, i)}
-                        onShowSizeChange={(v, i) => this.getVule(v, i)}
+                        onChange={(v, i) => getVule.call(this, v, i, projects, 'date')}
+                        onShowSizeChange={(v, i) => getVule.call(this, v, i, projects, 'date')}
                     />
                 </Row>
             </div>
@@ -224,12 +224,9 @@ class Index extends Component {
                 if (!Array.isArray(projects)) {
                     projects = Object.values(projects)
                 }
-                let obj = { pageSize: 10, page: 1, dataList: projects, sort: 'date' };
-                let { pageLen, dataSource } = getPagination(obj);
+                seekList.call(this, ret.data.projects, 10, 'date')
                 this.setState({
-                    dataList: ret.data,
-                    dataSource,
-                    pageLen
+                    dataList: ret.data
                 })
             }
         })
@@ -243,15 +240,6 @@ class Index extends Component {
     dataList = (data, pageLen) => {
         this.setState({
             dataList: data,
-            pageLen
-        })
-    }
-    //分页
-    getVule = (page, pageSize) => {
-        let obj = { pageSize, page, dataList: this.state.dataList.projects, sort: 'date' };
-        let { pageLen, dataSource } = getPagination(obj);
-        this.setState({
-            dataSource,
             pageLen
         })
     }

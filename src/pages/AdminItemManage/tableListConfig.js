@@ -162,7 +162,7 @@ class TableListConfig extends Component {
             const projects = ret.data.projects;
             let obj = { pageSize: 10, page: 1, dataList: projects, sort: 'date' };
             let { pageLen, dataSource } = getPagination(obj);
-            this.props.fn(ret.data, pageLen)
+            this.props.fn(ret.data, pageLen);
             this.setState({
                 dataSource,
                 dataInfo: ret.data

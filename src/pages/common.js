@@ -388,12 +388,12 @@ export function getPagination(obj) {
         let { page, pageSize, dataList, sort = '' } = obj;
         let pageLen = dataList.length;
         switch (sort) {
-            case 'date'://日期排序
+            case 'date'://日期排序日期为空以ID做比较
                 dataList.sort((a, b) => {
                     let { establish_time: a_establish_time } = a;
                     let { establish_time: b_establish_time } = b;
-                    a_establish_time === null ? a_establish_time = 0 : a_establish_time = a_establish_time.toString().replace(/-/g, '');
-                    b_establish_time === null ? b_establish_time = 0 : b_establish_time = b_establish_time.toString().replace(/-/g, '');
+                    a_establish_time === null ? a_establish_time = a.id : a_establish_time = a_establish_time.toString().replace(/-/g, '');
+                    b_establish_time === null ? b_establish_time = b.id : b_establish_time = b_establish_time.toString().replace(/-/g, '');
                     return a_establish_time - b_establish_time
                 }).reverse();
                 break;
@@ -421,8 +421,8 @@ export function getVule(page, pageSize, dataList = [], sort = '') {
     })
 }
 //处理传入列表数据处理,默认起始显示条数
-export function seekList(dataList,pageSize) {
-    let obj = { pageSize, page: 1, dataList};
+export function seekList(dataList, pageSize = 10, sort = '') {
+    let obj = { pageSize, page: 1, dataList, sort};
     let { pageLen, dataSource } = getPagination(obj);
     this.setState({
         dataSource,

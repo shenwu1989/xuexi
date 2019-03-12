@@ -46,8 +46,8 @@ class ItemDetails extends Component {
                             </TabPane>
                             <TabPane tab="TL" key="2">
                                 {
-                                    this.state.showTl ? this.state.activeKey === '2' ? <DetailsTl fn={this.handleShow} id={this.state.idTl} /> : <div></div>
-                                        : <ItemTl fn={this.handleShow} id={this.state.id} />
+                                    this.state.showTl ? this.state.activeKey === '2' ? <DetailsTl fn={this.handleShow} id={this.state.idTl} /> : <div></div> 
+                                    :<ItemTl fn={this.handleShow} id={this.state.id} />
                                 }
                             </TabPane>
                             {
@@ -55,6 +55,7 @@ class ItemDetails extends Component {
                                     <ItemDate id={this.state.id} infoSon={this.state.infoSon} />
                                 </TabPane> : <TabPane tab="资料" key="3" ></TabPane>
                             }
+
                         </Tabs>
                     </Col>
                 </Row>

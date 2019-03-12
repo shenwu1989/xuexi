@@ -191,7 +191,7 @@ class ItemTl extends Component {
         })
     }
 
-    handleDrawer = (i) => {
+    handleDrawer = () => {
         this.setState({
             visible: !this.state.visible
         })

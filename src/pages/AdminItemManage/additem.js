@@ -31,7 +31,7 @@ class Additem extends Component {
         })
         const getUrl = !!id ? `/ng-lingxi/api/project/internal/view/edit/${id}` : '/ng-lingxi/api/project/internal/view/create'
         //新增/编辑用户获取数据
-       jrFetchGet(getUrl).then((ret) => {
+        jrFetchGet(getUrl).then((ret) => {
             ret.data && this.setState({
                 dataInfo: ret.data
             })
@@ -45,7 +45,7 @@ class Additem extends Component {
         const { contract_state, currency, first_industry, info, names = this.state.dataInfo.users, phase, round, state, admin = '' } = this.state.dataInfo;
         const {
             name, pause_reason, amount, staffing = [], progress, agency_history, second_industry, establish_time, pause_time, currency: info_currency = 1,
-            state: info_state, phase: info_phase, round: info_round, first_industry: infofirst_industry, contract_state: info_contract_state 
+            state: info_state, phase: info_phase, round: info_round, first_industry: infofirst_industry, contract_state: info_contract_state
         } = info || {};
         let { stateValue } = this.state;
         let ban;//判断哪个staffing是创建的用户并禁止删除
@@ -405,54 +405,30 @@ class Additem extends Component {
                 userInfo[key] = userInfo[key] === undefined ? 0 : userInfo[key]
             }
         })
-        if (this.state.id === 0) {//保存
-            this.props.form.validateFields(
-                (err) => {
-                    if (!err) {
-                        jrFetchPost(`/ng-lingxi/api/project/internal/create`, {
-                            ...userInfo
-                        }).then(ret => {
-                            if (ret.code === 0) {
-                                message.success('新建成功！', 1, onClose => {
-                                    this.props.history.goBack();
-                                })
-                            } else {
-                                this.setState({
-                                    button_Switch: true
-                                })
-                            }
-                        })
-                    } else {
-                        this.setState({
-                            button_Switch: true
-                        })
-                    }
-                })
-        } else {//编辑
-            userInfo.pid = this.state.id;
-            this.props.form.validateFields(
-                (err) => {
-                    if (!err) {
-                        jrFetchPost(`/ng-lingxi//api/project/internal/edit`, {
-                            ...userInfo
-                        }).then(ret => {
-                            if (ret.code === 0) {
-                                message.success('编辑成功！', 1, onClose => {
-                                    this.props.history.goBack();
-                                })
-                            } else {
-                                this.setState({
-                                    button_Switch: true
-                                })
-                            }
-                        })
-                    } else {
-                        this.setState({
-                            button_Switch: true
-                        })
-                    }
-                })
-        }
+        let postUrl = !!this.state.id ? `/ng-lingxi//api/project/internal/edit` : `/ng-lingxi/api/project/internal/create`;
+        if (!!this.state.id) userInfo.pid = this.state.id
+        this.props.form.validateFields(
+            (err) => {
+                if (!err) {
+                    jrFetchPost(postUrl, {
+                        ...userInfo
+                    }).then(ret => {
+                        if (ret.code === 0) {
+                            message.success(!!this.state.id ? '编辑成功！' : '新建成功！', 1, onClose => {
+                                this.props.history.goBack();
+                            })
+                        } else {
+                            this.setState({
+                                button_Switch: true
+                            })
+                        }
+                    })
+                } else {
+                    this.setState({
+                        button_Switch: true
+                    })
+                }
+            })
     }
     //显示更多
     handleShow = () => {

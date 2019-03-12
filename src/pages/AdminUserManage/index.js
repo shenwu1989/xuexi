@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button, Row, Col, Select, Input, Pagination } from 'antd'
-import { jrFetchGet, getPagination } from '../../../src/pages/common';
+import { jrFetchGet, getVule, seekList } from '../../../src/pages/common';
 import styleConfig from '../../config/styleConfig';
 import TableListConfig from './tableListConfig'
 import './index.less';
@@ -32,6 +32,7 @@ class Index extends Component {
         const { getFieldDecorator } = this.props.form;
         const { formItemLayout } = styleConfig;
         const { data: listData = {} } = this.state.listData || {};
+        console.log(this.state);
         return (
             <div>
                 <Row>
@@ -45,7 +46,7 @@ class Index extends Component {
                             <FormItem label={'姓名'} {...formItemLayout}>
                                 {
                                     getFieldDecorator('name')(
-                                        <Input placeholder="请输入姓名" allowClear/>
+                                        <Input placeholder="请输入姓名" allowClear />
                                     )
                                 }
                             </FormItem>
@@ -54,7 +55,7 @@ class Index extends Component {
                             <FormItem label={'手机号'} {...formItemLayout}>
                                 {
                                     getFieldDecorator('phone')(
-                                        <Input placeholder="请输入手机号" allowClear/>
+                                        <Input placeholder="请输入手机号" allowClear />
                                     )
                                 }
                             </FormItem>
@@ -63,7 +64,7 @@ class Index extends Component {
                             <FormItem label={'邮箱'} {...formItemLayout}>
                                 {
                                     getFieldDecorator('email')(
-                                        <Input placeholder="请输入邮箱" allowClear/>
+                                        <Input placeholder="请输入邮箱" allowClear />
                                     )
                                 }
                             </FormItem>
@@ -97,7 +98,7 @@ class Index extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <TableListConfig dataSource={this.state.dataSource} fn={this.dataList}/>
+                        <TableListConfig dataSource={this.state.dataSource} fn={this.dataList} />
                         <Pagination
                             className={'pagination'}
                             size="small"
@@ -106,16 +107,14 @@ class Index extends Component {
                             total={this.state.pageLen}
                             showSizeChanger
                             showQuickJumper
-                            onChange={(v, i) => this.getVule(v, i)}
-                            onShowSizeChange={(v, i) => this.getVule(v, i)}
+                            onChange={(v, i) => getVule.call(this, v, i, this.state.dataList)}
+                            onShowSizeChange={(v, i) => getVule.call(this, v, i, this.state.dataList)}
                         />
                     </Row>
                 </Form>
             </div>
         );
     }
-
-
     //搜索
     handleSubmit = () => {
         let userInfo = this.props.form.getFieldsValue();
@@ -127,29 +126,16 @@ class Index extends Component {
                 message.info('用户不存在，请确认关键字正确后重新搜索！')
             } else {
                 let projects = ret.data;
-                if(!Array.isArray(projects)){
-                  projects =  Object.values(projects)
+                if (!Array.isArray(projects)) {
+                    projects = Object.values(projects)
                 }
-                let obj = {pageSize: 10, page: 1, dataList: projects};
-                let {pageLen, dataSource} = getPagination(obj);
-                this.setState({
-                    dataSource,
-                    pageLen
-                })
+                seekList.call(this, projects, 10)
             }
         })
     }
-    //分页
-    getVule = (page, pageSize) => {
-        let obj = { pageSize, page, dataList: this.state.dataList};
-        let { pageLen, dataSource } = getPagination(obj);
-        this.setState({
-            dataSource,
-            pageLen
-        })
-    }
-     //获取数据
-     dataList = (data, pageLen) => {
+
+    //获取数据
+    dataList = (data, pageLen) => {
         this.setState({
             dataList: data,
             pageLen
