@@ -17,12 +17,14 @@ class TableListConfig extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let dataSource = nextProps.dataSource;
+        let { dataSource, page, pageSize } = nextProps.dataSource;
         if (dataSource.constructor === Object) {
             dataSource = Object.values(nextProps.dataSource)
         }
         dataSource.length > 0 && this.setState({
-            dataSource
+            dataSource,
+            page,
+            pageSize
         })
     }
 
@@ -150,7 +152,7 @@ class TableListConfig extends Component {
                                     </Popconfirm>
                             }&nbsp;&nbsp;
                             {
-                               !!is_active && <Popconfirm title="确定要重置密码吗？" onConfirm={
+                                !!is_active && <Popconfirm title="确定要重置密码吗？" onConfirm={
                                     () => this.userReset(record.id, config['4'])
                                 }
                                     okText="是"
@@ -180,9 +182,10 @@ class TableListConfig extends Component {
     getUserList = () => {
         jrFetchGet('/ng-lingxi/api/user/list', {}).then((ret) => {
             const projects = ret.data;
-            let obj = { pageSize: 10, page: 1, dataList: projects };
+            let { page = 1, pageSize = 10 } = this.state;
+            let obj = { pageSize, page, dataList: projects };
             let { pageLen, dataSource } = getPagination(obj);
-            this.props.fn(projects, pageLen)
+            this.props.fn(projects, pageLen, page)
             this.setState({
                 dataSource
             })

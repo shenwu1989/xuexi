@@ -70,7 +70,7 @@ class Index extends Component {
                             <FormItem label={'staffing/录入人'} {...formItemLayout}>
                                 {
                                     getFieldDecorator('staffing', {})(
-                                        <Select placeholder={'请选择轮次'} mode={"multiple"}>
+                                        <Select placeholder={'请选择staffing/录入人'} mode={"multiple"}>
                                             {
                                                 Object.keys(users).map((item, index) => {
                                                     return <Option key={index} value={item}>{users[item]}</Option>
@@ -87,7 +87,7 @@ class Index extends Component {
                                     getFieldDecorator('state', {
                                         //initialValue: 0,
                                     })(
-                                        <Select placeholder={'请选择准备阶段'}>
+                                        <Select placeholder={'请选择跟进状态'}>
                                             {
                                                 following_state.map((item, index) => {
                                                     return <Option key={index} value={index}>{item}</Option>
@@ -104,7 +104,7 @@ class Index extends Component {
                                     getFieldDecorator('phase', {
                                         //initialValue: 0,
                                     })(
-                                        <Select placeholder={'请选择项目状态'}>
+                                        <Select placeholder={'请选择项目阶段'}>
                                             {
                                                 phase.map((item, index) => {
                                                     return <Option key={index} value={index}>{item}</Option>

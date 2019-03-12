@@ -16,6 +16,7 @@ class Index extends Component {
         super(props);
         this.state = {
             dataSource: [],
+            page: 1
         }
     }
 
@@ -97,17 +98,32 @@ class Index extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <TableListConfig dataSource={this.state.dataSource} fn={this.dataList} />
+                        <TableListConfig dataSource={this.state} fn={this.dataList} />
                         <Pagination
                             className={'pagination'}
                             size="small"
                             defaultPageSize={10}
+                            current={Number(this.state.page)}
                             pageSizeOptions={['10', '20', '30']}
                             total={this.state.pageLen}
                             showSizeChanger
                             showQuickJumper
-                            onChange={(v, i) => getVule.call(this, v, i, this.state.dataList)}
-                            onShowSizeChange={(v, i) => getVule.call(this, v, i, this.state.dataList)}
+                            onChange={(v, i) => {
+                                this.setState({
+                                    page: v,
+                                    pageSize: i
+                                })
+                                getVule.call(this, v, i, this.state.dataList)
+                            }
+                            }
+                            onShowSizeChange={(v, i) => {
+                                this.setState({
+                                    page: v,
+                                    pageSize: i
+                                })
+                                getVule.call(this, v, i, this.state.dataList)
+                            }
+                            }
                         />
                     </Row>
                 </Form>
@@ -134,10 +150,11 @@ class Index extends Component {
     }
 
     //获取数据
-    dataList = (data, pageLen) => {
+    dataList = (data, pageLen, page = 1) => {
         this.setState({
             dataList: data,
-            pageLen
+            pageLen,
+            page
         })
     }
 }
