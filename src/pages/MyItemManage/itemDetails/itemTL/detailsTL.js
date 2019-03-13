@@ -163,7 +163,7 @@ class DetailsTl extends Component {
                         </div>
                     </Col>
                 </Row>
-                <Row>
+                <Row style={{marginBottom:'40px'}}>
                     <Col>
                         <em className={'max_width'}>会议memo：</em>
                         <p>
