@@ -25,9 +25,9 @@ class TableListConfig extends Component {
         //项目列表
         const columns = [
             {
-                title: 'ID',
+                title: '序号',
                 align: 'center',
-                width: 30,
+                width: 80,
                 dataIndex: 'sortId'
             },
             {

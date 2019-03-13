@@ -22,13 +22,11 @@ class TableListConfig extends Component {
         const { tl_state = [] } = this.state;
         const columns = [
             {
-                title: 'ID',
+                title: '序号',
                 align: 'center',
-                width: 10,
+                width: 50,
                 dataIndex: 'sortId',
                 key: 'id',
-                // defaultSortOrder: 'ascend',
-                //  sorter: (a, b) => a.id - b.id,
             },
             {
                 title: '投资机构',

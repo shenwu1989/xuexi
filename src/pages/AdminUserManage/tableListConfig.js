@@ -31,34 +31,34 @@ class TableListConfig extends Component {
     render() {
         const columns = [
             {
-                title: 'ID',
+                title: '序号',
                 align: 'center',
-                width: 20,
+                width: 80,
                 dataIndex: 'sortId',
                 defaultSortOrder: 'ascend',
             },
             {
                 title: '姓名',
                 align: 'center',
-                width: 100,
+                width: 80,
                 dataIndex: 'name'
             },
             {
                 title: '手机号',
-                width: 100,
+                width: 80,
                 align: 'center',
                 dataIndex: 'phone'
             },
             {
                 title: '邮箱',
-                width: 100,
+                width: 80,
                 align: 'center',
                 dataIndex: 'email'
             },
             {
                 title: '关联项目',
                 align: 'center',
-                width: 350,
+                width: 300,
                 className: 'tableword',
                 render: (t, r, i) => {
                     const { projects } = t;
