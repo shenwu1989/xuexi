@@ -15,6 +15,7 @@ class ItemTl extends Component {
         this.state = {
             visible: false,
             id: 0,
+            page: 1
         }
     }
     componentDidMount() {
@@ -153,12 +154,23 @@ class ItemTl extends Component {
                         className={'pagination'}
                         size="small"
                         defaultPageSize={10}
+                        current={Number(this.state.page)}
                         pageSizeOptions={['10', '20', '30']}
                         total={this.state.pageLen}
                         showSizeChanger
                         showQuickJumper
-                        onChange={(v, i) => getVule.call(this, v, i, tls)}
-                        onShowSizeChange={(v, i) => getVule.call(this, v, i, tls)}
+                        onChange={(v, i) => {
+                            this.setState({
+                                page: v
+                            })
+                            getVule.call(this, v, i, tls)
+                        }}
+                        onShowSizeChange={(v, i) => {
+                            this.setState({
+                                page: v
+                            })
+                            getVule.call(this, v, i, tls)
+                        }}
                     />
                 </Row>
                 <Drawer
@@ -187,6 +199,7 @@ class ItemTl extends Component {
                 tls,
                 users,
                 state_statistics,
+                page: 1
             })
         })
     }

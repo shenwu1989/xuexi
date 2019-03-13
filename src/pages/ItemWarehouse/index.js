@@ -11,7 +11,9 @@ const { Option } = Select;
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            page:1
+        }
     }
 
     render() {
@@ -135,12 +137,23 @@ class Index extends Component {
                         className={'pagination'}
                         size="small"
                         defaultPageSize={10}
+                        current={Number(this.state.page)}
                         pageSizeOptions={['10', '20', '30']}
                         total={this.state.pageLen}
                         showSizeChanger
                         showQuickJumper
-                        onChange={(v, i) => this.getVule(v, i)}
-                        onShowSizeChange={(v, i) => this.getVule(v, i)}
+                        onChange={(v, i) => {
+                            this.setState({
+                                page: v
+                            })
+                            this.getVule(v, i)
+                        }}
+                        onShowSizeChange={(v, i) => {
+                            this.setState({
+                                page: v
+                            })
+                            this.getVule(v, i)
+                        }}
                     />
                 </Row>
             </div>
@@ -168,13 +181,13 @@ class Index extends Component {
                 message.info('项目不存在，请确认关键字正确后重新搜索！')
             } else {
                 const dataInfo = res.data;
-                dataInfo.projects.map((a, b) => a.id = b + 1)
                 let obj = { pageSize: 10, page: 1, dataList: dataInfo.projects };
                 let { pageLen, dataSource } = getPagination(obj);
                 dataInfo.infoList = dataSource;
                 this.setState({
                     dataInfo,
-                    pageLen
+                    pageLen,
+                    page:1
                 })
             }
         })

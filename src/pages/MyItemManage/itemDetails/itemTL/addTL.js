@@ -361,14 +361,15 @@ class AddTl extends Component {
                             !!id &&
                             <Row className={'tl_lsfk'}>
                                 <Col span={12}>
-                                    <em>历史反馈：</em>
+                                    <em className={'m12_width'}>历史反馈：</em>
                                     <div>
                                         <p>
+
                                             {
                                                 feedback.map((item, index) => {
-                                                    return <span key={index}>{item.created_at}&nbsp;{item.feedback}</span>
-                                                })
-                                            }
+                                                    return <span key={index}>{item.created_at.substring(0, 10)}&nbsp;{item.feedback}</span>
+                                            })
+                                        }
                                         </p>
                                     </div>
                                 </Col>
@@ -382,7 +383,7 @@ class AddTl extends Component {
                                                         return i.map((item, index) => {
                                                             let oldValue = i[1].value;
                                                             return index === 0 && <span key={index}>
-                                                                {item.created_at}&nbsp;
+                                                                {item.created_at.substring(0, 10)}&nbsp;
                                                                 <b>{updatedConfig[item.field]}</b> 由“
                                                                 <strong>{item.field !== 3 ? oldValue : state_list[oldValue]}</strong> ”变更为“
                                                                 <strong>{item.field !== 3 ? item.value : state_list[item.value]}</strong>”

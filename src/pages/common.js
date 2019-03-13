@@ -407,6 +407,7 @@ export function getPagination(obj) {
                 ary.push(dataList[i])
             }
         }
+        ary.map((a, b) => a.sortId = page === 1 ? b + 1 : (page - 1) * pageSize + 1 + b);
         let newObj = { pageLen, dataSource: ary };
         return newObj
     }
@@ -422,7 +423,7 @@ export function getVule(page, pageSize, dataList = [], sort = '') {
 }
 //处理传入列表数据处理,默认起始显示条数
 export function seekList(dataList, pageSize = 10, sort = '') {
-    let obj = { pageSize, page: 1, dataList, sort};
+    let obj = { pageSize, page: 1, dataList, sort };
     let { pageLen, dataSource } = getPagination(obj);
     this.setState({
         dataSource,

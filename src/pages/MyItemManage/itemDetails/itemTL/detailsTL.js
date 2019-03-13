@@ -128,21 +128,21 @@ class DetailsTl extends Component {
                 </Row>
                 <Row className={'tl_lsfk detailsTl_rol'}>
                     <Col span={this.state.stateValue === 4 ? 18 : 12}>
-                        <em>历史反馈：</em>
+                        <em className={this.state.stateValue === 4 ? 'max' : ''}>历史反馈：</em>
                         <div>
                             <p>
                                 {
                                     feedback.map(item => {
-                                        return <span key={item.id}>{item.created_at}&nbsp;{item.feedback}</span>
+                                        return <span key={item.id}>{item.created_at.substring(0,10)}&nbsp;{item.feedback}</span>
                                     })
                                 }
                             </p>
                         </div>
                     </Col>
                 </Row>
-                <Row>
+                <Row className={'detailsTl_rol'}>
                     <Col span={this.state.stateValue === 4 ? 18 : 18}>
-                        <em>修改记录：</em>
+                        <em className={'m18_width'}>修改记录：</em>
                         <div>
                             <p>
                                 {
@@ -151,7 +151,7 @@ class DetailsTl extends Component {
                                             return i.map((item, index) => {
                                                 let oldValue = i[1].value;
                                                 return index === 0 && <span key={index}>
-                                                    {item.created_at}&nbsp;
+                                                    {item.created_at.substring(0,10)}&nbsp;
                                                     <b>{updatedConfig[item.field]}</b> 由
                                                     <strong>{item.field !== 3 ? oldValue : state_list[oldValue]}</strong> 变更为
                                                     <strong>{item.field !== 3 ? item.value : state_list[item.value]}</strong>
@@ -165,7 +165,7 @@ class DetailsTl extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <em>会议memo：</em>
+                        <em className={'max_width'}>会议memo：</em>
                         <p>
                             {
                                 memo.map(item => {

@@ -21,6 +21,7 @@ class Additem extends Component {
             dataInfo: {},
             button_Switch: true
         }
+        
     }
 
     componentDidMount() {
@@ -239,7 +240,7 @@ class Additem extends Component {
                                             getFieldDecorator('currency', {
                                                 initialValue: info_currency.toString()
                                             })(
-                                                <Select style={{ width: '35%' }} allowClear>
+                                                <Select style={{ width: '40%' }} allowClear>
                                                     {
                                                         currency && Object.keys(currency).map((item, index) => {
                                                             return <Option key={index}
@@ -324,7 +325,7 @@ class Additem extends Component {
                                         !queryNull(progress) &&
                                         <span>
                                             <span>
-                                                <em>{progress['0'].created_at}:</em>
+                                                <em>{progress['0'].created_at.substring(0,10)}&nbsp;</em>
                                                 <i>{progress['0'].progress}</i>&nbsp;&nbsp;
                                                         <Button onClick={this.handleShow} type={"primary"}
                                                     size={"small"}>

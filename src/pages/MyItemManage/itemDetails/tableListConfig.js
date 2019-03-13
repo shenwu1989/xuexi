@@ -25,14 +25,14 @@ class TableListConfig extends Component {
                 title: 'ID',
                 align: 'center',
                 width: 10,
-                dataIndex: 'id',
+                dataIndex: 'sortId',
                 key: 'id',
                 // defaultSortOrder: 'ascend',
                 //  sorter: (a, b) => a.id - b.id,
             },
             {
                 title: '投资机构',
-                width: 50,
+                width: 80,
                 align: 'center',
                 key: 'agency',
                 dataIndex: 'agency'
@@ -49,7 +49,7 @@ class TableListConfig extends Component {
             },
             {
                 title: '事件状态',
-                width: 100,
+                width: 120,
                 align: 'center',
                 dataIndex: 'state',
                 key: 'state',
@@ -95,7 +95,7 @@ class TableListConfig extends Component {
                 key: 'feedback',
                 render: (r) => {
                     return r.map((item) => {
-                        return <span key={item.id} className={'lsfk_span'}><em>{item.created_at}</em>&nbsp;<i>{item.feedback}</i></span>
+                        return <span key={item.id} className={'lsfk_span'}><em>{item.created_at.substring(0,10)}</em>&nbsp;<i>{item.feedback}</i></span>
                     })
                 }
             },

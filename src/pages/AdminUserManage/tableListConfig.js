@@ -34,7 +34,7 @@ class TableListConfig extends Component {
                 title: 'ID',
                 align: 'center',
                 width: 20,
-                dataIndex: 'id',
+                dataIndex: 'sortId',
                 defaultSortOrder: 'ascend',
             },
             {

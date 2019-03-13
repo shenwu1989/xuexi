@@ -14,7 +14,9 @@ const { Option } = Select;
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            page:1
+        }
     }
 
     componentDidMount() {
@@ -192,12 +194,23 @@ class Index extends Component {
                         className={'pagination'}
                         size="small"
                         defaultPageSize={10}
+                        current={Number(this.state.page)}
                         pageSizeOptions={['10', '20', '30']}
                         total={this.state.pageLen}
                         showSizeChanger
                         showQuickJumper
-                        onChange={(v, i) => getVule.call(this, v, i, projects, 'date')}
-                        onShowSizeChange={(v, i) => getVule.call(this, v, i, projects, 'date')}
+                        onChange={(v, i) => {
+                            this.setState({
+                                page: v
+                            })
+                            getVule.call(this, v, i, projects, 'date')
+                        }}
+                        onShowSizeChange={(v, i) => {
+                            this.setState({
+                                page: v
+                            })
+                            getVule.call(this, v, i, projects, 'date')
+                        }}
                     />
                 </Row>
             </div>
@@ -226,7 +239,8 @@ class Index extends Component {
                 }
                 seekList.call(this, ret.data.projects, 10, 'date')
                 this.setState({
-                    dataList: ret.data
+                    dataList: ret.data,
+                    page:1
                 })
             }
         })

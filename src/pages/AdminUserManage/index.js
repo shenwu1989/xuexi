@@ -145,6 +145,9 @@ class Index extends Component {
                     projects = Object.values(projects)
                 }
                 seekList.call(this, projects, 10)
+                this.setState({
+                    page:1
+                })
             }
         })
     }

@@ -33,7 +33,7 @@ class TableListConfig extends Component {
                 title: 'ID',
                 align: 'center',
                 width: 30,
-                dataIndex: 'id',
+                dataIndex: 'sortId',
             },
             {
                 title: '项目名称',
@@ -98,7 +98,7 @@ class TableListConfig extends Component {
             <Table
                 columns={columns}
                 pagination={false}
-                rowKey={'id'}
+                rowKey={'sortId'}
                 dataSource={infoList}
             />
         )
@@ -107,7 +107,6 @@ class TableListConfig extends Component {
     getItemList = () => {
         jrFetchGet(`/ng-lingxi/api/project/external/list`).then(res => {
             const dataInfo = res.data;
-            dataInfo.projects.map((a, b) => a.id = b + 1);
             let obj = { pageSize: 10, page: 1, dataList: dataInfo.projects };
             let { pageLen, dataSource } = getPagination(obj);
             dataInfo.infoList = dataSource;

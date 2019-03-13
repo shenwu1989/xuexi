@@ -57,7 +57,7 @@ class ItemSituation extends Component {
                 </Row>
                 <Row>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
-                        <p><em>轮次：</em>{round[info_round]}</p>
+                        <p><em>轮次：</em>{round[info_round]}&nbsp;</p>
                     </Col>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
                         <p><em>项目阶段：</em>{phase[info_phase]}</p>
@@ -66,9 +66,9 @@ class ItemSituation extends Component {
                         <p><em>立项时间：</em>{establish_time}</p>
                     </Col>
                 </Row>
-                <Row>
+                <Row >
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
-                        <p><em>项目状态：</em>{state[info_state]}</p>
+                        <p><em>项目状态：</em>{state[info_state]}&nbsp;</p>
                     </Col>
                     {
                         judgeState(info_state) &&
@@ -84,11 +84,10 @@ class ItemSituation extends Component {
                     }
 
                 </Row>
-                <Row>
+                <Row >
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
                         <p>
-                            <em>融资金额(万)：</em>{queryNull(amount) ? '' : (amount + '万' + currency[info_currency])}
-
+                            <em>融资金额(万)：</em>{queryNull(amount) ? '' : (amount + '万' + currency[info_currency])}&nbsp;
                         </p>
                     </Col>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
@@ -125,7 +124,7 @@ class ItemSituation extends Component {
                                 <span>
                                     <span>
                                         <span>
-                                            <em style={{ width: 'auto' }}>{progress['0'].created_at}:</em>
+                                            <em style={{ width: 'auto' }}>{progress['0'].created_at.substring(0,10)}&nbsp;</em>
                                             <i>{progress['0'].progress}</i>
                                         </span>
                                         &nbsp;&nbsp;
