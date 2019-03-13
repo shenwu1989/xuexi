@@ -24,7 +24,7 @@ class ItemSituation extends Component {
         })
     }
 
-    componentWillReceiveProps(nextProps, nextContext) {
+    componentWillReceiveProps(nextProps) {
         let { id, dataInfo } = nextProps;
         this.setState({
             id,
@@ -42,7 +42,7 @@ class ItemSituation extends Component {
         } = info;
         return (
             <div>
-                <Row style={{ marginTop: '50px' }}>
+                <Row style={{ marginTop: '15px' }}>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
                         <p><em>项目名称：</em>{name}</p>
                     </Col>
@@ -188,7 +188,7 @@ class ItemSituation extends Component {
                     </Col>
                 </Row>
                 <Row className={'situationButton'}>
-                    <Col sm={{ span: 8 }} offset={7}>
+                    <Col sm={{ span: 10 }} offset={7}>
                         <Button onClick={() => this.props.history.goBack()}>返回</Button>
                         <Button type={'primary'}>
                             <Link to={`/admin/additem/?id=${this.state.id}`}>编辑</Link>
@@ -222,7 +222,6 @@ class ItemSituation extends Component {
                         message.success('删除成功', 1, () => {
                             props.goBack()
                         })
-
                 })
             },
             onCancel() {

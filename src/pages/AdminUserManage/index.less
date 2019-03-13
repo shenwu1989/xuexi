@@ -1,85 +1,92 @@
-.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab{
-  padding: 0 40px;
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+    padding: 0 40px;
 }
-.tabPane{
-  em{
+
+.tabPane {
+    em {
+        font-style: normal; //width: 30%;
+        text-align: right;
+        display: inline-block;
+    }
+    i {
+        font-style: normal;
+    }
+    strong {
+        width: 55%;
+        font-weight: 400;
+        display: inline-flex;
+    }
+    p {
+        margin-bottom: 20px;
+        color: #666;
+        em {
+            float: left;
+            width: 42%;
+            font-weight: 500;
+            color: #333;
+        }
+        span {
+            float: left;
+            max-width: 77%;
+        }
+    }
+    .maxText {
+        >span>em {
+            width: 14%;
+            font-weight: 500;
+            color: #333;
+        }
+    }
+}
+
+em,
+i {
     font-style: normal;
-    //width: 30%;
-    text-align: right;
-    display: inline-block;
-  }
-  i{
-    font-style: normal;
-  }
-  strong{
-    width: 55%;
-    font-weight: 400;
-    display: inline-flex;
-  }
-  p{
-    margin-bottom: 20px;
-    color: #666;
-    em{
-      float: left;
-      width: 30%;
-      font-weight: 500;
-      color: #333;
-    }
-    span{
-      float: left;
-      max-width: 77%;
-    }
-  }
-  .maxText{
-    >span>em{
-      width: 10%;
-      font-weight: 500;
-      color: #333;
-    }
-  }
+    margin: auto;
 }
-em,i{
-  font-style: normal;
-  margin: auto;
-}
-.primaryheader{
-  text-align: center;
-  border:1px solid #eeeeee;
-  border-bottom: 0;
-  h3{
-    margin-bottom: 0;
+
+.primaryheader {
     text-align: center;
-  }
-  span{
-    line-height: 40px;
-    height: 40px;
-    display: block;
-  }
+    border: 1px solid #eeeeee;
+    border-bottom: 0;
+    h3 {
+        margin-bottom: 0;
+        text-align: center;
+    }
+    span {
+        line-height: 40px;
+        height: 40px;
+        display: block;
+    }
 }
-.primaryContent{
-  text-align: center;
-  border:1px solid #eeeeee;
-  border-bottom: 0;
-  &:last-child{
-    border-bottom: 1px solid #eeeeee;
-  }
-  span{
-    line-height: 30px;
-    display: flex;
-    justify-content: center;
-  }
+
+.primaryContent {
+    text-align: center;
+    border: 1px solid #eeeeee;
+    border-bottom: 0;
+    &:last-child {
+        border-bottom: 1px solid #eeeeee;
+    }
+    span {
+        line-height: 30px;
+        display: flex;
+        justify-content: center;
+    }
 }
-.primaryCol{
-  text-align: left;
-  border-left:1px solid #eeeeee;
-  i{
-    line-height: 16px;
-    padding: 10px;
-    display: block;
-  }
+
+.primaryCol {
+    text-align: left;
+    border-left: 1px solid #eeeeee;
+    i {
+        line-height: 16px;
+        padding: 10px;
+        display: block;
+    }
 }
-.primaryDiv{
-  max-height: 300px;
-  overflow-y: auto;
-  padding:12px 20px 40px;
+
+.primaryDiv {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 12px 20px 40px;
 }
+

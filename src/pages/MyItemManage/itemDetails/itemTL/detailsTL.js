@@ -153,8 +153,8 @@ class DetailsTl extends Component {
                                                 return index === 0 && <span key={index}>
                                                     {item.created_at.substring(0,10)}&nbsp;
                                                     <b>{updatedConfig[item.field]}</b> 由
-                                                    <strong>{item.field !== 3 ? oldValue : state_list[oldValue]}</strong> 变更为
-                                                    <strong>{item.field !== 3 ? item.value : state_list[item.value]}</strong>
+                                                    <strong>"{item.field !== 3 ? oldValue : state_list[oldValue]}"</strong>变更为
+                                                    <strong>"{item.field !== 3 ? item.value : state_list[item.value]}"</strong>
                                                 </span>
                                             })
                                         })

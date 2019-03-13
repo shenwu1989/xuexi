@@ -30,8 +30,8 @@ class ItemDetails extends Component {
                         <h1 className={'title'}>外部意向项目详情</h1>
                     </Col>
                 </Row>
-                <Row style={{ marginTop: '50px' }}>
-                    <Col xs={{ ...xs }} sm={{ ...sm }} offset={2}>
+                <Row >
+                    <Col xs={{ ...xs }} sm={{ ...sm }} offset={1}>
                         <p><em>项目名称：</em>{name}</p>
                     </Col>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
@@ -42,7 +42,7 @@ class ItemDetails extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={{ ...xs }} sm={{ ...sm }} offset={2}>
+                    <Col xs={{ ...xs }} sm={{ ...sm }} offset={1}>
                         <p>
                             <em>录入人：</em>
                             {
@@ -60,7 +60,7 @@ class ItemDetails extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col sm={{ span: 8 }} offset={8}>
+                    <Col sm={{ span: 10 }} offset={8}>
                         <Button onClick={() => this.props.history.goBack()}>返回</Button>
                         <Button type={'primary'} >
                             <Link to={`/admin/addintentionitem?${id}`}>编辑</Link>

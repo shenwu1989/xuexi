@@ -42,7 +42,7 @@ class AddIntentionItem extends Component {
                             <h1 className={'title'}>{!!this.state.id ? '编辑' : '新建'}外部意向项目</h1>
                         </Col>
                     </Row>
-                    <Row style={{ marginTop: '50px' }}>
+                    <Row >
                         <Col xs={{ ...xs }} sm={{ ...sm }}>
                             <FormItem label={'项目名称'} {...formItemLayout}>
                                 {
@@ -158,8 +158,8 @@ class AddIntentionItem extends Component {
                         >
                             保存
                         </Button>
-                        <Button>
-                            <Link to={'/admin/itemwarehouse'}>取消</Link>
+                        <Button onClick={() => this.props.history.goBack()}>
+                            取消
                         </Button>
                     </Col>
                 </Row>
