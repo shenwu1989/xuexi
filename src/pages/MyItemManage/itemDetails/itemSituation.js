@@ -44,7 +44,7 @@ class ItemSituation extends Component {
             <div>
                 <Row style={{ marginTop: '15px' }}>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
-                        <p><em>项目名称：</em>{name}</p>
+                        <p><em>项目名称：</em><strong>{name}</strong></p>
                     </Col>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
                         <p>
@@ -52,7 +52,7 @@ class ItemSituation extends Component {
                         </p>
                     </Col>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
-                        <p><em>二级行业：</em>{second_industry}</p>
+                        <p><em>二级行业：</em><strong>{second_industry}</strong></p>
                     </Col>
                 </Row>
                 <Row>
@@ -112,7 +112,7 @@ class ItemSituation extends Component {
                         </p>
                     </Col>
                     <Col xs={{ ...xs }} sm={{ ...sm }}>
-                        <p><em>历史投资机构：</em>{agency_history}</p>
+                        <p><em>历史投资机构：</em><strong>{agency_history}</strong></p>
                     </Col>
                 </Row>
                 <Row>
