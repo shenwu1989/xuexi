@@ -133,7 +133,7 @@ class DetailsTl extends Component {
                             <p>
                                 {
                                     feedback.map(item => {
-                                        return <span key={item.id}>{item.created_at.substring(0,10)}&nbsp;{item.feedback}</span>
+                                        return <span key={item.id}>{item.created_at.substring(0, 10)}&nbsp;{item.feedback}</span>
                                     })
                                 }
                             </p>
@@ -151,7 +151,7 @@ class DetailsTl extends Component {
                                             return i.map((item, index) => {
                                                 let oldValue = i[1].value;
                                                 return index === 0 && <span key={index}>
-                                                    {item.created_at.substring(0,10)}&nbsp;
+                                                    {item.created_at.substring(0, 10)}&nbsp;
                                                     <b>{updatedConfig[item.field]}</b> 由
                                                     <strong>"{item.field !== 3 ? oldValue : state_list[oldValue]}"</strong>变更为
                                                     <strong>"{item.field !== 3 ? item.value : state_list[item.value]}"</strong>
@@ -163,14 +163,14 @@ class DetailsTl extends Component {
                         </div>
                     </Col>
                 </Row>
-                <Row style={{marginBottom:'40px'}}>
+                <Row style={{ marginBottom: '40px' }}>
                     <Col>
                         <em className={'max_width'}>会议memo：</em>
                         <p>
                             {
                                 memo.map(item => {
                                     return <span key={item.id}>
-                                        <a href={item.url} download target='_blank'>
+                                        <a download onClick={() => this.handleDownload(item.id)}>
                                             {item.name}({fileSize(item.size)})
                                         </a>
                                     </span>
@@ -250,7 +250,11 @@ class DetailsTl extends Component {
             onCancel() { },
         });
     }
-
+    handleDownload = (id) => {
+        jrFetchGet(`/ng-lingxi/api/project/internal/doc/download/${id}`).then(res => {
+            console.log(res)
+        })
+    }
 }
 
 export default Form.create()(DetailsTl);

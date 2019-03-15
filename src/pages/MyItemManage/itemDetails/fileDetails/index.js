@@ -152,8 +152,12 @@ class Index extends Component {
     }
     //下载
     handleDownLoad = () => {
+        let id = this.state.objSelect[0].id;
         let url = this.state.objSelect[0].url;
-        window.open(`${url}`, `download`, `_blank`);
+        jrFetchGet(`/ng-lingxi/api/project/internal/doc/download/${id}`).then(res => {
+            console.log(res)
+        })
+        //window.open(`${url}`, `download`, `_blank`);
     }
     //删除
     handleRemove = () => {
@@ -161,11 +165,11 @@ class Index extends Component {
         let key = this.state.selectedRowKeys;
         if (folder === '8') {
             jrFetchGet(`/ng-lingxi/api/project/internal/tl/delete_memo/${key}`)
-            .then(res => {
-                this.dataInfo();
-                this.props.fn('on')
-                message.success('删除成功');
-            })
+                .then(res => {
+                    this.dataInfo();
+                    this.props.fn('on')
+                    message.success('删除成功');
+                })
         } else {
             jrFetchGet(`/ng-lingxi/api/project/internal/doc/delete/${key}`)
                 .then(res => {
