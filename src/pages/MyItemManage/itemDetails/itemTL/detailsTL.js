@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Col, Form, Row, Modal, Drawer, message } from 'antd'
 import { jrFetchGet, fileSize } from '../../../common';
 import AddTl from './addTL';
+import { getCookie, cookieConfig ,checkCookie} from '../../../Cookie';
 const confirm = Modal.confirm;
 class DetailsTl extends Component {
     constructor(props) {
@@ -251,9 +252,9 @@ class DetailsTl extends Component {
         });
     }
     handleDownload = (id) => {
-        jrFetchGet(`/ng-lingxi/api/project/internal/doc/download/${id}`).then(res => {
-            console.log(res)
-        })
+        let userInfo = getCookie(cookieConfig);
+        let token = checkCookie(cookieConfig) ? userInfo.access_token : "";
+        window.location = `/ng-lingxi/api/project/internal/tl/download_memo/${id}?token=${token}`
     }
 }
 

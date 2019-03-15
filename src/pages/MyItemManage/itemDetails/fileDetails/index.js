@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button, Popconfirm, Table, Upload, message, Icon, Tooltip } from 'antd';
 import { jrFetchGet, fileSize, queryNull, } from '../../../../../src/pages/common';
-import { getCookie, cookieConfig } from '../../../Cookie';
+import { getCookie, cookieConfig, checkCookie } from '../../../Cookie';
 
 const columns = [{
     title: ' 文件名',
@@ -152,12 +152,15 @@ class Index extends Component {
     }
     //下载
     handleDownLoad = () => {
+        let { folder, name } = this.props.folder;
         let id = this.state.objSelect[0].id;
-        let url = this.state.objSelect[0].url;
-        jrFetchGet(`/ng-lingxi/api/project/internal/doc/download/${id}`).then(res => {
-            console.log(res)
-        })
-        //window.open(`${url}`, `download`, `_blank`);
+        let userInfo = getCookie(cookieConfig);
+        let token = checkCookie(cookieConfig) ? userInfo.access_token : "";
+        if (folder !== '8' || name !== '会议memo') {
+            window.location.href = `/ng-lingxi/api/project/internal/doc/download/${id}?token=${token}`
+        } else {
+            window.location.href = `/ng-lingxi/api/project/internal/tl/download_memo/${id}?token=${token}`
+        }
     }
     //删除
     handleRemove = () => {
