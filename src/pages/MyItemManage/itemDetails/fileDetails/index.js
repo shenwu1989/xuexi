@@ -156,31 +156,21 @@ class Index extends Component {
         let id = this.state.objSelect[0].id;
         let userInfo = getCookie(cookieConfig);
         let token = checkCookie(cookieConfig) ? userInfo.access_token : "";
-        if (folder !== '8' || name !== '会议memo') {
-            window.location.href = `/ng-lingxi/api/project/internal/doc/download/${id}?token=${token}`
-        } else {
-            window.location.href = `/ng-lingxi/api/project/internal/tl/download_memo/${id}?token=${token}`
-        }
+        let dowUrl = folder !== '8' || name !== '会议memo' ? `/ng-lingxi/api/project/internal/doc/download/${id}?token=${token}` : `/ng-lingxi/api/project/internal/tl/download_memo/${id}?token=${token}`
+        window.location.href = dowUrl
     }
     //删除
     handleRemove = () => {
         const { folder } = this.props.folder;
         let key = this.state.selectedRowKeys;
-        if (folder === '8') {
-            jrFetchGet(`/ng-lingxi/api/project/internal/tl/delete_memo/${key}`)
-                .then(res => {
-                    this.dataInfo();
-                    this.props.fn('on')
-                    message.success('删除成功');
-                })
-        } else {
-            jrFetchGet(`/ng-lingxi/api/project/internal/doc/delete/${key}`)
-                .then(res => {
-                    this.dataInfo();
-                    this.props.fn('on')
-                    message.success('删除成功');
-                })
-        }
+        let remUrl = folder === '8' ? `/ng-lingxi/api/project/internal/tl/delete_memo/${key}` : `/ng-lingxi/api/project/internal/doc/delete/${key}`;
+        jrFetchGet(remUrl)
+            .then(res => {
+                this.dataInfo();
+                this.props.fn('on')
+                message.success('删除成功');
+            })
+
     }
 }
 
