@@ -1,27 +1,24 @@
-import React, {Component} from 'react';
-import {Button, Form, Input, Icon, Tooltip, Row, Col} from 'antd';
-import {jrFetchPost} from "../common";
-import {cookieConfig, setCookie, checkCookie, getCookie} from '../Cookie';
+import React, { Component } from 'react';
+import { Button, Form, Input, Icon, Tooltip, Row, Col } from 'antd';
+import { cookieConfig,  checkCookie, getCookie } from '../Cookie';
+import { userLogin } from '../../api/request';
 import md5 from 'md5';
 import './index.less';
 
 const FormItem = Form.Item;
-
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
     }
-
+    //判断是否已登录跳转不同权限页面
     componentDidMount() {
         if (checkCookie(cookieConfig)) {
             let userInfo = getCookie(cookieConfig);
             userInfo.user_admin === 'true' ? this.props.history.push(`/admin/adminitemmanage`) : this.props.history.push(`/admin/myitemmanage`);
         }
     }
-
     render() {
-        const {getFieldDecorator} = this.props.form;
+        const { getFieldDecorator } = this.props.form;
         return (
             <div className="login">
                 <div className="content">
@@ -47,7 +44,7 @@ class Index extends Component {
                                             },
                                         ]
                                     })(
-                                        <Input prefix={<Icon type="user"/>} placeholder={'请输入手机账号'}/>
+                                        <Input prefix={<Icon type="user" />} placeholder={'请输入手机账号'} />
                                     )
                                 }
 
@@ -63,12 +60,12 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        <Input type="password" prefix={<Icon type="lock"/>} placeholder={'请输入密码'}/>
+                                        <Input type="password" prefix={<Icon type="lock" />} placeholder={'请输入密码'} />
                                     )
                                 }
                             </FormItem>
                             <Row>
-                                <Col xs={{span: 24}} sm={{span: 12}}>
+                                <Col xs={{ span: 24 }} sm={{ span: 12 }}>
                                     <FormItem>
                                         {/* {
                                             getFieldDecorator('remember', {
@@ -80,7 +77,7 @@ class Index extends Component {
                                         } */}
                                     </FormItem>
                                 </Col>
-                                <Col xs={{span: 24}} sm={{span: 12}} style={{marginBottom:'10px'}}>
+                                <Col xs={{ span: 24 }} sm={{ span: 12 }} style={{ marginBottom: '10px' }}>
                                     <Tooltip placement="bottomRight" title={
                                         '普通用户请联系admin,admin用户请联系工作人员重置密码'
                                     }>
@@ -95,25 +92,15 @@ class Index extends Component {
             </div>
         );
     }
-
+    //提交登入请求
     handleSubmit = () => {
         let userInfo = this.props.form.getFieldsValue();
-        let {password, phone} = userInfo;
-        let loading = false;
+        let { password, phone } = userInfo;
         password = md5(password)
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                jrFetchPost(' /ng-lingxi/api/user/login', {
-                    password, phone
-                }, loading).then(ret => {
-                    let userInfo = {...ret.data, phone};
-                    setCookie(userInfo);
-                    if(ret.code === 0){
-                        userInfo.user_admin  ? this.props.history.push(`/admin/adminitemmanage`) : this.props.history.push(`/admin/myitemmanage`);
-                    }
-                })
+                userLogin.call(this,password, phone);
             }
-
         })
     }
 }

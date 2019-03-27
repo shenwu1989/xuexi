@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import MyRouter from "./router";
-
-ReactDOM.render(<MyRouter/>, document.getElementById('root'));
+import store from './store';
+import { Provider } from 'react-redux';
+ReactDOM.render(<Provider store={store}><MyRouter /></Provider>, document.getElementById('root'));
 
 serviceWorker.unregister();

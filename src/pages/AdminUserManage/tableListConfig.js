@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Form, Popconfirm, Table, message } from 'antd'
+import { Form, Popconfirm, Table, message } from 'antd';
 import { jrFetchGet, getPagination } from '../common';
-import { withRouter } from 'react-router'
-
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import action from '../../store/action'
 class TableListConfig extends Component {
     constructor(props) {
         super(props);
@@ -180,8 +181,8 @@ class TableListConfig extends Component {
 
     //获取用户列表
     getUserList = () => {
-        jrFetchGet('/ng-lingxi/api/user/list', {}).then((ret) => {
-            const projects = ret.data;
+        this.props.userTableList().then(() => {
+            const projects = this.props.UserTableList
             let { page = 1, pageSize = 10 } = this.state;
             let obj = { pageSize, page, dataList: projects };
             let { pageLen, dataSource } = getPagination(obj);
@@ -246,5 +247,5 @@ class TableListConfig extends Component {
 }
 
 const Tablelist = withRouter(TableListConfig)
-export default Form.create()(Tablelist);
+export default connect(state => ({ ...state.user }), action.user)(Form.create()(Tablelist));
 

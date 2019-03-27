@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Form, Button, Row, Col, Select, Input, message } from 'antd'
 import { jrFetchPost, jrFetchGet, queryNull } from '../../../src/pages/common';
 import styleConfig from '../../config/styleConfig';
-import { Link } from "react-router-dom";
 
 const FormItem = Form.Item;
 const { Option } = Select;

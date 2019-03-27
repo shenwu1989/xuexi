@@ -31,6 +31,7 @@ class Index extends Component {
         const { formItemLayout, minStyle } = styleConfig;
         const xs = { span: 24 }, sm = { span: 8 };
         const { phase = [], users = {}, state = [], round = [], first_industry = [], projects = [] } = this.state.dataList || {};
+        
         return (
             <div>
                 <Row>

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import App from './App';
 import Login from './pages/Login';
 import Admin from './admin';
 import AccountManage from './pages/AccountManage/resetPassword';
@@ -18,8 +17,7 @@ import AddIntentionItem from './pages/ItemWarehouse/addIntentionItem';
 class myRouter extends Component {
     render() {
         return (
-            <Router>
-                <App>
+            <Router >
                     <Switch>
                         <Route path={'/login'} component={Login}/>
                         <Route path={'/admin'} render={() =>
@@ -41,8 +39,6 @@ class myRouter extends Component {
                         }/>
                         <Route path={'/'} component={Login}/>
                     </Switch>
-
-                </App>
             </Router>
         );
     }

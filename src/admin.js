@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Drawer, Spin, Form, LocaleProvider } from "antd";
 import NavLeft from "./components/NavLeft";
 import Header from "./components/Header";
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { checkCookie, cookieConfig } from './pages/Cookie';
 import zhCN from "antd/lib/locale-provider/zh_CN";
 import moment from 'moment';
@@ -29,7 +29,6 @@ class Admin extends React.Component {
             window.location.replace(`/login`)
         }
     }
-
     render() {
         return (
             <LocaleProvider locale={zhCN}>

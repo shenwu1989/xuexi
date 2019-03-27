@@ -6,7 +6,8 @@ import TableListConfig from './tableListConfig'
 import './index.less';
 import { Link } from "react-router-dom";
 import message from "antd/lib/message";
-
+import { connect } from 'react-redux';
+import action from '../../store/action';
 const FormItem = Form.Item;
 const { Option } = Select;
 
@@ -16,23 +17,18 @@ class Index extends Component {
         super(props);
         this.state = {
             dataSource: [],
-            page: 1
+            page: 1,
         }
-    }
 
+    }
     componentDidMount() {
-        jrFetchGet(` /ng-lingxi/api/project/internal/all`).then(res => {
-            this.setState({
-                listData: res
-            })
-        })
+        this.props.userItemAll();
     }
-
 
     render() {
         const { getFieldDecorator } = this.props.form;
         const { formItemLayout } = styleConfig;
-        const { data: listData = {} } = this.state.listData || {};
+        let { userList: listData = {} } = this.props;
         return (
             <div>
                 <Row>
@@ -146,7 +142,7 @@ class Index extends Component {
                 }
                 seekList.call(this, projects, 10)
                 this.setState({
-                    page:1
+                    page: 1
                 })
             }
         })
@@ -162,4 +158,4 @@ class Index extends Component {
     }
 }
 
-export default Form.create()(Index);
+export default connect(state => ({ ...state.user }), action.user)(Form.create()(Index));
